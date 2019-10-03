@@ -3,11 +3,21 @@ import { NgModule } from '@angular/core';
 import { MenuComponent } from './menu/menu.component';
 import { UsersComponent } from './users/users.component';
 import { LoginComponent } from './login/login.component';
+import { ErrorPageComponent } from './error-page/error-page.component';
+import { UserComponent } from './users/user/user.component';
+import { AuthGuard } from './auth-guard.service';
+import { AuthService } from './auth.service';
 
 const appRoutes: Routes = [
-    {path: '', component: MenuComponent},
-    {path: 'users', component: UsersComponent},
-    {path: 'login', component: LoginComponent}
+    { path: '', component: MenuComponent }, 
+    {
+        path: 'users',canActivate: [AuthGuard], component: UsersComponent,  children: [
+            { path: ':id/:name', component: UserComponent } //localhost:4200/users/anyID
+        ]
+    }, //localhost:4200/users
+    { path: 'login', component: LoginComponent },
+    { path: 'not-found', component: ErrorPageComponent, data: { message: 'Page not found' } },
+    { path: '**', redirectTo: '/not-found' } //, pathMatch: 'full'
 ];
 
 @NgModule({
@@ -16,7 +26,8 @@ const appRoutes: Routes = [
     ],
     exports: [
         RouterModule
-    ]
+    ],
+    providers: [AuthGuard]
 })
 export class AppRoutingModule {
 

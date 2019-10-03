@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Observable, Subscription } from 'rxjs';
-import { AuthService }
-  from './auth.service';
+import { AuthService } from '../auth.service';
 
 
 @Component({
@@ -12,7 +11,6 @@ import { AuthService }
     ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  isLogged = false;
   loginForm: FormGroup;    
   loadedUser:string;
   statusList = ['Stable', 'Critical', 'Finished'];
@@ -36,14 +34,11 @@ export class LoginComponent implements OnInit {
         console.log(value);
         if (value !== "Benutzer nicht gefunden!") {
           this.loadedUser = value;
-          this.isLogged = true;
+          this.authService.setUser(value);
         }
       }
     );
-    if(this.isLogged){
-      console.log('Erfolreich eingeloggt');
-      
-    }
+
     this.loginForm.reset();
   }
 
@@ -62,7 +57,7 @@ export class LoginComponent implements OnInit {
         } else {
           resolve(null);
         }
-      }, 2000);
+      }, 300);
     });
     return promise;
   }
