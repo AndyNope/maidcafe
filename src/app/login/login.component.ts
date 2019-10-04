@@ -35,6 +35,7 @@ export class LoginComponent implements OnInit {
         if (value !== "Benutzer nicht gefunden!") {
           this.loadedUser = value;
           this.authService.setUser(value);
+          localStorage.setItem('login',value);
         }
       }
     );
