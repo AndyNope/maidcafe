@@ -27,7 +27,7 @@ export class AuthService {
     constructor(private http: HttpClient) { }
 
     login(username: string, password: string): Observable<any>{
-        return this.http.post<AuthRespondsData>('https://maid-cafe.ch/controller.php',{
+        return this.http.post<AuthRespondsData>('https://maid-cafe.ch/controller.php?mode=login',{
             username: username,
             password: password
         });

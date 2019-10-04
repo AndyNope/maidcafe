@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Observable, Subscription } from 'rxjs';
 import { AuthService } from '../auth.service';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -11,11 +12,11 @@ import { AuthService } from '../auth.service';
     ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  loginForm: FormGroup;    
-  loadedUser:string;
+  loginForm: FormGroup;
+  loadedUser: string;
   statusList = ['Stable', 'Critical', 'Finished'];
 
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService, private router: Router) { }
 
   ngOnInit() {
     this.loginForm = new FormGroup({
@@ -32,10 +33,14 @@ export class LoginComponent implements OnInit {
       (value: any) => {
         console.log('Result: ');
         console.log(value);
-        if (value !== "Benutzer nicht gefunden!") {
+        if (value !== "Benutzer nicht gefunden!" && value !== "Passwort ist falsch!") {
           this.loadedUser = value;
           this.authService.setUser(value);
-          localStorage.setItem('login',value);
+          localStorage.setItem('login', value);
+          this.router.navigate(['/']);
+        } else {
+          console.log('Login failed');
+
         }
       }
     );
