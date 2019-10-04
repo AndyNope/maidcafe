@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef, AfterContentInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, AfterContentInit, ChangeDetectionStrategy, ChangeDetectorRef, AfterViewChecked } from '@angular/core';
 import { AuthService } from './auth.service';
 
 @Component({
@@ -7,20 +7,25 @@ import { AuthService } from './auth.service';
   styleUrls: ['./app.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AppComponent implements OnInit, AfterContentInit {
+export class AppComponent implements OnInit, AfterContentInit, AfterViewChecked {
 
-  isLogged = false;
+  isLogged: boolean;
   constructor(private authService: AuthService, private ref: ChangeDetectorRef) {
-    setInterval(() => {
-      this.isLogged = authService.loggedIn;
-      this.ref.markForCheck();
-    }, 300);
+    this.isLogged = false;
   }
 
   ngOnInit(): void {
+  }
+  setIslogged() {
+  }
+  ngAfterViewChecked() {
+    setTimeout(() => {
+      this.isLogged = this.authService.loggedIn;
+      this.ref.markForCheck();
+    }, 300);
+
 
   }
   ngAfterContentInit(): void {
-
   }
 }

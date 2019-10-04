@@ -7,6 +7,7 @@ import { ErrorPageComponent } from './error-page/error-page.component';
 import { UserComponent } from './users/user/user.component';
 import { AuthGuard } from './auth-guard.service';
 import { AuthService } from './auth.service';
+import { LogoutComponent } from './logout/logout.component';
 
 const appRoutes: Routes = [
     { path: '', component: MenuComponent }, 
@@ -16,6 +17,7 @@ const appRoutes: Routes = [
         ]
     }, //localhost:4200/users
     { path: 'login', component: LoginComponent },
+    { path: 'logout', component: LogoutComponent},
     { path: 'not-found', component: ErrorPageComponent, data: { message: 'Page not found' } },
     { path: '**', redirectTo: '/not-found' } //, pathMatch: 'full'
 ];

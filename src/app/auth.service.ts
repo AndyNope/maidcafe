@@ -4,7 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { User } from './user.model';
 
-interface AuthRespondsData{
+interface AuthRespondsData {
     username: string;
     password: string;
 }
@@ -12,27 +12,35 @@ interface AuthRespondsData{
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-    loggedIn = false;
-    user:User;
+    public loggedIn = false;
+    user: User;
     isAuthenticated() {
         const promise = new Promise(
             (resolve, reject) => {
                 setTimeout(() => {
                     resolve(this.loggedIn);
-                }, 800);
+                }, 10);
             }
         );
         return promise;
     }
     constructor(private http: HttpClient) { }
 
-    login(username: string, password: string): Observable<any>{
-        return this.http.post<AuthRespondsData>('https://maid-cafe.ch/controller.php?mode=login',{
+    login(username: string, password: string): Observable<any> {
+        return this.http.post<AuthRespondsData>('https://maid-cafe.ch/controller.php?mode=login', {
+            //return this.http.post<AuthRespondsData>('/controller.php?mode=login', {
             username: username,
             password: password
         });
     }
-    setUser(user:User){
+    logout(): Observable<any> {
+        //return this.http.post<AuthRespondsData>('/controller.php?mode=logout', {});
+        return this.http.post<AuthRespondsData>('https://maid-cafe.ch/controller.php?mode=logout', {});
+    }
+    setLoginFalse() {
+        this.loggedIn = false;
+    }
+    setUser(user: User) {
         this.loggedIn = true;
         this.user = user;
     }

@@ -20,7 +20,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     this.loginForm = new FormGroup({
-      'username': new FormControl(null, [Validators.required, LoginComponent.invalidUsername], LoginComponent.asyncInvalidUsername),
+      'username': new FormControl(null, [Validators.required, LoginComponent.invalidUsername]),
       'password': new FormControl(null, [Validators.required])
     });
   }
@@ -49,7 +49,7 @@ export class LoginComponent implements OnInit {
   }
 
   static invalidUsername(control: FormControl): { [s: string]: boolean } {
-    if (control.value === 'Test') {
+    if (control.value === 'Test') { //Regex
       return { 'invalidUsername': true }
     }
     return null;

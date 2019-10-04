@@ -13,6 +13,7 @@ import { AuthService } from './auth.service';
 import { AuthGuard } from './auth-guard.service';
 import { ErrorPageComponent } from './error-page/error-page.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { LogoutComponent } from './logout/logout.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
     UserComponent,
     MenuComponent,
     PageNotFoundComponent,
-    ErrorPageComponent
+    ErrorPageComponent,
+    LogoutComponent
   ],
   imports: [
     BrowserModule,
