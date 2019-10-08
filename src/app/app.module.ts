@@ -9,11 +9,13 @@ import { UserComponent } from './users/user/user.component';
 import { AppRoutingModule } from './app-routing.module';
 import { MenuComponent } from './menu/menu.component';
 import { HttpClientModule } from '@angular/common/http';
-import { AuthService } from './auth.service';
-import { AuthGuard } from './auth-guard.service';
+import { AuthService } from './shared/auth.service';
+import { AuthGuard } from './shared/auth-guard.service';
 import { ErrorPageComponent } from './error-page/error-page.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { LogoutComponent } from './logout/logout.component';
+import { OfferComponent } from './menu/offer/offer.component';
+import { EditOfferComponent } from './menu/edit-offer/edit-offer.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +26,9 @@ import { LogoutComponent } from './logout/logout.component';
     MenuComponent,
     PageNotFoundComponent,
     ErrorPageComponent,
-    LogoutComponent
+    LogoutComponent,
+    OfferComponent,
+    EditOfferComponent
   ],
   imports: [
     BrowserModule,

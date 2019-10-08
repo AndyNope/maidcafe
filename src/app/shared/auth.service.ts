@@ -1,6 +1,6 @@
 import { promise } from "protractor";
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { Injectable, EventEmitter } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { User } from './user.model';
 
@@ -12,6 +12,8 @@ interface AuthRespondsData {
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
+
+    authChanged = new EventEmitter<boolean>();
     public loggedIn = false;
     user: User;
     isAuthenticated() {
@@ -28,14 +30,13 @@ export class AuthService {
 
     login(username: string, password: string): Observable<any> {
         return this.http.post<AuthRespondsData>('https://maid-cafe.ch/controller.php?mode=login', {
-            //return this.http.post<AuthRespondsData>('/controller.php?mode=login', {
             username: username,
             password: password
         });
     }
     logout(): Observable<any> {
         //return this.http.post<AuthRespondsData>('/controller.php?mode=logout', {});
-        return this.http.post<AuthRespondsData>('https://maid-cafe.ch/controller.php?mode=logout', {});
+        return this.http.get<AuthRespondsData>('https://maid-cafe.ch/controller.php?mode=logout',{});
     }
     setLoginFalse() {
         this.loggedIn = false;

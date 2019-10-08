@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Observable, Subscription } from 'rxjs';
-import { AuthService } from '../auth.service';
+import { AuthService } from '../shared/auth.service';
 import { Router } from '@angular/router';
 
 
@@ -40,7 +40,6 @@ export class LoginComponent implements OnInit {
           this.router.navigate(['/']);
         } else {
           console.log('Login failed');
-
         }
       }
     );

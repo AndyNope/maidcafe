@@ -5,12 +5,14 @@ import { UsersComponent } from './users/users.component';
 import { LoginComponent } from './login/login.component';
 import { ErrorPageComponent } from './error-page/error-page.component';
 import { UserComponent } from './users/user/user.component';
-import { AuthGuard } from './auth-guard.service';
-import { AuthService } from './auth.service';
+import { AuthGuard } from './shared/auth-guard.service';
+//import { AuthService } from './shared/auth.service';
 import { LogoutComponent } from './logout/logout.component';
+import { EditOfferComponent } from './menu/edit-offer/edit-offer.component';
 
 const appRoutes: Routes = [
     { path: '', component: MenuComponent }, 
+    { path: 'edit/:id', component: EditOfferComponent }, 
     {
         path: 'users',canActivate: [AuthGuard], component: UsersComponent,  children: [
             { path: ':id/:name', component: UserComponent } //localhost:4200/users/anyID

@@ -1,0 +1,7 @@
+<!-- ngFor -->
+<div *ngFor="let offer of offers">
+    <h2>{{offer.name}}</h2>
+    <p>{{offer.price}} CHF</p>
+    <img [src]="offer.image" [alt]="offer.name" style="max-width:100%;">
+    <button class="btn btn-default" (click)="editOffer(offer.id)">Edit</button>
+</div>
