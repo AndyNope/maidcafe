@@ -29,5 +29,9 @@ export class EditOfferComponent implements OnInit {
       'offername': new FormControl(this.offer.name)
     });
   }
+  deleteOffer(){
+    console.log('deleted');
+    
+  }
 
 }
