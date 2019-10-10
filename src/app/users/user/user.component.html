@@ -1,1 +1,10 @@
-<p>user works!</p>
+<div class="mx-auto" *ngFor="let user of users">
+    <p>
+        {{ user.username }} - 
+        {{ user.email }} - 
+        {{ user.role }} - 
+        {{ user.created }} 
+        <button class="btn btn-default float-sm-right">Edit</button> 
+        <button class="btn btn-danger float-sm-right">Delete</button>
+    </p>
+</div>

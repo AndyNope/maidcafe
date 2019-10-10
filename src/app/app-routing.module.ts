@@ -5,7 +5,7 @@ import { UsersComponent } from './users/users.component';
 import { LoginComponent } from './login/login.component';
 import { ErrorPageComponent } from './error-page/error-page.component';
 import { UserComponent } from './users/user/user.component';
-import { AuthGuard } from './shared/auth-guard.service';
+import { AuthGuard } from '../shared/auth-guard.service';
 //import { AuthService } from './shared/auth.service';
 import { LogoutComponent } from './logout/logout.component';
 import { EditOfferComponent } from './menu/edit-offer/edit-offer.component';

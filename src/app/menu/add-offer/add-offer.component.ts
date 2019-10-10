@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Offer } from 'src/app/shared/offer.model';
+import { Offer } from 'src/shared/offer.model';
 import { FormGroup, FormControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { OfferService } from 'src/app/shared/offer.service';
+import { OfferService } from 'src/shared/offer.service';
 
 @Component({
   selector: 'app-add-offer',

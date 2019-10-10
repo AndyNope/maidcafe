@@ -1,4 +1,3 @@
-import { promise } from "protractor";
 import { Injectable, EventEmitter } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
@@ -21,7 +20,7 @@ export class AuthService {
             (resolve, reject) => {
                 setTimeout(() => {
                     resolve(this.loggedIn);
-                }, 10);
+                }, 0);
             }
         );
         return promise;

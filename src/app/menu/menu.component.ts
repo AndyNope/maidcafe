@@ -1,12 +1,12 @@
 import { Component, OnInit, ChangeDetectorRef, AfterViewChecked, ChangeDetectionStrategy } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthService } from '../shared/auth.service';
+import { AuthService } from '../../shared/auth.service';
 
 @Component({
   selector: 'app-menu',
   templateUrl: './menu.component.html',
   styleUrls: ['./menu.component.css'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  // changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MenuComponent implements OnInit, AfterViewChecked {
 
@@ -23,9 +23,9 @@ export class MenuComponent implements OnInit, AfterViewChecked {
     this.router.navigate(['addOffer']);
   }
   ngAfterViewChecked(): void {
-    setTimeout(() => {
-      this.isLogged = this.authService.loggedIn;
-      this.ref.markForCheck();
-    }, 300);
+    // setTimeout(() => {
+    //   this.isLogged = this.authService.loggedIn;
+    //   this.ref.markForCheck();
+    // }, 0);
   }
 }

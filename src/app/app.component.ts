@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, ElementRef, AfterContentInit, ChangeDetectionStrategy, ChangeDetectorRef, AfterViewChecked } from '@angular/core';
-import { AuthService } from './shared/auth.service';
+import { AuthService } from '../shared/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -21,7 +21,7 @@ export class AppComponent implements OnInit, AfterContentInit, AfterViewChecked 
     setTimeout(() => {
       this.isLogged = this.authService.loggedIn;
       this.ref.markForCheck();
-    }, 300);
+    }, 0);
   }
   ngAfterContentInit(): void {
   }

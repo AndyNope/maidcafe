@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import { Offer } from 'src/app/shared/offer.model';
-import { OfferService } from 'src/app/shared/offer.service';
+import { Offer } from 'src/shared/offer.model';
+import { OfferService } from 'src/shared/offer.service';
 import { FormGroup, FormControl } from '@angular/forms';
 
 @Component({
