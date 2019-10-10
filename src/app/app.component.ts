@@ -13,7 +13,6 @@ export class AppComponent implements OnInit, AfterContentInit, AfterViewChecked 
   constructor(private authService: AuthService, private ref: ChangeDetectorRef) {
     this.isLogged = false;
   }
-
   ngOnInit(): void {
   }
   setIslogged() {
@@ -23,8 +22,6 @@ export class AppComponent implements OnInit, AfterContentInit, AfterViewChecked 
       this.isLogged = this.authService.loggedIn;
       this.ref.markForCheck();
     }, 300);
-
-
   }
   ngAfterContentInit(): void {
   }

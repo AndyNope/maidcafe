@@ -16,6 +16,7 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import { LogoutComponent } from './logout/logout.component';
 import { OfferComponent } from './menu/offer/offer.component';
 import { EditOfferComponent } from './menu/edit-offer/edit-offer.component';
+import { AddOfferComponent } from './menu/add-offer/add-offer.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { EditOfferComponent } from './menu/edit-offer/edit-offer.component';
     ErrorPageComponent,
     LogoutComponent,
     OfferComponent,
-    EditOfferComponent
+    EditOfferComponent,
+    AddOfferComponent
   ],
   imports: [
     BrowserModule,

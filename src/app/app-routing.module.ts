@@ -9,10 +9,12 @@ import { AuthGuard } from './shared/auth-guard.service';
 //import { AuthService } from './shared/auth.service';
 import { LogoutComponent } from './logout/logout.component';
 import { EditOfferComponent } from './menu/edit-offer/edit-offer.component';
+import { AddOfferComponent } from './menu/add-offer/add-offer.component';
 
 const appRoutes: Routes = [
     { path: '', component: MenuComponent }, 
-    { path: 'edit/:id', component: EditOfferComponent }, 
+    { path: 'editoffer/:id', component: EditOfferComponent }, 
+    { path: 'addOffer', component: AddOfferComponent }, 
     {
         path: 'users',canActivate: [AuthGuard], component: UsersComponent,  children: [
             { path: ':id/:name', component: UserComponent } //localhost:4200/users/anyID
