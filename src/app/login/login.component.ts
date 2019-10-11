@@ -23,6 +23,7 @@ export class LoginComponent implements OnInit {
       'username': new FormControl(null, [Validators.required, LoginComponent.invalidUsername]),
       'password': new FormControl(null, [Validators.required])
     });
+    this.authService.init();
   }
 
   onSubmit() {
@@ -36,7 +37,8 @@ export class LoginComponent implements OnInit {
         if (value !== "Benutzer nicht gefunden!" && value !== "Passwort ist falsch!") {
           this.loadedUser = value;
           this.authService.setUser(value);
-          localStorage.setItem('login', value);
+          this.authService.startWatching();
+          sessionStorage.setItem('user', JSON.stringify(value));
           this.router.navigate(['/']);
         } else {
           console.log('Login failed');

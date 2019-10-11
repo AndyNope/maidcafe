@@ -6,11 +6,11 @@ import { AuthService } from '../../shared/auth.service';
   selector: 'app-menu',
   templateUrl: './menu.component.html',
   styleUrls: ['./menu.component.css'],
-  // changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MenuComponent implements OnInit, AfterViewChecked {
 
   isLogged = false;
+  role: number = 0;
   constructor(
     private router: Router,
     private authService: AuthService,
@@ -20,12 +20,11 @@ export class MenuComponent implements OnInit, AfterViewChecked {
   ngOnInit() {
   }
   addOffer() {
-    this.router.navigate(['addOffer']);
+    this.router.navigate(['add-offer']);
   }
-  ngAfterViewChecked(): void {
-    // setTimeout(() => {
-    //   this.isLogged = this.authService.loggedIn;
-    //   this.ref.markForCheck();
-    // }, 0);
+  ngAfterViewChecked() {
+    this.isLogged = sessionStorage.getItem('user') !== null ? true : false;
+    const user = sessionStorage.getItem('user') !== null ? JSON.parse(sessionStorage.getItem('user')) : null;
+    this.role = user !== null ? user.role : 0;
   }
 }

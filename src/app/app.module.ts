@@ -15,6 +15,7 @@ import { ErrorPageComponent } from './error-page/error-page.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { LogoutComponent } from './logout/logout.component';
 import { OfferComponent } from './menu/offer/offer.component';
+import { UserIdleModule } from 'angular-user-idle';
 import { EditOfferComponent } from './menu/edit-offer/edit-offer.component';
 import { AddOfferComponent } from './menu/add-offer/add-offer.component';
 import { EditUserComponent } from './users/edit-user/edit-user.component';
@@ -40,7 +41,8 @@ import { AddUserComponent } from './users/add-user/add-user.component';
     BrowserModule,
     ReactiveFormsModule,
     HttpClientModule,
-    AppRoutingModule
+    AppRoutingModule,
+    UserIdleModule.forRoot({ idle: 600, timeout: 300, ping: 120 })
   ],
   providers: [AuthService],
   bootstrap: [AppComponent]

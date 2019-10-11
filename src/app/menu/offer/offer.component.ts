@@ -12,6 +12,7 @@ import { AuthService } from 'src/shared/auth.service';
 })
 export class OfferComponent implements OnInit, AfterViewChecked, OnDestroy {
   isLogged = false;
+  role = 0;
 
   offers: Offer[];
   constructor(
@@ -34,15 +35,14 @@ export class OfferComponent implements OnInit, AfterViewChecked, OnDestroy {
   }
 
   editOffer(id: number) {
-    this.router.navigate(['/editoffer/' + id])
+    this.router.navigate(['/edit-offer/' + id])
   }
-  ngAfterViewChecked(): void {
-    // setTimeout(() => {
-    //   this.isLogged = this.authService.loggedIn;
-    //   this.ref.markForCheck();
-    // }, 0);
+  ngAfterViewChecked() {
+    this.isLogged = sessionStorage.getItem('user') !== null ? true : false;
+    const user = sessionStorage.getItem('user') !== null ? JSON.parse(sessionStorage.getItem('user')) : null;
+    this.role = user !== null ? user.role : 0;
   }
-  ngOnDestroy(): void {
+  ngOnDestroy() {
 
   }
 

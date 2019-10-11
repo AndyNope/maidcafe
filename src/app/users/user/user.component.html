@@ -4,7 +4,7 @@
         {{ user.email }} - 
         {{ user.role }} - 
         {{ user.created }} 
-        <button class="btn btn-default float-sm-right">Edit</button> 
-        <button class="btn btn-danger float-sm-right">Delete</button>
+        <button class="btn btn-default float-sm-right" (click)="onEditUser(user.id)">Edit</button> 
+        <button class="btn btn-danger float-sm-right" (click)="onDeleteUser(user.id)">Delete</button>
     </p>
 </div>

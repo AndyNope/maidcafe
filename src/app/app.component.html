@@ -5,7 +5,7 @@
         <li role="presentation" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}"><a
             routerLink="/">Menu</a></li>
         <li role="presentation" routerLinkActive="active" *ngIf="!isLogged"><a routerLink="/login">Login</a></li>
-        <li role="presentation" routerLinkActive="active" *ngIf="isLogged"><a routerLink="/users">Users</a></li>
+        <li role="presentation" routerLinkActive="active" *ngIf="isLogged  && role > 33"><a routerLink="/users">Users</a></li>
         <li role="presentation" routerLinkActive="active" *ngIf="isLogged"><a routerLink="logout">Logout</a></li>
       </ul>
     </div>

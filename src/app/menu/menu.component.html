@@ -1,4 +1,5 @@
 <h1>Menu
-    <button class="btn btn-success" (click)="addOffer()" *ngIf="isLogged">Add Menu</button>
+        <!-- *ngIf="isLogged" -->
+    <button class="btn btn-success" (click)="addOffer()" *ngIf="isLogged && role > 33">Add Menu</button>
 </h1>
 <app-offer>Loading...</app-offer>

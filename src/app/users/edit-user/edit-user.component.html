@@ -1,1 +1,11 @@
-<p>edit-user works!</p>
+<h1>Edit User</h1>
+<form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+        <label for="username">Name</label>
+        <input type="hidden" id="user_id" formControlName="user_id" class="form-control">
+        <input type="text" id="username" formControlName="username" class="form-control">
+    </div>
+    <button class="btn btn-primary" type="submit">Save</button>
+    <button class="btn btn-danger" (click)="deleteUser()">Delete</button>
+    <button class="btn btn-default" (click)="cancel()">Cancel</button>
+</form>

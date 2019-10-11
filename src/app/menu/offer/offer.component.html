@@ -4,5 +4,6 @@
     <p>{{ offer.price }} CHF</p>
     <img [src]="offer.image" [alt]="offer.name" style="max-width:100%;" [hidden]="!offer.image">
     <p>{{ offer.description }}</p>
-    <button class="btn btn-default" (click)="editOffer(offer.id)" *ngIf="isLogged">Edit</button>
+    <!-- *ngIf="isLogged" -->
+    <button class="btn btn-default" (click)="editOffer(offer.id)" *ngIf="isLogged && role > 33">Edit</button>
 </div>

@@ -10,6 +10,7 @@ import { AuthService } from '../shared/auth.service';
 export class AppComponent implements OnInit, AfterContentInit, AfterViewChecked {
 
   isLogged: boolean;
+  role: number = 0;
   constructor(private authService: AuthService, private ref: ChangeDetectorRef) {
     this.isLogged = false;
   }
@@ -20,6 +21,8 @@ export class AppComponent implements OnInit, AfterContentInit, AfterViewChecked 
   ngAfterViewChecked() {
     setTimeout(() => {
       this.isLogged = this.authService.loggedIn;
+      const user = sessionStorage.getItem('user') !== null ? JSON.parse(sessionStorage.getItem('user')) : null;
+      this.role = user !== null ? user.role : 0;
       this.ref.markForCheck();
     }, 0);
   }

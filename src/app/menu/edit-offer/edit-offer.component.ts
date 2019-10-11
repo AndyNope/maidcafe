@@ -3,6 +3,7 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Offer } from 'src/shared/offer.model';
 import { OfferService } from 'src/shared/offer.service';
 import { FormGroup, FormControl } from '@angular/forms';
+import { AuthService } from 'src/shared/auth.service';
 
 @Component({
   selector: 'app-edit-offer',
@@ -13,7 +14,12 @@ export class EditOfferComponent implements OnInit {
   public offer: Offer;
   offerForm: FormGroup;
 
-  constructor(private route: ActivatedRoute, private offerService: OfferService, private router: Router) {
+  constructor(
+    private route: ActivatedRoute,
+    private offerService: OfferService,
+    private router: Router,
+    private authService: AuthService
+  ) {
     const id = this.route.snapshot.params['id'];
     this.offerService.getOfferById(id).subscribe(
       (value: any) => {
@@ -31,7 +37,6 @@ export class EditOfferComponent implements OnInit {
         });
       }
     );
-
   }
 
 
@@ -53,13 +58,23 @@ export class EditOfferComponent implements OnInit {
     const price = this.offerForm.value.price;
     const description = this.offerForm.value.description;
     const image = this.offerForm.value.image;
-    this.offerService.saveOffer(id, name, price, description, image).subscribe((value: any) => {
+    this.authService.getUserSession().subscribe(value => {
       console.log(value);
-      if (value === "saved") {
-        console.log('save successful');
+      var role: number = value.role;
+      if (role > 33) {
+        this.offerService.saveOffer(id, name, price, description, image).subscribe((value: any) => {
+          console.log(value);
+          if (value === "saved") {
+            console.log('save successful');
+            this.router.navigate(['/']);
+          }
+        });
+      } else {
+        console.log('Sie haben keine Berechtigung');
         this.router.navigate(['/']);
       }
     });
+
   }
 
   deleteOffer() {
@@ -72,6 +87,9 @@ export class EditOfferComponent implements OnInit {
         }
       }
     );
+  }
+  cancel() {
+    this.router.navigate(['/']);
   }
 
 }
