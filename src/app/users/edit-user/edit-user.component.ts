@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { UserService } from 'src/shared/user.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-edit-user',
@@ -10,7 +10,13 @@ import { Router } from '@angular/router';
 })
 export class EditUserComponent implements OnInit {
   userForm: FormGroup;
-  constructor(private userService: UserService, private router: Router) { }
+  constructor(private userService: UserService, private router: Router, private route: ActivatedRoute) {
+    
+    const id = this.route.snapshot.params['id'];
+    this.userService.getUserById(id).subscribe(value =>{
+      
+    });
+   }
 
   ngOnInit() {
     this.userForm = new FormGroup({

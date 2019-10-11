@@ -58,7 +58,8 @@ export class AddOfferComponent implements OnInit {
         this.router.navigate(['/']);
       }
   
+    }, error => {
+      console.log(error);
     });
-  
   }
 }

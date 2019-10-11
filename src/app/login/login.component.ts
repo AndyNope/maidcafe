@@ -43,9 +43,9 @@ export class LoginComponent implements OnInit {
         } else {
           console.log('Login failed');
         }
-      }
-    );
-
+      }, error => {
+        console.log(error);
+      });
     this.loginForm.reset();
   }
 

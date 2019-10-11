@@ -4,6 +4,7 @@ import { Offer } from 'src/shared/offer.model';
 import { OfferService } from 'src/shared/offer.service';
 import { FormGroup, FormControl } from '@angular/forms';
 import { AuthService } from 'src/shared/auth.service';
+import { FileUploadService } from 'src/shared/file-upload.service';
 
 @Component({
   selector: 'app-edit-offer',
@@ -13,12 +14,14 @@ import { AuthService } from 'src/shared/auth.service';
 export class EditOfferComponent implements OnInit {
   public offer: Offer;
   offerForm: FormGroup;
+  fileToUpload = null;
 
   constructor(
     private route: ActivatedRoute,
     private offerService: OfferService,
     private router: Router,
-    private authService: AuthService
+    private authService: AuthService,
+    private fileUploadService: FileUploadService
   ) {
     const id = this.route.snapshot.params['id'];
     this.offerService.getOfferById(id).subscribe(
@@ -35,12 +38,14 @@ export class EditOfferComponent implements OnInit {
           'imageUpload': new FormControl(''),
           'image': new FormControl(value.image)
         });
-      }
-    );
+      }, error => {
+        console.log(error);
+      });
   }
 
 
   ngOnInit() {
+
     this.offerForm = new FormGroup({
       'offer_id': new FormControl(''),
       'offername': new FormControl(''),
@@ -91,5 +96,18 @@ export class EditOfferComponent implements OnInit {
   cancel() {
     this.router.navigate(['/']);
   }
+
+  handleFileInput(files: FileList) {
+    this.fileToUpload = files.item(0);
+  }
+
+  uploadFileToActivity() {
+    this.fileUploadService.postfile(this.fileToUpload).subscribe(data => {
+
+    }, error => {
+      console.log(error);
+    });
+  }
+
 
 }
