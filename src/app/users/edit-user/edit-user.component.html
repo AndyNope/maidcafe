@@ -20,11 +20,11 @@
     <div class="form-group">
         <label for="role">Role</label>
         <select name="role" id="role" formControlName="role" class="form-control">
-            <option *ngFor="let role of roleList" [value]="role">{{ role }}</option>
+            <option *ngFor="let role of roleList; let i = index" [value]="(i + 1) * 33">{{ role }}</option>
         </select>
     </div>
 
-    <button class="btn btn-primary" type="submit">Save</button>
-    <button class="btn btn-danger" (click)="deleteUser()">Delete</button>
-    <button class="btn btn-default" (click)="cancel()">Cancel</button>
+    <button class="btn btn-primary" type="submit" [disabled]="!userForm.valid">Save</button>
+    <div class="btn btn-danger" (click)="deleteUser()">Delete</div>
+    <div class="btn btn-default" (click)="cancel()">Cancel</div>
 </form>

@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { Offer } from 'src/shared/offer.model';
-import { FormGroup, FormControl } from '@angular/forms';
+import { Offer } from 'src/shared/model/offer.model';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { OfferService } from 'src/shared/offer.service';
-import { AuthService } from 'src/shared/auth.service';
+import { OfferService } from 'src/shared/service/offer.service';
+import { AuthService } from 'src/shared/service/auth.service';
 
 @Component({
   selector: 'app-add-offer',
@@ -27,8 +27,8 @@ export class AddOfferComponent implements OnInit {
   ngOnInit() {
     this.offerForm = new FormGroup({
       'offer_id': new FormControl(''),
-      'offername': new FormControl(''),
-      'price': new FormControl(''),
+      'offername': new FormControl('',[Validators.required]),
+      'price': new FormControl('',[Validators.required]),
       'description': new FormControl(''),
       'imageUpload': new FormControl(''),
       'image': new FormControl('')
@@ -44,8 +44,8 @@ export class AddOfferComponent implements OnInit {
     const image = 'https://images.unsplash.com/photo-1535924571710-4c6e27716b6d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1351&q=80';
 
     this.authService.getUserSession().subscribe(value => {
-      console.log(value);
-      var role : number = value.role;
+      //console.log(value);
+      var role: number = value.role;
       if (role > 33) {
         this.offerService.saveOffer(id, name, price, description, image).subscribe((value: any) => {
           if (value === "added") {
@@ -57,9 +57,12 @@ export class AddOfferComponent implements OnInit {
         console.log('Sie haben keine Berechtigung');
         this.router.navigate(['/']);
       }
-  
+
     }, error => {
       console.log(error);
     });
+  }
+  onCancel() {
+    this.router.navigate(['/']);
   }
 }

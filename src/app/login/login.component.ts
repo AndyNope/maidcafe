@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Observable, Subscription } from 'rxjs';
-import { AuthService } from '../../shared/auth.service';
+import { AuthService } from '../../shared/service/auth.service';
 import { Router } from '@angular/router';
 
 
@@ -32,8 +32,8 @@ export class LoginComponent implements OnInit {
     const password = this.loginForm.value.password;
     this.authService.login(username, password).subscribe(
       (value: any) => {
-        console.log('Result: ');
-        console.log(value);
+        //console.log('Result: ');
+        //console.log(value);
         if (value !== "Benutzer nicht gefunden!" && value !== "Passwort ist falsch!") {
           this.loadedUser = value;
           this.authService.setUser(value);

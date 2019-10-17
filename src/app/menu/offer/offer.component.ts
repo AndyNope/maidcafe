@@ -1,8 +1,8 @@
 import { Component, OnInit, OnDestroy, AfterViewChecked, ChangeDetectorRef, ChangeDetectionStrategy } from '@angular/core';
-import { Offer } from 'src/shared/offer.model';
-import { OfferService } from 'src/shared/offer.service';
+import { Offer } from 'src/shared/model/offer.model';
+import { OfferService } from 'src/shared/service/offer.service';
 import { Router } from '@angular/router';
-import { AuthService } from 'src/shared/auth.service';
+import { AuthService } from 'src/shared/service/auth.service';
 
 @Component({
   selector: 'app-offer',
@@ -15,6 +15,14 @@ export class OfferComponent implements OnInit, AfterViewChecked, OnDestroy {
   role = 0;
 
   offers: Offer[];
+
+  /**
+   * Creates an instance of offer component.
+   * @param offerService 
+   * @param authService 
+   * @param router 
+   * @param ref 
+   */
   constructor(
     private offerService: OfferService,
     private authService: AuthService,
@@ -24,7 +32,7 @@ export class OfferComponent implements OnInit, AfterViewChecked, OnDestroy {
     this.offerService.getOffers().subscribe(
       (value: any) => {
         console.log('Result: ');
-        console.log(value);
+        //console.log(value);
         this.offers = value;
       }
     );
@@ -34,6 +42,11 @@ export class OfferComponent implements OnInit, AfterViewChecked, OnDestroy {
 
   }
 
+
+  /**
+   * Edits offer
+   * @param id 
+   */
   editOffer(id: number) {
     this.router.navigate(['/edit-offer/' + id])
   }

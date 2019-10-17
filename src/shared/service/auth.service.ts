@@ -1,7 +1,7 @@
 import { Injectable, EventEmitter, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { User } from './user.model';
+import { User } from '../model/user.model';
 import { UserIdleService } from 'angular-user-idle';
 import { logging } from 'protractor';
 
@@ -28,13 +28,7 @@ export class AuthService {
         return promise;
     }
     constructor(private http: HttpClient, private userIdle: UserIdleService) {
-        if (this.user === null) {
-            this.getUserSession().subscribe(value => {
-                this.user = value !== null ? value : null;
-            });
-            console.log(this.user);
-            this.loggedIn = true;
-        }
+
     }
 
     init() {
@@ -42,10 +36,10 @@ export class AuthService {
         this.userIdle.onTimeout().subscribe(() => { console.log('Time is up!'); this.logout(); });
     }
     getLogin() {
-        return this.user !== null ? true : false;
+        return this.user === null ? false : true;
     }
     getRole() {
-        return this.user !== null ? this.user.role : 0;
+        return this.user === null ? 0 : this.user.role;
     }
     login(username: string, password: string): Observable<any> {
         return this.http.post<AuthRespondsData>('https://maid-cafe.ch/controller.php?mode=login', {
@@ -55,14 +49,12 @@ export class AuthService {
     }
 
     getUserSession(): Observable<any> {
-        return this.http.get<AuthRespondsData>('https://maid-cafe.ch/controller.php?mode=getUserSession', {});
+        return this.http.get<User>('https://maid-cafe.ch/controller.php?mode=getUserSession', {});
     }
 
     logout(): Observable<any> {
-        this.stopWatching;
-        this.user = null;
         //return this.http.post<AuthRespondsData>('/controller.php?mode=logout', {});
-        return this.http.get<AuthRespondsData>('https://maid-cafe.ch/controller.php?mode=logout', {});
+        return this.http.get<User>('https://maid-cafe.ch/controller.php?mode=logout', {});
     }
 
     setLoginFalse() {
@@ -70,7 +62,7 @@ export class AuthService {
     }
 
     setUser(user: User) {
-        this.loggedIn = true;
+        this.loggedIn = user !== null ? true : false;
         this.user = user;
     }
 

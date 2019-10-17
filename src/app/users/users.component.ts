@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-users',
@@ -7,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UsersComponent implements OnInit {
 
-  constructor() {
+  constructor(private router:Router) {
 
   }
 
@@ -15,7 +16,7 @@ export class UsersComponent implements OnInit {
   }
 
   onAddUser(){
-
+    this.router.navigate(['/add-user']);
   }
 
 
