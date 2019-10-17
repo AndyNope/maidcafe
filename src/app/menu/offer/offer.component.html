@@ -1,9 +1,19 @@
 <!-- ngFor -->
-<div *ngFor="let offer of offers">
-    <h2>{{ offer.name }}</h2>
-    <p>{{ offer.price }} CHF</p>
-    <img [src]="offer.image" [alt]="offer.name" style="max-width:100%;" [hidden]="!offer.image">
-    <p>{{ offer.description }}</p>
-    <!-- *ngIf="isLogged" -->
-    <button class="btn btn-default" (click)="editOffer(offer.id)" *ngIf="isLogged && role > 33">Edit</button>
+
+<div *ngFor="let offer of offers" class="row">
+    <div class="col-sm">
+        <h2>{{ offer.name }}</h2>
+    </div>
+    <div class="col-sm">
+        <p>{{ offer.price }} CHF</p>
+    </div>
+    <div class="col-sm">
+        <img [src]="offer.image" [alt]="offer.name" style="max-width:100px;" [hidden]="!offer.image">
+    </div>
+    <div class="col-sm">
+        <p>{{ offer.description }}</p>
+    </div>
+    <div class="col-sm">
+        <button class="btn btn-default" (click)="editOffer(offer.id)" *ngIf="isLogged && role > 33">Edit</button>
+    </div>
 </div>

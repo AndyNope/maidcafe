@@ -39,7 +39,12 @@ export class AuthService {
      * @param userIdle 
      */
     constructor(private http: HttpClient, private userIdle: UserIdleService) {
-
+        if(this.user === null){
+            this.getUserSession().subscribe(value => {
+                this.user = value !== null ? value : null;
+            });
+            this.loggedIn = true;
+        }
     }
 
     /**
