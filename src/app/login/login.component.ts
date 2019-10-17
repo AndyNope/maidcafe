@@ -1,23 +1,36 @@
-import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Observable, Subscription } from 'rxjs';
-import { AuthService } from '../../shared/service/auth.service';
+
+import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
+import { AuthService } from '../../shared/service/auth.service';
 
+/**
+ * Component
+ */
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls:
     ['./login.component.css']
 })
+
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   loadedUser: string;
   statusList = ['Stable', 'Critical', 'Finished'];
 
+  /**
+   * Creates an instance of login component.
+   * @param authService 
+   * @param router 
+   */
   constructor(private authService: AuthService, private router: Router) { }
 
+  /**
+   * on init
+   */
   ngOnInit() {
     this.loginForm = new FormGroup({
       'username': new FormControl(null, [Validators.required, LoginComponent.invalidUsername]),
@@ -26,6 +39,9 @@ export class LoginComponent implements OnInit {
     this.authService.init();
   }
 
+  /**
+   * Determines whether submit on
+   */
   onSubmit() {
     console.log('Input: ' + this.loginForm.value.username + " " + this.loginForm.value.password);
     const username = this.loginForm.value.username;
@@ -51,6 +67,11 @@ export class LoginComponent implements OnInit {
     this.loginForm.reset();
   }
 
+  /**
+   * Invalids username
+   * @param control 
+   * @returns username 
+   */
   static invalidUsername(control: FormControl): { [s: string]: boolean } {
     if (control.value === 'Test') { //Regex
       return { 'invalidUsername': true }
@@ -58,6 +79,11 @@ export class LoginComponent implements OnInit {
     return null;
   }
 
+  /**
+   * Asyncs invalid username
+   * @param control 
+   * @returns invalid username 
+   */
   static asyncInvalidUsername(control: FormControl): Promise<any> | Observable<any> {
     const promise = new Promise((resolve, reject) => {
       setTimeout(() => {

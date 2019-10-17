@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { UserService } from 'src/shared/service/user.service';
-import { Router, ActivatedRoute } from '@angular/router';
+
+import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-edit-user',
@@ -28,6 +29,9 @@ export class EditUserComponent implements OnInit {
     //this.userService.getRoleList().subscribe(val=>{this.roleList = val})
   }
 
+  /**
+   * on init
+   */
   ngOnInit() {
     this.userForm = new FormGroup({
       'user_id': new FormControl('',[Validators.required]),
@@ -39,6 +43,9 @@ export class EditUserComponent implements OnInit {
     });
   }
 
+  /**
+   * Determines whether submit on
+   */
   onSubmit() {
     //console.log('submit');
     const id = this.userForm.value.user_id;
@@ -62,11 +69,18 @@ export class EditUserComponent implements OnInit {
       alert('Both passwords have to match');
     }
   }
+
+  /**
+   * Deletes user
+   */
   deleteUser() {
     console.log('deleted');
     this.router.navigate(['/users']);
   }
 
+  /**
+   * Cancels edit user component
+   */
   cancel() {
     this.router.navigate(['/users']);
   }

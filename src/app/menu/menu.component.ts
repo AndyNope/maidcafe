@@ -1,5 +1,8 @@
-import { Component, OnInit, ChangeDetectorRef, AfterViewChecked, ChangeDetectionStrategy } from '@angular/core';
+import {
+    AfterViewChecked, ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit
+} from '@angular/core';
 import { Router } from '@angular/router';
+
 import { AuthService } from '../../shared/service/auth.service';
 
 @Component({

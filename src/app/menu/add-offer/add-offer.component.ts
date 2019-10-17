@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
 import { Offer } from 'src/shared/model/offer.model';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
-import { OfferService } from 'src/shared/service/offer.service';
 import { AuthService } from 'src/shared/service/auth.service';
+import { OfferService } from 'src/shared/service/offer.service';
+
+import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-offer',
@@ -14,6 +15,14 @@ export class AddOfferComponent implements OnInit {
   public offer: Offer;
   offerForm: FormGroup;
   image = "";
+
+  /**
+   * Creates an instance of add offer component.
+   * @param route 
+   * @param offerService 
+   * @param router 
+   * @param authService 
+   */
   constructor(
     private route: ActivatedRoute,
     private offerService: OfferService,
@@ -24,6 +33,9 @@ export class AddOfferComponent implements OnInit {
   }
 
 
+  /**
+   * on init
+   */
   ngOnInit() {
     this.offerForm = new FormGroup({
       'offer_id': new FormControl(''),
@@ -35,6 +47,9 @@ export class AddOfferComponent implements OnInit {
     });
   }
 
+  /**
+   * Add a new user
+   */
   onSubmit() {
     console.log('saving');
     const id = 0;
@@ -62,6 +77,10 @@ export class AddOfferComponent implements OnInit {
       console.log(error);
     });
   }
+
+  /**
+   * Navigate to root only
+   */
   onCancel() {
     this.router.navigate(['/']);
   }

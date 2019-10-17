@@ -1,12 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Offer } from 'src/shared/model/offer.model';
-import { OfferService } from 'src/shared/service/offer.service';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { AuthService } from 'src/shared/service/auth.service';
 import { FileUploadService } from 'src/shared/service/file-upload.service';
+import { OfferService } from 'src/shared/service/offer.service';
 
-
+import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 
 @Component({
   selector: 'app-edit-offer',
@@ -15,9 +14,6 @@ import { FileUploadService } from 'src/shared/service/file-upload.service';
 })
 export class EditOfferComponent implements OnInit {
 
-  /**
-   * Offer  of edit offer component
-   */
   public offer: Offer;
   offerForm: FormGroup;
   fileToUpload = null;

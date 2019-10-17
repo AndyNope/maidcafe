@@ -1,12 +1,17 @@
-import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+
 import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 
 @Injectable({
   providedIn: 'root'
 })
 export class FileUploadService {
 
+  /**
+   * Creates an instance of file upload service.
+   * @param http 
+   */
   constructor(private http: HttpClient) { }
   postfile(fileToUpload: File): Observable<any> {
     const formData: FormData = new FormData();

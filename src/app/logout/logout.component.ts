@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../../shared/service/auth.service';
 import { Router } from '@angular/router';
+
+import { AuthService } from '../../shared/service/auth.service';
 
 @Component({
   selector: 'app-logout',
@@ -9,6 +10,11 @@ import { Router } from '@angular/router';
 })
 export class LogoutComponent implements OnInit {
 
+  /**
+   * Creates an instance of logout component.
+   * @param authService 
+   * @param router 
+   */
   constructor(private authService: AuthService, private router: Router) {
     this.authService.setLoginFalse();
     setTimeout(() => {
@@ -16,6 +22,10 @@ export class LogoutComponent implements OnInit {
     }, 1000);
   }
 
+  /**
+   * on init
+   * sign out the user
+   */
   ngOnInit() {
     this.authService.logout().subscribe(() => {
       console.log('logout');

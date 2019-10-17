@@ -1,8 +1,11 @@
-import { Component, OnInit, OnDestroy, AfterViewChecked, ChangeDetectorRef, ChangeDetectionStrategy } from '@angular/core';
 import { Offer } from 'src/shared/model/offer.model';
-import { OfferService } from 'src/shared/service/offer.service';
-import { Router } from '@angular/router';
 import { AuthService } from 'src/shared/service/auth.service';
+import { OfferService } from 'src/shared/service/offer.service';
+
+import {
+    AfterViewChecked, ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit
+} from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-offer',
@@ -10,7 +13,7 @@ import { AuthService } from 'src/shared/service/auth.service';
   styleUrls: ['./offer.component.css'],
   // changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class OfferComponent implements OnInit, AfterViewChecked, OnDestroy {
+export class OfferComponent implements AfterViewChecked, OnDestroy {
   isLogged = false;
   role = 0;
 
@@ -38,11 +41,6 @@ export class OfferComponent implements OnInit, AfterViewChecked, OnDestroy {
     );
   }
 
-  ngOnInit() {
-
-  }
-
-
   /**
    * Edits offer
    * @param id 
@@ -50,10 +48,18 @@ export class OfferComponent implements OnInit, AfterViewChecked, OnDestroy {
   editOffer(id: number) {
     this.router.navigate(['/edit-offer/' + id])
   }
+
+  /**
+   * after view checked
+   */
   ngAfterViewChecked() {
     this.isLogged = this.authService.getLogin();
     this.role = this.authService.getRole();
   }
+
+  /**
+   * on destroy
+   */
   ngOnDestroy() {
 
   }

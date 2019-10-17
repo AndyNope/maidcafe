@@ -4,7 +4,6 @@ import { Router } from '@angular/router';
 import { User } from 'src/shared/model/user.model';
 import { UserService } from 'src/shared/service/user.service';
 import { AuthService } from 'src/shared/service/auth.service';
-import { error } from '@angular/compiler/src/util';
 
 @Component({
   selector: 'app-user',
@@ -12,6 +11,10 @@ import { error } from '@angular/compiler/src/util';
   styleUrls: ['./user.component.css']
 })
 export class UserComponent implements OnInit,OnDestroy {
+
+  /**
+   * on destroy
+   */
   ngOnDestroy(): void {
     throw new Error("Method not implemented.");
   }
@@ -24,14 +27,27 @@ export class UserComponent implements OnInit,OnDestroy {
       this.users = value;
     });
   }
+
+  /**
+   * on init
+   */
   ngOnInit() {
     this.authService.getUserSession().subscribe(val => { this.loggedUser = val }, error => { console.log(error); });
     
   }
+
+  /**
+   * Determines whether edit user on
+   * @param id 
+   */
   onEditUser(id: number) {
     this.router.navigate(['edit-user/' + id]);
   }
 
+  /**
+   * Determines whether delete user on
+   * @param id 
+   */
   onDeleteUser(id: number) {
     this.userService.deleteUser(id).subscribe(value => {
       if (value === 'deleted') {
@@ -42,6 +58,12 @@ export class UserComponent implements OnInit,OnDestroy {
       console.log(error);
     });
   }
+  
+  /**
+   * Checks logged user
+   * @param id 
+   * @returns true if logged user 
+   */
   checkLoggedUser(id: string): boolean {
     return this.loggedUser.id === id;
   }

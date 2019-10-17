@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
-
 import { UserService } from 'src/shared/service/user.service';
+
+import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-user',
@@ -16,6 +16,9 @@ export class AddUserComponent implements OnInit {
   ];
   constructor(private router: Router, private userService: UserService) { }
 
+  /**
+   * on init
+   */
   ngOnInit() {
     this.userForm = new FormGroup({
       'user_id': new FormControl('0'),
@@ -27,6 +30,9 @@ export class AddUserComponent implements OnInit {
     });
   }
 
+  /**
+   * Determines whether submit on
+   */
   onSubmit() {
     const id = 0;
     const username = this.userForm.value.username;
@@ -48,11 +54,18 @@ export class AddUserComponent implements OnInit {
       alert('Both passwords have to match');
     }
   }
+
+  /**
+   * Deletes user
+   */
   deleteUser() {
     // console.log('deleted');
     this.router.navigate(['/users']);
   }
 
+  /**
+   * Cancels add user 
+   */
   cancel() {
     this.router.navigate(['/users']);
   }

@@ -7,17 +7,26 @@ import { AuthService } from '../shared/service/auth.service';
   styleUrls: ['./app.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AppComponent implements OnInit, AfterContentInit, AfterViewChecked {
+export class AppComponent implements AfterViewChecked {
 
   isLogged: boolean;
   role: number = 0;
+
+  /**
+   * Creates an instance of app component.
+   * @param authService 
+   * @param ref 
+   */
   constructor(private authService: AuthService, private ref: ChangeDetectorRef) {
     this.isLogged = false;
   }
-  ngOnInit(): void {
-  }
+
+  /**
+   * Sets islogged
+   */
   setIslogged() {
   }
+
   /**
    * listening to changes
    */
@@ -28,6 +37,5 @@ export class AppComponent implements OnInit, AfterContentInit, AfterViewChecked 
       this.ref.markForCheck();
     }, 0);
   }
-  ngAfterContentInit(): void {
-  }
+
 }
