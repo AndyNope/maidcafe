@@ -17,13 +17,13 @@ export class UserService {
   getUserById(id: number): Observable<any> {
     return this.http.get<User>('https://maid-cafe.ch/controller.php?mode=getUserById&id=' + id, { responseType: 'json' });
   }
-  saveUser(id: number, name: string, price: number, description: string, image: string): Observable<any> {
+  saveUser(id: number, username: string, email: number, password: string, role: string): Observable<any> {
     return this.http.post<User>('https://maid-cafe.ch/controller.php?mode=saveUser', {
       id: id,
-      name: name,
-      price: price,
-      description: description,
-      image: image
+      username: username,
+      email: email,
+      password: password,
+      role: role
     });
   }
 }

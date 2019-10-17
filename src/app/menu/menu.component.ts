@@ -23,8 +23,7 @@ export class MenuComponent implements OnInit, AfterViewChecked {
     this.router.navigate(['add-offer']);
   }
   ngAfterViewChecked() {
-    this.isLogged = sessionStorage.getItem('user') !== null ? true : false;
-    const user = sessionStorage.getItem('user') !== null ? JSON.parse(sessionStorage.getItem('user')) : null;
-    this.role = user !== null ? user.role : 0;
+    this.isLogged = this.authService.getLogin();
+    this.role = this.authService.getRole();
   }
 }

@@ -5,6 +5,7 @@ import { OfferService } from 'src/shared/offer.service';
 import { FormGroup, FormControl } from '@angular/forms';
 import { AuthService } from 'src/shared/auth.service';
 import { FileUploadService } from 'src/shared/file-upload.service';
+import { error } from '@angular/compiler/src/util';
 
 @Component({
   selector: 'app-edit-offer',
@@ -15,7 +16,8 @@ export class EditOfferComponent implements OnInit {
   public offer: Offer;
   offerForm: FormGroup;
   fileToUpload = null;
-
+  imageUpload = null;
+  image = null;
   constructor(
     private route: ActivatedRoute,
     private offerService: OfferService,
@@ -26,21 +28,22 @@ export class EditOfferComponent implements OnInit {
     const id = this.route.snapshot.params['id'];
     this.offerService.getOfferById(id).subscribe(
       (value: any) => {
-        console.log('Result: ');
+        console.log('Result OfferForm: ');
         console.log(value);
-        console.log(value.image);
         this.offer = value;
         this.offerForm = new FormGroup({
           'offer_id': new FormControl(value.id),
           'offername': new FormControl(value.name),
           'price': new FormControl(value.price),
           'description': new FormControl(value.description),
-          'imageUpload': new FormControl(''),
+          'imageUpload': new FormControl(null),
           'image': new FormControl(value.image)
         });
+        this.image = value.image;
       }, error => {
         console.log(error);
       });
+
   }
 
 
@@ -62,12 +65,19 @@ export class EditOfferComponent implements OnInit {
     const name = this.offerForm.value.offername;
     const price = this.offerForm.value.price;
     const description = this.offerForm.value.description;
-    const image = this.offerForm.value.image;
+    const image = this.fileToUpload !== null ? this.fileToUpload.name : this.offerForm.value.image;
+    if (this.fileToUpload !== null) {
+      this.fileUploadService.postfile(this.fileToUpload).subscribe(value => {
+        console.log(value);
+      }, error => {
+        console.log(error);
+      });
+    }
     this.authService.getUserSession().subscribe(value => {
       console.log(value);
       var role: number = value.role;
       if (role > 33) {
-        this.offerService.saveOffer(id, name, price, description, image).subscribe((value: any) => {
+        this.offerService.saveOffer(id, name, price, description, (!this.fileToUpload !== null ? '/upload/' : '') + image).subscribe((value: any) => {
           console.log(value);
           if (value === "saved") {
             console.log('save successful');
@@ -98,16 +108,13 @@ export class EditOfferComponent implements OnInit {
   }
 
   handleFileInput(files: FileList) {
+    console.log('FileList:');
+    console.log(files);
     this.fileToUpload = files.item(0);
+    var reader = new FileReader();
+    reader.readAsDataURL(files.item(0));
+    reader.onload = (_event) => {
+      this.image = reader.result;
+    };
   }
-
-  uploadFileToActivity() {
-    this.fileUploadService.postfile(this.fileToUpload).subscribe(data => {
-
-    }, error => {
-      console.log(error);
-    });
-  }
-
-
 }

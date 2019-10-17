@@ -42,9 +42,11 @@ export class LoginComponent implements OnInit {
           this.router.navigate(['/']);
         } else {
           console.log('Login failed');
+          alert('Login failed');
         }
       }, error => {
         console.log(error);
+        alert(error);
       });
     this.loginForm.reset();
   }

@@ -27,7 +27,12 @@ export class UserComponent implements OnInit {
 
   onDeleteUser(id: number) {
     this.userService.deleteUser(id).subscribe(value => {
+      if(value === 'deleted'){
+        this.router.navigate(['/users'])
+      }
       console.log(value);
+    }, error => {
+      console.log(error);
     });
   }
 

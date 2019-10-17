@@ -20,9 +20,8 @@ export class AppComponent implements OnInit, AfterContentInit, AfterViewChecked 
   }
   ngAfterViewChecked() {
     setTimeout(() => {
-      this.isLogged = this.authService.loggedIn;
-      const user = sessionStorage.getItem('user') !== null ? JSON.parse(sessionStorage.getItem('user')) : null;
-      this.role = user !== null ? user.role : 0;
+      this.isLogged = this.authService.getLogin();
+      this.role = this.authService.getRole();
       this.ref.markForCheck();
     }, 0);
   }

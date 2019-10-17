@@ -16,7 +16,7 @@ export class AuthService {
 
     authChanged = new EventEmitter<boolean>();
     public loggedIn = false;
-    user: User;
+    user: User = null;
     isAuthenticated() {
         const promise = new Promise(
             (resolve, reject) => {
@@ -28,8 +28,10 @@ export class AuthService {
         return promise;
     }
     constructor(private http: HttpClient, private userIdle: UserIdleService) {
-        if (sessionStorage.getItem('user') !== null) {
-            this.user = JSON.parse(localStorage.getItem('user'));
+        if (this.user === null) {
+            this.getUserSession().subscribe(value => {
+                this.user = value !== null ? value : null;
+            });
             console.log(this.user);
             this.loggedIn = true;
         }
@@ -39,7 +41,12 @@ export class AuthService {
         this.userIdle.onTimerStart().subscribe(count => { console.log(count); this.loggedIn = true; });
         this.userIdle.onTimeout().subscribe(() => { console.log('Time is up!'); this.logout(); });
     }
-
+    getLogin() {
+        return this.user !== null ? true : false;
+    }
+    getRole() {
+        return this.user !== null ? this.user.role : 0;
+    }
     login(username: string, password: string): Observable<any> {
         return this.http.post<AuthRespondsData>('https://maid-cafe.ch/controller.php?mode=login', {
             username: username,
@@ -53,7 +60,7 @@ export class AuthService {
 
     logout(): Observable<any> {
         this.stopWatching;
-        sessionStorage.removeItem('user');
+        this.user = null;
         //return this.http.post<AuthRespondsData>('/controller.php?mode=logout', {});
         return this.http.get<AuthRespondsData>('https://maid-cafe.ch/controller.php?mode=logout', {});
     }
