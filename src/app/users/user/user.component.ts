@@ -3,8 +3,10 @@ import { Router } from '@angular/router';
 
 import { User } from 'src/shared/models/user.model';
 import { UserService } from 'src/shared/services/user.service';
-import { AuthService } from 'src/shared/services/auth.service'; 
-import * as $ from 'jquery';
+import { AuthService } from 'src/shared/services/auth.service';
+//import * as $ from 'jquery';
+
+declare function showDialog(name): any;
 
 @Component({
   selector: 'app-user',
@@ -12,9 +14,10 @@ import * as $ from 'jquery';
   styleUrls: ['./user.component.css']
 })
 export class UserComponent implements OnInit, OnDestroy {
-
+  deleteId = 0;
   users: User[];
   loggedUser: User;
+  
   constructor(private userService: UserService, private router: Router, private authService: AuthService) {
     this.getUsers();
   }
@@ -32,7 +35,6 @@ export class UserComponent implements OnInit, OnDestroy {
    */
   ngOnInit() {
     this.authService.getUserSession().subscribe(val => { this.loggedUser = val }, error => { console.log(error); });
-
   }
 
   /**
@@ -48,17 +50,25 @@ export class UserComponent implements OnInit, OnDestroy {
    * @param id 
    */
   onDeleteUser(id: number) {
-    $('#confirmDelete').on('shown.bs.modal', function () {
-      $('#confirmDelete').trigger('focus')
-    });
-    this.userService.deleteUser(id).subscribe(value => {
-      if (value === 'deleted') {
-        this.getUsers();
-      }
-      //console.log(value);
-    }, error => {
-      console.log(error);
-    });
+    //this.show('#confirmDelete');
+    this.deleteId = id;
+  }
+  cancelDelete() {
+    this.deleteId = 0;
+  }
+  confirmDelete() {
+    if (this.deleteId > 0 && this.deleteId + "" !== this.loggedUser.id) {
+      this.userService.deleteUser(this.deleteId).subscribe(value => {
+        if (value === 'deleted') {
+          this.getUsers();
+        }
+        //console.log(value);
+      }, error => {
+        console.log(error);
+      });
+    } else {
+      alert('You cannot delete yourself!');
+    }
   }
 
   /**
@@ -74,7 +84,12 @@ export class UserComponent implements OnInit, OnDestroy {
    * @returns true if logged user 
    */
   checkLoggedUser(id: string = ''): boolean {
-    return this.loggedUser.id === (id !== null || id !== '' || id !== undefined ? id : '');
+    if (this.loggedUser !== undefined) {
+      if (id === this.loggedUser.id) {
+        return true;
+      }
+    }
+    return false;
   }
 
 }
