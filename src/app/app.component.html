@@ -1,14 +1,20 @@
 <div class="container">
   <div class="row">
-    <div class="col">
-      <ul class="nav nav-tabs">
-        <li role="presentation" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}"><a
-            routerLink="/">Menu</a></li>
-        <li role="presentation" routerLinkActive="active" *ngIf="!isLogged"><a routerLink="/login">Login</a></li>
-        <li role="presentation" routerLinkActive="active" *ngIf="isLogged  && role > 33"><a
-            routerLink="/users">Users</a></li>
-        <li role="presentation" routerLinkActive="active" *ngIf="isLogged"><a routerLink="logout">Logout</a></li>
+    <div class="col" role="navigation">
+      <ul class="nav">
+        <li class="nav-item" role="presentation" routerLinkActive="active" [routerLinkActiveOptions]="{exact:false}">
+          <a class="nav-link" routerLink="/">Menu</a>
+        </li>
+        <li class="nav-item" role="presentation" routerLinkActive="active" *ngIf="!isLogged">
+          <a class="nav-link" routerLink="/login">Login</a>
+        </li>
+        <li class="nav-item" role="presentation" routerLinkActive="active" *ngIf="isLogged  && role > 33">
+          <a routerLink="/users">Users</a>
+        </li>
+        <li class="nav-item" role="presentation" routerLinkActive="active" *ngIf="isLogged">
+          <a class="nav-link" routerLink="logout">Logout</a>
+        </li>
       </ul>
     </div>
   </div>
-  <router-outlet></router-outlet>
+  <router-outlet class="container"></router-outlet>

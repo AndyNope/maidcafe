@@ -1,6 +1,7 @@
-import { Offer } from 'src/shared/model/offer.model';
-import { AuthService } from 'src/shared/service/auth.service';
-import { OfferService } from 'src/shared/service/offer.service';
+import { Offer } from 'src/shared/models/offer.model';
+import { AuthService } from 'src/shared/services/auth.service';
+import { FileUploadService } from 'src/shared/services/file-upload.service';
+import { OfferService } from 'src/shared/services/offer.service';
 
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
@@ -14,7 +15,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class AddOfferComponent implements OnInit {
   public offer: Offer;
   offerForm: FormGroup;
-  image = "";
+  image = null;
+  fileToUpload = null;
+
 
   /**
    * Creates an instance of add offer component.
@@ -22,12 +25,14 @@ export class AddOfferComponent implements OnInit {
    * @param offerService 
    * @param router 
    * @param authService 
+   * @param fileUploadService 
    */
   constructor(
     private route: ActivatedRoute,
     private offerService: OfferService,
     private router: Router,
-    private authService: AuthService
+    private authService: AuthService,
+    private fileUploadService:FileUploadService
   ) {
 
   }
@@ -56,8 +61,17 @@ export class AddOfferComponent implements OnInit {
     const name = this.offerForm.value.offername;
     const price = this.offerForm.value.price;
     const description = this.offerForm.value.description;
-    const image = 'https://images.unsplash.com/photo-1535924571710-4c6e27716b6d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1351&q=80';
-
+    const image = this.fileToUpload !== null ? this.fileToUpload.name : this.offerForm.value.image;
+    if (this.fileToUpload !== null) {
+      this.fileUploadService.postfile(this.fileToUpload).subscribe(value => {
+        if(value="not allowed file"){
+          alert('Fileformat not allowed!');
+          return;
+        }
+      }, error => {
+        console.log(error);
+      });
+    }
     this.authService.getUserSession().subscribe(value => {
       //console.log(value);
       var role: number = value.role;
@@ -76,6 +90,21 @@ export class AddOfferComponent implements OnInit {
     }, error => {
       console.log(error);
     });
+  }
+
+/**
+   * Handles file input on changes
+   * @param files 
+   */
+  handleFileInput(files: FileList) {
+    // console.log('FileList:');
+    // console.log(files);
+    this.fileToUpload = files.item(0);
+    var reader = new FileReader();
+    reader.readAsDataURL(files.item(0));
+    reader.onload = (_event) => {
+      this.image = reader.result;
+    };
   }
 
   /**

@@ -1,7 +1,7 @@
-import { Offer } from 'src/shared/model/offer.model';
-import { AuthService } from 'src/shared/service/auth.service';
-import { FileUploadService } from 'src/shared/service/file-upload.service';
-import { OfferService } from 'src/shared/service/offer.service';
+import { Offer } from 'src/shared/models/offer.model';
+import { AuthService } from 'src/shared/services/auth.service';
+import { FileUploadService } from 'src/shared/services/file-upload.service';
+import { OfferService } from 'src/shared/services/offer.service';
 
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
@@ -84,7 +84,10 @@ export class EditOfferComponent implements OnInit {
     const image = this.fileToUpload !== null ? this.fileToUpload.name : this.offerForm.value.image;
     if (this.fileToUpload !== null) {
       this.fileUploadService.postfile(this.fileToUpload).subscribe(value => {
-        //console.log(value);
+        if(value="not allowed file"){
+          alert('Fileformat not allowed!');
+          return;
+        }
       }, error => {
         console.log(error);
       });
@@ -136,7 +139,7 @@ export class EditOfferComponent implements OnInit {
 
 
   /**
-   * Handles file input
+   * Handles file input on changes
    * @param files 
    */
   handleFileInput(files: FileList) {

@@ -17,7 +17,7 @@ import { AddOfferComponent } from './menu/add-offer/add-offer.component';
 import { EditUserComponent } from './users/edit-user/edit-user.component';
 import { AddUserComponent } from './users/add-user/add-user.component';
 
-import { AuthService } from '../shared/service/auth.service';
+import { AuthService } from '../shared/services/auth.service';
 
 import { AppRoutingModule } from '../shared/module/app-routing.module';
 

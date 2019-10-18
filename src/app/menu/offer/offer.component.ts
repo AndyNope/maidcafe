@@ -1,6 +1,6 @@
-import { Offer } from 'src/shared/model/offer.model';
-import { AuthService } from 'src/shared/service/auth.service';
-import { OfferService } from 'src/shared/service/offer.service';
+import { Offer } from 'src/shared/models/offer.model';
+import { AuthService } from 'src/shared/services/auth.service';
+import { OfferService } from 'src/shared/services/offer.service';
 
 import {
     AfterViewChecked, ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit

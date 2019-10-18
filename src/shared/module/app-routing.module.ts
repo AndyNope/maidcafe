@@ -14,7 +14,7 @@ import { EditUserComponent } from '../../app/users/edit-user/edit-user.component
 import { AddUserComponent } from '../../app/users/add-user/add-user.component';
 
 //Service
-import { AuthGuard } from '../service/auth-guard.service';
+import { AuthGuard } from '../services/auth-guard.service';
 
 const appRoutes: Routes = [
     { path: '', component: MenuComponent }, 

@@ -1,11 +1,10 @@
 import { UserIdleService } from 'angular-user-idle';
-import { logging } from 'protractor';
 import { Observable } from 'rxjs';
 
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { EventEmitter, Injectable, OnInit } from '@angular/core';
 
-import { User } from '../model/user.model';
+import { User } from '../models/user.model';
 
 interface AuthRespondsData {
     username: string;

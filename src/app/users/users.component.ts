@@ -21,6 +21,4 @@ export class UsersComponent implements OnInit {
   onAddUser(){
     this.router.navigate(['/add-user']);
   }
-
-
 }

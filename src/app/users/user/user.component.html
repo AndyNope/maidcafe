@@ -1,10 +1,56 @@
-<div class="mx-auto" *ngFor="let user of users">
-    <p>
-        {{ user.username }} - 
-        {{ user.email }} - 
-        {{ user.role }} - 
-        {{ user.created }} 
-        <button class="btn btn-default float-sm-right" (click)="onEditUser(user.id)">Edit</button> 
-        <button *ngIf="!checkLoggedUser(user.id)" class="btn btn-danger float-sm-right" (click)="onDeleteUser(user.id)">Delete</button>
-    </p>
+<div class="row">
+    <div class="col">
+        <h5>Username</h5>
+    </div>
+    <div class="col">
+        <h5>E-Mail</h5>
+    </div>
+    <div class="col">
+        <h5>Role</h5>
+    </div>
+    <div class="col">
+        <h5>Created</h5>
+    </div>
+    <div class="col-auto">
+        <button class="invisible">Edit</button>
+    </div>
+    <div class="col-auto">
+        <button class="invisible">Delete</button>
+    </div>
+</div>
+<div class="row" (updateView)="onDeleteUser($event)" *ngFor="let user of users">
+    <div class="col"> {{ user.username }} </div>
+    <div class="col"> {{ user.email }} </div>
+    <div class="col"> {{ user.role }} </div>
+    <div class="col"> {{ user.created | date:'d. MMMM y H:mm:ss' }} </div>
+    <div class="col-auto">
+        <button class="btn btn-dark" 
+            (click)="onEditUser(user.id)">Edit</button>
+    </div>
+    <div class="col-auto">
+        <button [style.visibility]="checkLoggedUser(user.id)" class="btn btn-danger"
+            (click)="onDeleteUser(user.id)">Delete</button>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="confirmDelete" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="confirmDelete">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Are you sure?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary">Delete</button>
+            </div>
+        </div>
+    </div>
 </div>
