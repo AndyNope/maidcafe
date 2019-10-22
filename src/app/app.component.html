@@ -1,16 +1,20 @@
-<div class="container">
+<div class="container-fluid">
   <div class="row">
-    <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
-      <ul class="nav nav-tabs">
-        <li role="presentation" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}"><a
-            routerLink="/">Menu</a></li>
-        <li role="presentation" routerLinkActive="active"><a routerLink="/login">login</a></li>
-        <li role="presentation" routerLinkActive="active"><a routerLink="/users">Users</a></li>
+    <div class="col" role="navigation">
+      <ul class="nav">
+        <li class="nav-item" role="presentation" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
+          <a class="nav-link" routerLink="/">Menu</a>
+        </li>
+        <li class="nav-item" role="presentation" routerLinkActive="active" *ngIf="!isLogged">
+          <a class="nav-link" routerLink="/login">Login</a>
+        </li>
+        <li class="nav-item" role="presentation" routerLinkActive="active" *ngIf="isLogged  && role > 33">
+          <a class="nav-link" routerLink="/users">Users</a>
+        </li>
+        <li class="nav-item" role="presentation" routerLinkActive="active" *ngIf="isLogged">
+          <a class="nav-link" routerLink="logout">Logout</a>
+        </li>
       </ul>
     </div>
   </div>
-  <div class="row">
-    <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
-      <router-outlet></router-outlet>
-    </div>
-  </div>
+  <router-outlet class="container-fluid"></router-outlet>

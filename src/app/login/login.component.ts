@@ -1,61 +1,98 @@
-import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { AppComponent } from '../app.component';
 import { Observable, Subscription } from 'rxjs';
-import { AuthService }
-  from './auth.service';
 
+import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
+import { AuthService } from '../shared/services/auth.service';
+
+/**
+ * Component
+ */
 @Component({
   selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls:
-    ['./login.component.css']
+  templateUrl: './login.component.html'
 })
+
 export class LoginComponent implements OnInit {
-  isLogged =
-    false;
   loginForm: FormGroup;
+  loadedUser: string;
   statusList = ['Stable', 'Critical', 'Finished'];
 
-  constructor(private authService: AuthService) { }
+  /**
+   * Creates an instance of login component.
+   * @param authService 
+   * @param router 
+   */
+  constructor(private authService: AuthService, private router: Router) { }
 
+  /**
+   * on init
+   */
   ngOnInit() {
     this.loginForm = new FormGroup({
-      'username': new FormControl(null, [Validators.required, LoginComponent.invalidProjectName]),
-      'password': new FormControl(null, [Validators.required])
+      'username': new FormControl(
+        null, 
+        [Validators.required, LoginComponent.invalidUsername]
+        ),
+      'password': new FormControl(
+        null, [Validators.required]
+        )
     });
+    this.authService.init();
   }
 
-
+  /**
+   * Determines whether submit on
+   */
   onSubmit() {
-    console.log(this.loginForm.value);
     const username = this.loginForm.value.username;
     const password = this.loginForm.value.password;
     this.authService.login(username, password).subscribe(
       (value: any) => {
-        console.log(value);
-      }
-    );
+        if (value !== "Benutzer nicht gefunden!" && value !== "Passwort ist falsch!") {
+          this.loadedUser = value;
+          this.authService.setUser(value);
+          this.authService.startWatching();
+          sessionStorage.setItem('user', JSON.stringify(value));
+          this.router.navigate(['/']);
+        } else {
+          console.log('Login failed');
+          alert('Login failed');
+        }
+      }, error => {
+        console.log(error);
+        alert(error);
+      });
     this.loginForm.reset();
   }
 
-  static invalidProjectName(control: FormControl): { [s: string]: boolean } {
-    if (control.value === 'Test') {
-      return { 'invalidProjectName': true }
+  /**
+   * Invalids username
+   * @param control 
+   * @returns username 
+   */
+  static invalidUsername(control: FormControl): { [s: string]: boolean } {
+    if (control.value === 'Test') { //Regex
+      return { 'invalidUsername': true }
     }
     return null;
   }
 
-  static asyncInvalidProjectName(control: FormControl): Promise<any> | Observable<any> {
+  /**
+   * Asyncs invalid username
+   * @param control 
+   * @returns invalid username 
+   */
+  static asyncInvalidUsername(control: FormControl): Promise<any> | Observable<any> {
     const promise = new Promise((resolve, reject) => {
       setTimeout(() => {
         if (control.value === 'Testproject') {
-          resolve({ 'invalidProjectName': true });
+          resolve({ 'invalidUsername': true });
         } else {
           resolve(null);
         }
-      }, 2000);
+      }, 300);
     });
     return promise;
   }

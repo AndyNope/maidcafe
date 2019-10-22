@@ -1,1 +1,56 @@
-<p>user works!</p>
+<div class="row mb-5">
+    <div class="col">
+        <h5>Username</h5>
+    </div>
+    <div class="col">
+        <h5>E-Mail</h5>
+    </div>
+    <div class="col">
+        <h5>Role</h5>
+    </div>
+    <div class="col">
+        <h5>Created</h5>
+    </div>
+    <div class="col-auto">
+        <button class="invisible">Edit</button>
+    </div>
+    <div class="col-auto">
+        <button class="invisible">Delete</button>
+    </div>
+</div>
+<div class="row mb-5" (updateView)="onDeleteUser($event)" *ngFor="let user of users">
+    <div class="col"> {{ user.username }} </div>
+    <div class="col"> {{ user.email }} </div>
+    <div class="col"> {{ user.role }} </div>
+    <div class="col"> {{ user.created | date:'d. MMMM y H:mm:ss' }} </div>
+    <div class="col-auto">
+        <button class="btn btn-dark" 
+            (click)="onEditUser(user.id)">Edit</button>
+    </div>
+    <div class="col-auto">
+        <button [style.visibility]="checkLoggedUser(user.id)?'hidden':'visible'" class="btn btn-danger" data-toggle="modal" data-target="#confirmDelete"
+            (click)="onDeleteUser(user.id)">Delete</button>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="confirmDelete" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="false">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="confirmDelete">Delete this User?</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="false">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Are you sure?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="cancelDelete()" >Cancel</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="confirmDelete()">Delete</button>
+            </div>
+        </div>
+    </div>
+</div>
