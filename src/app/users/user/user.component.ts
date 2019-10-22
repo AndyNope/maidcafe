@@ -1,9 +1,9 @@
 import { Component, OnInit, OnDestroy, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { User } from 'src/shared/models/user.model';
-import { UserService } from 'src/shared/services/user.service';
-import { AuthService } from 'src/shared/services/auth.service';
+import { User } from 'src/app/shared/models/user.model';
+import { UserService } from 'src/app/shared/services/user.service';
+import { AuthService } from 'src/app/shared/services/auth.service';
 //import * as $ from 'jquery';
 
 declare function showDialog(name): any;

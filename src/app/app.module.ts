@@ -17,11 +17,14 @@ import { AddOfferComponent } from './menu/add-offer/add-offer.component';
 import { EditUserComponent } from './users/edit-user/edit-user.component';
 import { AddUserComponent } from './users/add-user/add-user.component';
 
-import { AuthService } from '../shared/services/auth.service';
+import { AuthService } from './shared/services/auth.service';
 
-import { AppRoutingModule } from '../shared/module/app-routing.module';
+import { AppRoutingModule } from './shared/module/app-routing.module';
 
 import { UserIdleModule } from 'angular-user-idle';
+import { ConfirmationComponent } from './confirmation/confirmation.component';
+import { AlertComponent } from './alert/alert.component';
+import { SuccessComponent } from './success/success.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +40,10 @@ import { UserIdleModule } from 'angular-user-idle';
     EditOfferComponent,
     AddOfferComponent,
     EditUserComponent,
-    AddUserComponent
+    AddUserComponent,
+    ConfirmationComponent,
+    AlertComponent,
+    SuccessComponent
   ],
   imports: [
     BrowserModule,

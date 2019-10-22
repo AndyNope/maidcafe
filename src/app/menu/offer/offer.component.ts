@@ -1,19 +1,15 @@
-import { Offer } from 'src/shared/models/offer.model';
-import { AuthService } from 'src/shared/services/auth.service';
-import { OfferService } from 'src/shared/services/offer.service';
+import { Offer } from 'src/app/shared/models/offer.model';
+import { AuthService } from 'src/app/shared/services/auth.service';
+import { OfferService } from 'src/app/shared/services/offer.service';
 
-import {
-    AfterViewChecked, ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit
-} from '@angular/core';
+import { AfterViewChecked, Component, } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-offer',
-  templateUrl: './offer.component.html',
-  styleUrls: ['./offer.component.css'],
-  // changeDetection: ChangeDetectionStrategy.OnPush
+  templateUrl: './offer.component.html'
 })
-export class OfferComponent implements AfterViewChecked, OnDestroy {
+export class OfferComponent implements AfterViewChecked {
   isLogged = false;
   role = 0;
 
@@ -30,12 +26,9 @@ export class OfferComponent implements AfterViewChecked, OnDestroy {
     private offerService: OfferService,
     private authService: AuthService,
     private router: Router,
-    private ref: ChangeDetectorRef
   ) {
     this.offerService.getOffers().subscribe(
       (value: any) => {
-        console.log('Result: ');
-        //console.log(value);
         this.offers = value;
       }
     );
@@ -55,13 +48,6 @@ export class OfferComponent implements AfterViewChecked, OnDestroy {
   ngAfterViewChecked() {
     this.isLogged = this.authService.getLogin();
     this.role = this.authService.getRole();
-  }
-
-  /**
-   * on destroy
-   */
-  ngOnDestroy() {
-
   }
 
 }

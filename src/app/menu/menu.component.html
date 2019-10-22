@@ -3,7 +3,12 @@
         <h1>Menu</h1>
     </div>
     <div class="col-md-auto">
-        <button class="btn btn-success" (click)="addOffer()" *ngIf="isLogged && role > 33">Add Menu</button>
+        <button 
+            class="btn btn-success" 
+            (click)="addOffer()" 
+            *ngIf="isLogged && role > 33">
+            Add Menu
+        </button>
     </div>
 </div>
 

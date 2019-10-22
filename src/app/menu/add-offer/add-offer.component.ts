@@ -1,7 +1,7 @@
-import { Offer } from 'src/shared/models/offer.model';
-import { AuthService } from 'src/shared/services/auth.service';
-import { FileUploadService } from 'src/shared/services/file-upload.service';
-import { OfferService } from 'src/shared/services/offer.service';
+import { Offer } from 'src/app/shared/models/offer.model';
+import { AuthService } from 'src/app/shared/services/auth.service';
+import { FileUploadService } from 'src/app/shared/services/file-upload.service';
+import { OfferService } from 'src/app/shared/services/offer.service';
 
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
@@ -9,8 +9,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-offer',
-  templateUrl: './add-offer.component.html',
-  styleUrls: ['./add-offer.component.css']
+  templateUrl: './add-offer.component.html'
 })
 export class AddOfferComponent implements OnInit {
   public offer: Offer;
@@ -32,7 +31,7 @@ export class AddOfferComponent implements OnInit {
     private offerService: OfferService,
     private router: Router,
     private authService: AuthService,
-    private fileUploadService:FileUploadService
+    private fileUploadService: FileUploadService
   ) {
 
   }
@@ -44,8 +43,8 @@ export class AddOfferComponent implements OnInit {
   ngOnInit() {
     this.offerForm = new FormGroup({
       'offer_id': new FormControl(''),
-      'offername': new FormControl('',[Validators.required]),
-      'price': new FormControl('',[Validators.required]),
+      'offername': new FormControl('', [Validators.required]),
+      'price': new FormControl('', [Validators.required]),
       'description': new FormControl(''),
       'imageUpload': new FormControl(''),
       'image': new FormControl('')
@@ -56,15 +55,17 @@ export class AddOfferComponent implements OnInit {
    * Add a new user
    */
   onSubmit() {
-    console.log('saving');
     const id = 0;
     const name = this.offerForm.value.offername;
     const price = this.offerForm.value.price;
     const description = this.offerForm.value.description;
-    const image = this.fileToUpload !== null ? this.fileToUpload.name : this.offerForm.value.image;
+    const image = this.fileToUpload !== null
+      ? this.fileToUpload.name
+      : this.offerForm.value.image;
+
     if (this.fileToUpload !== null) {
       this.fileUploadService.postfile(this.fileToUpload).subscribe(value => {
-        if(value="not allowed file"){
+        if (value = "not allowed file") {
           alert('Fileformat not allowed!');
           return;
         }
@@ -73,7 +74,6 @@ export class AddOfferComponent implements OnInit {
       });
     }
     this.authService.getUserSession().subscribe(value => {
-      //console.log(value);
       var role: number = value.role;
       if (role > 33) {
         this.offerService.saveOffer(id, name, price, description, image).subscribe((value: any) => {
@@ -92,10 +92,10 @@ export class AddOfferComponent implements OnInit {
     });
   }
 
-/**
-   * Handles file input on changes
-   * @param files 
-   */
+  /**
+     * Handles file input on changes
+     * @param files 
+     */
   handleFileInput(files: FileList) {
     // console.log('FileList:');
     // console.log(files);

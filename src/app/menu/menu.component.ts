@@ -3,12 +3,11 @@ import {
 } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { AuthService } from '../../shared/services/auth.service';
+import { AuthService } from '../shared/services/auth.service';
 
 @Component({
   selector: 'app-menu',
-  templateUrl: './menu.component.html',
-  styleUrls: ['./menu.component.css'],
+  templateUrl: './menu.component.html'
 })
 export class MenuComponent implements OnInit, AfterViewChecked {
 

@@ -2,16 +2,16 @@ import { Routes, RouterModule } from "@angular/router";
 import { NgModule } from '@angular/core';
 
 //components
-import { MenuComponent } from '../../app/menu/menu.component';
-import { UsersComponent } from '../../app/users/users.component';
-import { LoginComponent } from '../../app/login/login.component';
-import { ErrorPageComponent } from '../../app/error-page/error-page.component';
-import { UserComponent } from '../../app/users/user/user.component';
-import { LogoutComponent } from '../../app/logout/logout.component';
-import { EditOfferComponent } from '../../app/menu/edit-offer/edit-offer.component';
-import { AddOfferComponent } from '../../app/menu/add-offer/add-offer.component';
-import { EditUserComponent } from '../../app/users/edit-user/edit-user.component';
-import { AddUserComponent } from '../../app/users/add-user/add-user.component';
+import { MenuComponent } from '../../menu/menu.component';
+import { UsersComponent } from '../../users/users.component';
+import { LoginComponent } from '../../login/login.component';
+import { ErrorPageComponent } from '../../error-page/error-page.component';
+import { UserComponent } from '../../users/user/user.component';
+import { LogoutComponent } from '../../logout/logout.component';
+import { EditOfferComponent } from '../../menu/edit-offer/edit-offer.component';
+import { AddOfferComponent } from '../../menu/add-offer/add-offer.component';
+import { EditUserComponent } from '../../users/edit-user/edit-user.component';
+import { AddUserComponent } from '../../users/add-user/add-user.component';
 
 //Service
 import { AuthGuard } from '../services/auth-guard.service';

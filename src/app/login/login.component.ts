@@ -4,16 +4,14 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
-import { AuthService } from '../../shared/services/auth.service';
+import { AuthService } from '../shared/services/auth.service';
 
 /**
  * Component
  */
 @Component({
   selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls:
-    ['./login.component.css']
+  templateUrl: './login.component.html'
 })
 
 export class LoginComponent implements OnInit {
@@ -33,8 +31,13 @@ export class LoginComponent implements OnInit {
    */
   ngOnInit() {
     this.loginForm = new FormGroup({
-      'username': new FormControl(null, [Validators.required, LoginComponent.invalidUsername]),
-      'password': new FormControl(null, [Validators.required])
+      'username': new FormControl(
+        null, 
+        [Validators.required, LoginComponent.invalidUsername]
+        ),
+      'password': new FormControl(
+        null, [Validators.required]
+        )
     });
     this.authService.init();
   }
@@ -43,13 +46,10 @@ export class LoginComponent implements OnInit {
    * Determines whether submit on
    */
   onSubmit() {
-    console.log('Input: ' + this.loginForm.value.username + " " + this.loginForm.value.password);
     const username = this.loginForm.value.username;
     const password = this.loginForm.value.password;
     this.authService.login(username, password).subscribe(
       (value: any) => {
-        //console.log('Result: ');
-        //console.log(value);
         if (value !== "Benutzer nicht gefunden!" && value !== "Passwort ist falsch!") {
           this.loadedUser = value;
           this.authService.setUser(value);

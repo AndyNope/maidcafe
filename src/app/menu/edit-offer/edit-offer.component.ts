@@ -1,7 +1,7 @@
-import { Offer } from 'src/shared/models/offer.model';
-import { AuthService } from 'src/shared/services/auth.service';
-import { FileUploadService } from 'src/shared/services/file-upload.service';
-import { OfferService } from 'src/shared/services/offer.service';
+import { Offer } from 'src/app/shared/models/offer.model';
+import { AuthService } from 'src/app/shared/services/auth.service';
+import { FileUploadService } from 'src/app/shared/services/file-upload.service';
+import { OfferService } from 'src/app/shared/services/offer.service';
 
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
@@ -9,8 +9,7 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 
 @Component({
   selector: 'app-edit-offer',
-  templateUrl: './edit-offer.component.html',
-  styleUrls: ['./edit-offer.component.css']
+  templateUrl: './edit-offer.component.html'
 })
 export class EditOfferComponent implements OnInit {
 
@@ -38,8 +37,6 @@ export class EditOfferComponent implements OnInit {
     const id = this.route.snapshot.params['id'];
     this.offerService.getOfferById(id).subscribe(
       (value: any) => {
-        console.log('Result OfferForm: ');
-        console.log(value);
         this.offer = value;
         this.offerForm = new FormGroup({
           'offer_id': new FormControl(value.id),
@@ -76,14 +73,14 @@ export class EditOfferComponent implements OnInit {
    * Determines whether submit on
    */
   onSubmit() {
-    console.log('saving');
     const id = this.offerForm.value.offer_id;
     const name = this.offerForm.value.offername;
     const price = this.offerForm.value.price;
     const description = this.offerForm.value.description;
     const image = this.fileToUpload !== null ? this.fileToUpload.name : this.offerForm.value.image;
     if (this.fileToUpload !== null) {
-      this.fileUploadService.postfile(this.fileToUpload).subscribe(value => {
+      this.fileUploadService.postfile(this.fileToUpload)
+      .subscribe(value => {
         if(value="not allowed file"){
           alert('Fileformat not allowed!');
           return;
@@ -96,16 +93,15 @@ export class EditOfferComponent implements OnInit {
       //console.log(value);
       const role: number = value.role;
       if (role > 33) {
-        this.offerService.saveOffer(id, name, price, description, (!this.fileToUpload !== null ? '/upload/' : '') + image).subscribe((value: any) => {
-          //console.log(value);
+        this.offerService.saveOffer(
+          id, name, price, description, 
+          (!this.fileToUpload !== null ? '/upload/' : '') + image)
+          .subscribe((value: any) => {
           if (value === "saved") {
-            console.log('save successful');
-            alert('save successful');
             this.router.navigate(['/']);
           }
         });
       } else {
-        console.log('Sie haben keine Berechtigung');
         alert('Sie haben keine Berechtigung');
         this.router.navigate(['/']);
       }
@@ -122,7 +118,6 @@ export class EditOfferComponent implements OnInit {
     this.offerService.deleteOffer(id).subscribe(
       (value: any) => {
         if (value === "deleted") {
-          console.log('deleted');
           alert('Delete successful');
           this.router.navigate(['/']);
         }
