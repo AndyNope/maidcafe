@@ -1,20 +1,32 @@
 import { UserService } from 'src/app/shared/services/user.service';
 
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import {
+  FormControl,
+  FormGroup,
+  Validators
+} from '@angular/forms';
 import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-user',
-  templateUrl: './add-user.component.html',
-  styleUrls: ['./add-user.component.css']
+  templateUrl: './add-user.component.html'
 })
 export class AddUserComponent implements OnInit {
   userForm: FormGroup;
   roleList = [
     'helper', 'service', 'admin'
   ];
-  constructor(private router: Router, private userService: UserService) { }
+
+  /**
+   * Creates an instance of add user component.
+   * @param router 
+   * @param userService 
+   */
+  constructor(
+    private router: Router,
+    private userService: UserService
+  ) { }
 
   /**
    * on init
@@ -46,7 +58,7 @@ export class AddUserComponent implements OnInit {
         if (val === 'added') {
           alert('added');
           this.router.navigate(['/users']);
-        }else{
+        } else {
           alert(val);
         }
       });

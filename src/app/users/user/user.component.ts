@@ -4,29 +4,29 @@ import { Router } from '@angular/router';
 import { User } from 'src/app/shared/models/user.model';
 import { UserService } from 'src/app/shared/services/user.service';
 import { AuthService } from 'src/app/shared/services/auth.service';
-//import * as $ from 'jquery';
 
 declare function showDialog(name): any;
 
 @Component({
   selector: 'app-user',
-  templateUrl: './user.component.html',
-  styleUrls: ['./user.component.css']
+  templateUrl: './user.component.html'
 })
 export class UserComponent implements OnInit, OnDestroy {
   deleteId = 0;
   users: User[];
   loggedUser: User;
-  
-  constructor(private userService: UserService, private router: Router, private authService: AuthService) {
+
+  constructor(
+    private userService: UserService,
+    private router: Router,
+    private authService: AuthService
+  ) {
     this.getUsers();
   }
 
 
   private getUsers() {
     this.userService.getUsers().subscribe(value => {
-      console.log('Result: ');
-      //console.log(value);
       this.users = value;
     });
   }
@@ -34,7 +34,16 @@ export class UserComponent implements OnInit, OnDestroy {
    * on init
    */
   ngOnInit() {
-    this.authService.getUserSession().subscribe(val => { this.loggedUser = val }, error => { console.log(error); });
+    this.authService.getUserSession().subscribe(val => {
+      if(val !== null){
+        this.loggedUser = val;
+      }else{
+        alert('Sie haben keine Berechtigung!')
+        this.router.navigate(['/']);
+      }
+    }, error => {
+      console.log(error);
+    });
   }
 
   /**
@@ -62,7 +71,6 @@ export class UserComponent implements OnInit, OnDestroy {
         if (value === 'deleted') {
           this.getUsers();
         }
-        //console.log(value);
       }, error => {
         console.log(error);
       });

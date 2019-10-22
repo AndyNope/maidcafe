@@ -16,7 +16,9 @@ export class LogoutComponent implements OnInit {
    */
   constructor(private authService: AuthService, private router: Router) {
     this.authService.setLoginFalse();
+    setTimeout(() => {
       router.navigate(['/']);
+    }, 300);
   }
 
   /**
