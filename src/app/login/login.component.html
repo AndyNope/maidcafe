@@ -1,4 +1,8 @@
+<app-delete-modal></app-delete-modal>
 <h1>Login</h1>
+<div *ngIf="alertMessage" class="alert alert-danger">
+    {{ alertMessage }}
+</div>
 <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
     <div class="form-group">
         <label for="username">

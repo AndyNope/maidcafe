@@ -17,6 +17,7 @@ import { AuthService } from '../shared/services/auth.service';
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   loadedUser: string;
+  alertMessage: string;
   statusList = ['Stable', 'Critical', 'Finished'];
 
   /**
@@ -30,14 +31,15 @@ export class LoginComponent implements OnInit {
    * on init
    */
   ngOnInit() {
+    this.alertMessage = "";
     this.loginForm = new FormGroup({
       'username': new FormControl(
-        null, 
+        null,
         [Validators.required, LoginComponent.invalidUsername]
-        ),
+      ),
       'password': new FormControl(
         null, [Validators.required]
-        )
+      )
     });
     this.authService.init();
   }
@@ -50,15 +52,14 @@ export class LoginComponent implements OnInit {
     const password = this.loginForm.value.password;
     this.authService.login(username, password).subscribe(
       (value: any) => {
-        if (value !== "Benutzer nicht gefunden!" && value !== "Passwort ist falsch!") {
+        if (value === "Benutzer nicht gefunden!" || value === "Passwort ist falsch!") {
+          this.alertMessage = value;
+        } else {
           this.loadedUser = value;
           this.authService.setUser(value);
           this.authService.startWatching();
           sessionStorage.setItem('user', JSON.stringify(value));
           this.router.navigate(['/']);
-        } else {
-          console.log('Login failed');
-          alert('Login failed');
         }
       }, error => {
         console.log(error);
