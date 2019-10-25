@@ -58,14 +58,13 @@ export class LoginComponent implements OnInit {
           this.loadedUser = value;
           this.authService.setUser(value);
           this.authService.startWatching();
-          sessionStorage.setItem('user', JSON.stringify(value));
+          this.loginForm.reset();
           this.router.navigate(['/']);
         }
       }, error => {
         console.log(error);
         alert(error);
       });
-    this.loginForm.reset();
   }
 
   /**

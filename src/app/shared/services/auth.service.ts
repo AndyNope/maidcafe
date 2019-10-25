@@ -1,8 +1,8 @@
 import { UserIdleService } from 'angular-user-idle';
 import { Observable } from 'rxjs';
 
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { EventEmitter, Injectable, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { EventEmitter, Injectable } from '@angular/core';
 
 import { User } from '../models/user.model';
 
@@ -38,7 +38,7 @@ export class AuthService {
      * @param userIdle 
      */
     constructor(private http: HttpClient, private userIdle: UserIdleService) {
-        if(this.user === null){
+        if (this.user === null) {
             this.getUserSession().subscribe(value => {
                 this.user = value !== null ? value : null;
             });
@@ -67,6 +67,7 @@ export class AuthService {
     getRole() {
         return this.user === null ? 0 : this.user.role;
     }
+
     /**
      * Logins auth service
      * @param username 
@@ -74,9 +75,21 @@ export class AuthService {
      * @returns login 
      */
     login(username: string, password: string): Observable<any> {
+        this.startWatching();
         return this.http.post<AuthRespondsData>('https://maid-cafe.ch/controller.php?mode=login', {
             username: username,
             password: password
+        });
+    }
+
+
+    /**
+     * Requests a new password
+     * @param email 
+     */
+    requestNewPassword(email: string): Observable<string> {
+        return this.http.post<string>('https://maid-cafe.ch/controller.php?mode=forgotPassword', {
+            email: email
         });
     }
 
@@ -87,13 +100,14 @@ export class AuthService {
     getUserSession(): Observable<any> {
         return this.http.get<User>('https://maid-cafe.ch/controller.php?mode=getUserSession', {});
     }
-
+    getUsername(){
+        return this.user.username;
+    }
     /**
      * Logouts auth service
      * @returns logout 
      */
-    logout(): Observable<any> {
-        //return this.http.post<AuthRespondsData>('/controller.php?mode=logout', {});
+    logout(): Observable<User> {
         return this.http.get<User>('https://maid-cafe.ch/controller.php?mode=logout', {});
     }
 

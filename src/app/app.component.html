@@ -37,10 +37,21 @@
           *ngIf="isLogged">
           <a 
             class="nav-link" 
-            routerLink="logout">
-            Logout
+            routerLink="edit-me">
+            {{ username }} <i class="fa fa-user"></i>
           </a>
         </li>
+        <li 
+        class="nav-item" 
+        role="presentation" 
+        routerLinkActive="active" 
+        *ngIf="isLogged">
+        <a 
+          class="nav-link" 
+          routerLink="logout">
+          Logout <i class="fa fa-sign-out"></i>
+        </a>
+      </li>
       </ul>
     </div>
   </div>

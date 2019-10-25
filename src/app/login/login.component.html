@@ -1,4 +1,4 @@
-<app-delete-modal></app-delete-modal>
+<app-forgotpassword-modal></app-forgotpassword-modal>
 <h1>Login</h1>
 <div *ngIf="alertMessage" class="alert alert-danger">
     {{ alertMessage }}
@@ -31,3 +31,12 @@
         Login
     </button>
 </form>
+
+<hr>
+<a 
+    class="text-primary" 
+    style="cursor: pointer;"
+    data-toggle="modal" 
+    data-target="#requestPassword"
+    >Passwort vergessen
+</a>

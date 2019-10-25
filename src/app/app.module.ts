@@ -26,6 +26,7 @@ import { AlertComponent } from './shared/modal/alert/alert.component';
 import { SuccessComponent } from './shared/modal/success/success.component';
 import { DeleteModalComponent } from './shared/modal/delete-modal/delete-modal.component';
 import { ForgotpasswordModalComponent } from './shared/modal/forgotpassword-modal/forgotpassword-modal.component';
+import { EditMeComponent } from './edit-me/edit-me.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +46,8 @@ import { ForgotpasswordModalComponent } from './shared/modal/forgotpassword-moda
     AlertComponent,
     SuccessComponent,
     DeleteModalComponent,
-    ForgotpasswordModalComponent
+    ForgotpasswordModalComponent,
+    EditMeComponent
   ],
   imports: [
     BrowserModule,

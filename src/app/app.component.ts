@@ -15,6 +15,7 @@ export class AppComponent implements AfterViewChecked {
 
   isLogged: boolean;
   role: number = 0;
+  username: string = '';
 
   /**
    * Creates an instance of app component.
@@ -26,18 +27,15 @@ export class AppComponent implements AfterViewChecked {
   }
 
   /**
-   * Sets islogged
-   */
-  setIslogged() {
-  }
-
-  /**
    * listening to changes
    */
   ngAfterViewChecked() {
     setTimeout(() => {
       this.isLogged = this.authService.getLogin();
       this.role = this.authService.getRole();
+      if (this.isLogged) {
+        this.username = this.authService.getUsername();
+      }
       this.ref.markForCheck();
     }, 0);
   }

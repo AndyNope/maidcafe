@@ -17,7 +17,7 @@ export class OfferService {
    * Gets offers
    * @returns offers 
    */
-  getOffers(): Observable<any> {
+  getOffers(): Observable<Offer> {
     return this.http.get<Offer>('https://maid-cafe.ch/controller.php?mode=getOffers', {});
   }
 
@@ -26,8 +26,10 @@ export class OfferService {
    * @param id 
    * @returns offer 
    */
-  deleteOffer(id: number): Observable<any> {
-    return this.http.get<Offer>('https://maid-cafe.ch/controller.php?mode=deleteOffer&id=' + id, { responseType: 'json' });
+  deleteOffer(id: number): Observable<Offer> {
+    return this.http.post<Offer>('https://maid-cafe.ch/controller.php?mode=deleteOffer', { 
+      id: id
+     });
   }
 
   /**
@@ -35,7 +37,7 @@ export class OfferService {
    * @param id 
    * @returns offer by id 
    */
-  getOfferById(id: number): Observable<any> {
+  getOfferById(id: number): Observable<Offer> {
     return this.http.get<Offer>('https://maid-cafe.ch/controller.php?mode=getOfferById&id=' + id, { responseType: 'json' });
   }
 
