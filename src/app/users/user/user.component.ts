@@ -12,7 +12,7 @@ import { DeleteModalComponent } from 'src/app/shared/modal/delete-modal/delete-m
   templateUrl: './user.component.html'
 })
 export class UserComponent implements OnInit {
-  @ViewChild(DeleteModalComponent, { static: false }) private deleteModal: DeleteModalComponent;
+  @ViewChild(DeleteModalComponent, { static: true }) private deleteModal: DeleteModalComponent;
   deleteId = 0;
   users: User[];
   loggedUser: User;
@@ -26,11 +26,14 @@ export class UserComponent implements OnInit {
     this.getUsers();
   }
 
+  refreshList() {
+    this.getUsers();
+  }
 
   /**
    * Gets users
    */
-  private getUsers() {
+  getUsers() {
     this.userService.getUsers().subscribe(value => {
       this.users = value;
     });
@@ -71,7 +74,7 @@ export class UserComponent implements OnInit {
     if (!this.checkLoggedUser('' + id)) {
       this.deleteModal.onDelete(type, title, body, id);
       this.deleteId = id;
-    }else{
+    } else {
       this.deleteModal.onDelete(type, 'Sie können sich selber nicht löschen!', '', id);
     }
   }

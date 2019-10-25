@@ -1,14 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
+import { MessageService } from '../shared/services/message.service';
+
 @Component({
   selector: 'app-users',
   templateUrl: './users.component.html'
 })
 export class UsersComponent implements OnInit {
 
-  constructor(private router:Router) {
-
+  constructor(
+    private router: Router,
+    private messageService: MessageService
+  ) {
+    messageService.resetMessages();
   }
 
   ngOnInit() {
@@ -17,7 +22,7 @@ export class UsersComponent implements OnInit {
   /**
    * Navigate to add user form
    */
-  onAddUser(){
+  onAddUser() {
     this.router.navigate(['/add-user']);
   }
 }

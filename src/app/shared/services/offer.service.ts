@@ -26,7 +26,7 @@ export class OfferService {
    * @param id 
    * @returns offer 
    */
-  deleteOffer(id: number): Observable<Offer> {
+  deleteOffer(id: number): Observable<any> {
     return this.http.post<Offer>('https://maid-cafe.ch/controller.php?mode=deleteOffer', { 
       id: id
      });

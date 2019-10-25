@@ -1,3 +1,4 @@
+<app-delete-modal></app-delete-modal>
 <h1>Edit User</h1>
 <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
     <div class="form-group">
@@ -64,7 +65,9 @@
     </button>
     <div 
         class="btn btn-danger" 
-        (click)="deleteUser()"
+        (click)="onDeleteUser(deleteId)"
+        data-toggle="modal" 
+        data-target="#confirmDelete"
         >Delete
     </div>
     <div 

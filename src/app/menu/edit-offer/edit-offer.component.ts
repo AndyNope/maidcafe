@@ -18,6 +18,7 @@ export class EditOfferComponent implements OnInit {
   fileToUpload = null;
   imageUpload = null;
   image = null;
+  removedImage = false;
 
   /**
    * Creates an instance of edit offer component.
@@ -60,9 +61,9 @@ export class EditOfferComponent implements OnInit {
   ngOnInit() {
 
     this.offerForm = new FormGroup({
-      'offer_id': new FormControl('',[Validators.required]),
-      'offername': new FormControl('',[Validators.required]),
-      'price': new FormControl('',[Validators.required]),
+      'offer_id': new FormControl('', [Validators.required]),
+      'offername': new FormControl('', [Validators.required]),
+      'price': new FormControl('', [Validators.required]),
       'description': new FormControl(''),
       'imageUpload': new FormControl(''),
       'image': new FormControl('')
@@ -77,26 +78,29 @@ export class EditOfferComponent implements OnInit {
     const name = this.offerForm.value.offername;
     const price = this.offerForm.value.price;
     const description = this.offerForm.value.description;
-    const image = this.fileToUpload !== null ? this.fileToUpload.name : this.offerForm.value.image;
+    const image = this.fileToUpload !== null ? '/upload/' + this.fileToUpload.name : this.offerForm.value.image;
     if (this.fileToUpload !== null) {
       this.fileUploadService.postfile(this.fileToUpload)
-      .subscribe(value => {
-        if(value="not allowed file"){
-          alert('Fileformat not allowed!');
-          return;
-        }
-      }, error => {
-        console.log(error);
-      });
+        .subscribe(value => {
+          if (value = "not allowed file") {
+            alert('Fileformat not allowed!');
+            return;
+          }
+        }, error => {
+          console.log(error);
+        });
     }
     this.authService.getUserSession().subscribe(value => {
       //console.log(value);
       const role: number = value.role;
-      if (role > 33) {
+      if (role > 66) {
         this.offerService.saveOffer(
-          id, name, price, description, 
-          (!this.fileToUpload !== null ? '/upload/' : '') + image)
-          .subscribe((value: any) => {
+          id,
+          name,
+          price,
+          description,
+          this.removedImage ? '' : image
+        ).subscribe((value: any) => {
           if (value === "saved") {
             this.router.navigate(['/']);
           }
@@ -146,5 +150,12 @@ export class EditOfferComponent implements OnInit {
     reader.onload = (_event) => {
       this.image = reader.result;
     };
+    this.removedImage = false;
+  }
+  removeImage() {
+    this.removedImage = true;
+    this.fileToUpload = null;
+    this.imageUpload = null;
+    this.image = null;
   }
 }

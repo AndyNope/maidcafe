@@ -37,6 +37,13 @@
             <img [src]="image" alt="offer.name" 
             class="img-fluid img-thumbnail" >
         </ng-container>
+        <br *ngIf="image">
+        <div 
+            *ngIf="image"
+            class="btn btn-danger" 
+            (click)="removeImage()">
+            Remove Image
+        </div>
         <input 
             type="file" 
             id="imageUpload" 

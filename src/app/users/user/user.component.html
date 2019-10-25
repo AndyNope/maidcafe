@@ -1,4 +1,4 @@
-<app-delete-modal></app-delete-modal>
+<app-delete-modal (deleteConfirmed)="getUsers()"></app-delete-modal>
 <div class="row mb-3 d-none d-lg-flex">
     <div class="col-md">
         <h5>Username</h5>
@@ -19,14 +19,18 @@
         <button class="invisible">Delete</button>
     </div>
 </div>
-<div class="row mb-3" (updateView)="onDeleteUser($event)" *ngFor="let user of users">
+<div class="row mb-3" (deleteModal)="refreshList()" *ngFor="let user of users">
     <div class="col-md mb-3"> {{ user.username }} </div>
     <div class="col-md mb-3"> {{ user.email }} </div>
     <div class="col-md mb-3"> {{ user.role }} </div>
     <div class="col-md mb-3"> {{ user.created | date:'d. MMMM y H:mm:ss' }} </div>
     <div class="col-md col-xs-auto text-right mb-3 ">
-        <button class="btn btn-dark" 
-            (click)="onEditUser(user.id)">Edit</button>
+        <button 
+            [style.visibility]="checkLoggedUser(user.id)?'hidden':'visible'" 
+            class="btn btn-dark" 
+            (click)="onEditUser(user.id)"
+            >Edit
+        </button>
     </div>
     <div class="col-md-auto col-xs text-right mb-3 ">
         <button 

@@ -29,6 +29,13 @@ export class UserService {
         id: id
       });
   }
+  deleteProfile(id: number): Observable<any> {
+    return this.http.post<User>(
+      'https://maid-cafe.ch/controller.php?mode=deleteProfile',
+      {
+        id: id
+      });
+  }
 
   /**
    * Gets user by id
@@ -58,6 +65,25 @@ export class UserService {
    */
   saveUser(id: number, username: string, email: number, password: string, role: string): Observable<any> {
     return this.http.post<User>('https://maid-cafe.ch/controller.php?mode=saveUser', {
+      id: id,
+      username: username,
+      email: email,
+      password: password,
+      role: role
+    });
+  }
+
+  /**
+   * Saves profile
+   * @param id 
+   * @param username 
+   * @param email 
+   * @param password 
+   * @param role 
+   * @returns profile 
+   */
+  saveProfile(id: number, username: string, email: number, password: string, role: string): Observable<any> {
+    return this.http.post<User>('https://maid-cafe.ch/controller.php?mode=saveProfile', {
       id: id,
       username: username,
       email: email,

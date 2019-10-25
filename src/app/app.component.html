@@ -55,5 +55,11 @@
       </ul>
     </div>
   </div>
+  <div *ngIf="positiveMessage" class="alert alert-success ">
+    {{ positiveMessage }}
+  </div>
+  <div *ngIf="negativeMessage" class="alert alert-danger">
+      {{ negativeMessage }}
+  </div>
 <router-outlet></router-outlet>
 </div>

@@ -65,7 +65,7 @@ export class AddOfferComponent implements OnInit {
 
     if (this.fileToUpload !== null) {
       this.fileUploadService.postfile(this.fileToUpload).subscribe(value => {
-        if (value = "not allowed file") {
+        if (value === "not allowed file") {
           alert('Fileformat not allowed!');
           return;
         }
@@ -112,5 +112,9 @@ export class AddOfferComponent implements OnInit {
    */
   onCancel() {
     this.router.navigate(['/']);
+  }
+  removeImage() {
+    this.fileToUpload = null;
+    this.image = null;
   }
 }

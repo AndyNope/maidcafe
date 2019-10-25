@@ -5,6 +5,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
 import { AuthService } from '../shared/services/auth.service';
+import { MessageService } from '../shared/services/message.service';
 
 /**
  * Component
@@ -25,7 +26,13 @@ export class LoginComponent implements OnInit {
    * @param authService 
    * @param router 
    */
-  constructor(private authService: AuthService, private router: Router) { }
+  constructor(
+    private authService: AuthService, 
+    private messageService:MessageService,
+    private router: Router
+    ) { 
+      this.messageService.resetMessages();
+    }
 
   /**
    * on init
@@ -59,6 +66,7 @@ export class LoginComponent implements OnInit {
           this.authService.setUser(value);
           this.authService.startWatching();
           this.loginForm.reset();
+          this.messageService.setSuccessMessage('Sie sind erfolgreich eingeloggt.');
           this.router.navigate(['/']);
         }
       }, error => {

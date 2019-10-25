@@ -4,7 +4,9 @@ import {
   ChangeDetectorRef,
   AfterViewChecked
 } from '@angular/core';
+
 import { AuthService } from './shared/services/auth.service';
+import { MessageService } from './shared/services/message.service';
 
 @Component({
   selector: 'app-root',
@@ -12,7 +14,8 @@ import { AuthService } from './shared/services/auth.service';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AppComponent implements AfterViewChecked {
-
+  positiveMessage = '';
+  negativeMessage = '';
   isLogged: boolean;
   role: number = 0;
   username: string = '';
@@ -22,7 +25,10 @@ export class AppComponent implements AfterViewChecked {
    * @param authService 
    * @param ref 
    */
-  constructor(private authService: AuthService, private ref: ChangeDetectorRef) {
+  constructor(
+    private authService: AuthService,
+    private messageService: MessageService,
+    private ref: ChangeDetectorRef) {
     this.isLogged = false;
   }
 
@@ -31,6 +37,8 @@ export class AppComponent implements AfterViewChecked {
    */
   ngAfterViewChecked() {
     setTimeout(() => {
+      this.positiveMessage = this.messageService.getSuccessMessage();
+      this.negativeMessage = this.messageService.getNegativeMessage();
       this.isLogged = this.authService.getLogin();
       this.role = this.authService.getRole();
       if (this.isLogged) {
