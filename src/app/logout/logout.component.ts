@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { AuthService } from '../shared/services/auth.service';
+import { MessageService } from '../shared/services/message.service';
 
 @Component({
   selector: 'app-logout',
@@ -14,9 +15,19 @@ export class LogoutComponent implements OnInit {
    * @param authService 
    * @param router 
    */
-  constructor(private authService: AuthService, private router: Router) {
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+    private messageService: MessageService
+  ) {
     this.authService.setLoginFalse();
-      router.navigate(['/']);
+    this.messageService.resetMessages();
+    setTimeout(() => {
+      if (this.messageService.getSuccessMessage() !== 'Account wurde gelöscht.') {
+        messageService.setSuccessMessage('Sie sind erfolgreich ausgeloggt.');
+      }
+      this.router.navigate(['/']);
+    }, 300);
   }
 
   /**

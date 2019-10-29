@@ -1,15 +1,23 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
+
+import { MessageService } from '../shared/services/message.service';
 
 @Component({
   selector: 'app-users',
-  templateUrl: './users.component.html',
-  styleUrls: ['./users.component.css']
+  templateUrl: './users.component.html'
 })
-export class UsersComponent implements OnInit {
+export class UsersComponent implements OnInit, OnDestroy {
 
-  constructor(private router:Router) {
-
+  /**
+   * Creates an instance of users component.
+   * @param router 
+   * @param messageService 
+   */
+  constructor(
+    private router: Router,
+    private messageService: MessageService
+  ) {
   }
 
   ngOnInit() {
@@ -18,7 +26,10 @@ export class UsersComponent implements OnInit {
   /**
    * Navigate to add user form
    */
-  onAddUser(){
+  onAddUser() {
     this.router.navigate(['/add-user']);
+  }
+  ngOnDestroy() {
+    this.messageService.resetMessages();
   }
 }

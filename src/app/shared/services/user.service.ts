@@ -14,8 +14,7 @@ export class UserService {
    * @returns users 
    */
   getUsers(): Observable<any> {
-    return this.http.get<User>('https://maid-cafe.ch/controller.php?mode=getUsers', {
-    });
+    return this.http.get<User>('https://maid-cafe.ch/controller.php?mode=getUsers', {});
   }
 
   /**
@@ -24,7 +23,18 @@ export class UserService {
    * @returns user 
    */
   deleteUser(id: number): Observable<any> {
-    return this.http.get<User>('https://maid-cafe.ch/controller.php?mode=deleteUser&id=' + id, { responseType: 'json' });
+    return this.http.post<User>(
+      'https://maid-cafe.ch/controller.php?mode=deleteUser',
+      {
+        id: id
+      });
+  }
+  deleteProfile(id: number): Observable<any> {
+    return this.http.post<User>(
+      'https://maid-cafe.ch/controller.php?mode=deleteProfile',
+      {
+        id: id
+      });
   }
 
   /**
@@ -32,7 +42,7 @@ export class UserService {
    * @param id 
    * @returns user by id 
    */
-  getUserById(id: number): Observable<any> {
+  getUserById(id: number): Observable<User> {
     return this.http.get<User>('https://maid-cafe.ch/controller.php?mode=getUserById&id=' + id, { responseType: 'json' });
   }
 
@@ -40,7 +50,7 @@ export class UserService {
    * Gets role list
    * @returns role list 
    */
-  getRoleList(): Observable<any> {
+  getRoleList(): Observable<User> {
     return this.http.get<User>('https://maid-cafe.ch/controller.php?mode=getRole', { responseType: 'json' });
   }
 
@@ -55,6 +65,25 @@ export class UserService {
    */
   saveUser(id: number, username: string, email: number, password: string, role: string): Observable<any> {
     return this.http.post<User>('https://maid-cafe.ch/controller.php?mode=saveUser', {
+      id: id,
+      username: username,
+      email: email,
+      password: password,
+      role: role
+    });
+  }
+
+  /**
+   * Saves profile
+   * @param id 
+   * @param username 
+   * @param email 
+   * @param password 
+   * @param role 
+   * @returns profile 
+   */
+  saveProfile(id: number, username: string, email: number, password: string, role: string): Observable<any> {
+    return this.http.post<User>('https://maid-cafe.ch/controller.php?mode=saveProfile', {
       id: id,
       username: username,
       email: email,

@@ -1,20 +1,65 @@
-<div class="container-fluid">
+<div class="container">
   <div class="row">
     <div class="col" role="navigation">
       <ul class="nav">
-        <li class="nav-item" role="presentation" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
-          <a class="nav-link" routerLink="/">Menu</a>
+        <li class="nav-item" 
+          role="presentation" 
+          routerLinkActive="active" 
+          [routerLinkActiveOptions]="{exact:true}">
+          <a 
+            class="nav-link" 
+            routerLink="/">
+            Menu
+          </a>
         </li>
-        <li class="nav-item" role="presentation" routerLinkActive="active" *ngIf="!isLogged">
-          <a class="nav-link" routerLink="/login">Login</a>
+        <li 
+          class="nav-item" 
+          role="presentation" 
+          routerLinkActive="active" 
+          *ngIf="!isLogged">
+          <a 
+            class="nav-link" 
+            routerLink="/login">
+            Login
+          </a>
         </li>
-        <li class="nav-item" role="presentation" routerLinkActive="active" *ngIf="isLogged  && role > 33">
+        <li 
+          class="nav-item" 
+          role="presentation" 
+          routerLinkActive="active" 
+          *ngIf="isLogged  && role > 33">
           <a class="nav-link" routerLink="/users">Users</a>
         </li>
-        <li class="nav-item" role="presentation" routerLinkActive="active" *ngIf="isLogged">
-          <a class="nav-link" routerLink="logout">Logout</a>
+        <li 
+          class="nav-item" 
+          role="presentation" 
+          routerLinkActive="active" 
+          *ngIf="isLogged">
+          <a 
+            class="nav-link" 
+            routerLink="edit-me">
+            {{ username }} <i class="fa fa-user"></i>
+          </a>
         </li>
+        <li 
+        class="nav-item" 
+        role="presentation" 
+        routerLinkActive="active" 
+        *ngIf="isLogged">
+        <a 
+          class="nav-link" 
+          routerLink="logout">
+          Logout <i class="fa fa-sign-out"></i>
+        </a>
+      </li>
       </ul>
     </div>
   </div>
-  <router-outlet class="container-fluid"></router-outlet>
+  <div *ngIf="positiveMessage" class="alert alert-success ">
+    {{ positiveMessage }}
+  </div>
+  <div *ngIf="negativeMessage" class="alert alert-danger">
+      {{ negativeMessage }}
+  </div>
+<router-outlet></router-outlet>
+</div>

@@ -1,11 +1,12 @@
 import { Offer } from 'src/app/shared/models/offer.model';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { FileUploadService } from 'src/app/shared/services/file-upload.service';
+import { MessageService } from 'src/app/shared/services/message.service';
 import { OfferService } from 'src/app/shared/services/offer.service';
 
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Params, Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-edit-offer',
@@ -18,6 +19,7 @@ export class EditOfferComponent implements OnInit {
   fileToUpload = null;
   imageUpload = null;
   image = null;
+  removedImage = false;
 
   /**
    * Creates an instance of edit offer component.
@@ -28,6 +30,7 @@ export class EditOfferComponent implements OnInit {
    * @param fileUploadService 
    */
   constructor(
+    private messageService:MessageService,
     private route: ActivatedRoute,
     private offerService: OfferService,
     private router: Router,
@@ -48,21 +51,21 @@ export class EditOfferComponent implements OnInit {
         });
         this.image = value.image;
       }, error => {
-        console.log(error);
+        this.messageService.setNegativeMessage(error);
       });
 
   }
 
 
   /**
-   * on init
+   * on init 
+   * initialize reactive fromular
    */
   ngOnInit() {
-
     this.offerForm = new FormGroup({
-      'offer_id': new FormControl('',[Validators.required]),
-      'offername': new FormControl('',[Validators.required]),
-      'price': new FormControl('',[Validators.required]),
+      'offer_id': new FormControl('', [Validators.required]),
+      'offername': new FormControl('', [Validators.required]),
+      'price': new FormControl('', [Validators.required]),
       'description': new FormControl(''),
       'imageUpload': new FormControl(''),
       'image': new FormControl('')
@@ -77,35 +80,47 @@ export class EditOfferComponent implements OnInit {
     const name = this.offerForm.value.offername;
     const price = this.offerForm.value.price;
     const description = this.offerForm.value.description;
-    const image = this.fileToUpload !== null ? this.fileToUpload.name : this.offerForm.value.image;
+    const
+      image = this.fileToUpload !== null
+        ? '/upload/' + this.fileToUpload.name
+        : this.offerForm.value.image;
+    let allowedFileFormat = true;
     if (this.fileToUpload !== null) {
       this.fileUploadService.postfile(this.fileToUpload)
-      .subscribe(value => {
-        if(value="not allowed file"){
-          alert('Fileformat not allowed!');
-          return;
+        .subscribe(response => {
+          if (response.status === "error") {
+            this.messageService.setNegativeMessage(
+              'Sie dürfen nur Bilder mit dem Format Gif, JPG oder PNG hochladen!'
+            );
+            allowedFileFormat = false;
+          }
+        }, error => {
+          console.log(error);
+        });
+    }
+    if (allowedFileFormat) {
+      this.authService.getUserSession().subscribe(value => {
+        const role: number = value.role;
+        if (role > 66) {
+          this.offerService.saveOffer(
+            id,
+            name,
+            price,
+            description,
+            this.removedImage ? '' : image
+          ).subscribe((value: any) => {
+            if (value === "saved") {
+              this.messageService.setSuccessMessage('Angebot wurde gespeichert.');
+              this.router.navigate(['/']);
+            }
+          });
+        } else {            
+          this.messageService.setNegativeMessage('Sie haben keine Berechtigung.')
+          this.router.navigate(['/']);
         }
-      }, error => {
-        console.log(error);
       });
     }
-    this.authService.getUserSession().subscribe(value => {
-      //console.log(value);
-      const role: number = value.role;
-      if (role > 33) {
-        this.offerService.saveOffer(
-          id, name, price, description, 
-          (!this.fileToUpload !== null ? '/upload/' : '') + image)
-          .subscribe((value: any) => {
-          if (value === "saved") {
-            this.router.navigate(['/']);
-          }
-        });
-      } else {
-        alert('Sie haben keine Berechtigung');
-        this.router.navigate(['/']);
-      }
-    });
+
 
   }
 
@@ -117,8 +132,10 @@ export class EditOfferComponent implements OnInit {
     const id = this.offerForm.value.offer_id;
     this.offerService.deleteOffer(id).subscribe(
       (value: any) => {
-        if (value === "deleted") {
-          alert('Delete successful');
+        if (value === "deleted") {            
+          this.messageService.setSuccessMessage(
+            'Offer wurde gelöscht.'
+            );
           this.router.navigate(['/']);
         }
       }
@@ -138,13 +155,18 @@ export class EditOfferComponent implements OnInit {
    * @param files 
    */
   handleFileInput(files: FileList) {
-    // console.log('FileList:');
-    // console.log(files);
     this.fileToUpload = files.item(0);
     var reader = new FileReader();
     reader.readAsDataURL(files.item(0));
     reader.onload = (_event) => {
       this.image = reader.result;
     };
+    this.removedImage = false;
+  }
+  removeImage() {
+    this.removedImage = true;
+    this.fileToUpload = null;
+    this.imageUpload = null;
+    this.image = null;
   }
 }

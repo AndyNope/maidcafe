@@ -1,20 +1,35 @@
+import { DeleteModalComponent } from 'src/app/shared/modal/delete-modal/delete-modal.component';
+import { MessageService } from 'src/app/shared/services/message.service';
 import { UserService } from 'src/app/shared/services/user.service';
 
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-user',
-  templateUrl: './add-user.component.html',
-  styleUrls: ['./add-user.component.css']
+  templateUrl: './add-user.component.html'
 })
 export class AddUserComponent implements OnInit {
+  @ViewChild(DeleteModalComponent, { static: true }) private deleteModal: DeleteModalComponent;
+  deleteId = 0;
   userForm: FormGroup;
   roleList = [
     'helper', 'service', 'admin'
   ];
-  constructor(private router: Router, private userService: UserService) { }
+
+ 
+  /**
+   * Creates an instance of add user component.
+   * @param router 
+   * @param messageService 
+   * @param userService 
+   */
+  constructor(
+    private router: Router,
+    private messageService: MessageService,
+    private userService: UserService
+  ) { }
 
   /**
    * on init
@@ -44,14 +59,14 @@ export class AddUserComponent implements OnInit {
       this.userService.saveUser(id, username, email, password, role).subscribe(val => {
         console.log(this.userForm);
         if (val === 'added') {
-          alert('added');
+          this.messageService.setSuccessMessage('Benutzer wurde erfolgreich hinzugefügt.');
           this.router.navigate(['/users']);
-        }else{
-          alert(val);
+        } else {
+          this.messageService.setNegativeMessage(val);
         }
       });
     } else {
-      alert('Both passwords have to match');
+      this.messageService.setNegativeMessage('Both passwords have to match');
     }
   }
 

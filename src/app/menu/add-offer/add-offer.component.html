@@ -18,18 +18,27 @@
     </div>
     <div class="form-group">
         <label for="description">Description</label>
-        <input 
+        <textarea 
+            rows="4" 
+            cols="50"
             type="text" 
             id="description" 
             formControlName="description" 
-            class="form-control">
+            class="form-control"></textarea>
     </div>
     <div class="form-group">
             <ng-container *ngIf="image">
                 <img [src]="image" 
                 alt="offer.name" 
-                style="max-width: 100%;">
+                class="img-fluid img-thumbnail" >
             </ng-container>
+            <br *ngIf="image">
+            <div 
+                *ngIf="image"
+                class="btn btn-danger" 
+                (click)="removeImage()">
+                Remove Image
+            </div>
             <input 
                 type="file" 
                 id="imageUpload" 
@@ -47,6 +56,6 @@
         type="submit" 
         [disabled]="!offerForm.valid">Add</button>
     <div 
-    class="btn btn-default" 
+    class="btn btn-dark" 
     (click)="onCancel()">Cancel</div>
 </form>
