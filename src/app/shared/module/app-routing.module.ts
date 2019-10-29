@@ -13,7 +13,6 @@ import { AddUserComponent } from '../../users/add-user/add-user.component';
 import { EditUserComponent } from '../../users/edit-user/edit-user.component';
 import { UserComponent } from '../../users/user/user.component';
 import { UsersComponent } from '../../users/users.component';
-//Service
 import { AuthGuard } from '../services/auth-guard.service';
 
 const appRoutes: Routes = [

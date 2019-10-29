@@ -38,6 +38,7 @@ export class DeleteModalComponent implements OnInit {
 
   cancelDelete() {
     this.id = 0;
+    this.messageService.setSuccessMessage(this.contentType.toUpperCase() + " wurde nicht gelöscht.");
   }
 
 
@@ -48,6 +49,7 @@ export class DeleteModalComponent implements OnInit {
           if (value === 'deleted') {
             this.userService.getUsers().subscribe((value) => {
               this.deleteConfirmed.emit({ confirmed: true });
+              this.messageService.setSuccessMessage(this.contentType.toUpperCase() + " wurde gelöscht.");
             });
           }
         }, error => {

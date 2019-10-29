@@ -18,14 +18,16 @@ export class AddUserComponent implements OnInit {
     'helper', 'service', 'admin'
   ];
 
+ 
   /**
    * Creates an instance of add user component.
    * @param router 
+   * @param messageService 
    * @param userService 
    */
   constructor(
     private router: Router,
-    private messageService:MessageService,
+    private messageService: MessageService,
     private userService: UserService
   ) { }
 

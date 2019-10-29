@@ -18,6 +18,12 @@ export class UserComponent implements OnInit {
   loggedUser: User;
   user: string = 'user';
 
+  /**
+   * Creates an instance of user component.
+   * @param userService 
+   * @param router 
+   * @param authService 
+   */
   constructor(
     private userService: UserService,
     private router: Router,

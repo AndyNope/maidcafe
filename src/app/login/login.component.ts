@@ -14,7 +14,6 @@ import { MessageService } from '../shared/services/message.service';
   selector: 'app-login',
   templateUrl: './login.component.html'
 })
-
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   loadedUser: string;
@@ -52,7 +51,7 @@ export class LoginComponent implements OnInit {
   }
 
   /**
-   * Determines whether submit on
+   * Submit access data
    */
   onSubmit() {
     const username = this.loginForm.value.username;
@@ -81,7 +80,7 @@ export class LoginComponent implements OnInit {
    * @returns username 
    */
   static invalidUsername(control: FormControl): { [s: string]: boolean } {
-    if (control.value === 'Test') { //Regex
+    if (control.value === 'Test') { //Regex TODO
       return { 'invalidUsername': true }
     }
     return null;

@@ -22,8 +22,6 @@ import { AuthService } from './shared/services/auth.service';
 import { AppRoutingModule } from './shared/module/app-routing.module';
 
 import { UserIdleModule } from 'angular-user-idle';
-import { AlertComponent } from './shared/modal/alert/alert.component';
-import { SuccessComponent } from './shared/modal/success/success.component';
 import { DeleteModalComponent } from './shared/modal/delete-modal/delete-modal.component';
 import { ForgotpasswordModalComponent } from './shared/modal/forgotpassword-modal/forgotpassword-modal.component';
 import { EditMeComponent } from './edit-me/edit-me.component';
@@ -43,8 +41,6 @@ import { EditMeComponent } from './edit-me/edit-me.component';
     AddOfferComponent,
     EditUserComponent,
     AddUserComponent,
-    AlertComponent,
-    SuccessComponent,
     DeleteModalComponent,
     ForgotpasswordModalComponent,
     EditMeComponent

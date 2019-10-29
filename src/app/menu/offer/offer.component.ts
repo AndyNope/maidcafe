@@ -2,7 +2,7 @@ import { Offer } from 'src/app/shared/models/offer.model';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { OfferService } from 'src/app/shared/services/offer.service';
 
-import { AfterViewChecked, Component, } from '@angular/core';
+import { AfterViewChecked, Component } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
@@ -15,12 +15,12 @@ export class OfferComponent implements AfterViewChecked {
 
   offers: Offer[];
 
+
   /**
    * Creates an instance of offer component.
    * @param offerService 
    * @param authService 
    * @param router 
-   * @param ref 
    */
   constructor(
     private offerService: OfferService,

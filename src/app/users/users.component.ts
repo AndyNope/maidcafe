@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { MessageService } from '../shared/services/message.service';
@@ -7,13 +7,17 @@ import { MessageService } from '../shared/services/message.service';
   selector: 'app-users',
   templateUrl: './users.component.html'
 })
-export class UsersComponent implements OnInit {
+export class UsersComponent implements OnInit, OnDestroy {
 
+  /**
+   * Creates an instance of users component.
+   * @param router 
+   * @param messageService 
+   */
   constructor(
     private router: Router,
     private messageService: MessageService
   ) {
-    messageService.resetMessages();
   }
 
   ngOnInit() {
@@ -24,5 +28,8 @@ export class UsersComponent implements OnInit {
    */
   onAddUser() {
     this.router.navigate(['/add-user']);
+  }
+  ngOnDestroy() {
+    this.messageService.resetMessages();
   }
 }

@@ -1,6 +1,8 @@
 <app-forgotpassword-modal></app-forgotpassword-modal>
 <h1>Login</h1>
-<div *ngIf="alertMessage" class="alert alert-danger">
+<div 
+    *ngIf="alertMessage" 
+    class="alert alert-danger">
     {{ alertMessage }}
 </div>
 <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">

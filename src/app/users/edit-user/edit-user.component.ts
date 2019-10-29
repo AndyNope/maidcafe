@@ -16,10 +16,12 @@ export class EditUserComponent implements OnInit {
   userForm: FormGroup;
   roleList = ['helper', 'service', 'admin'];
 
+
   /**
    * Creates an instance of edit user component.
    * @param userService 
    * @param router 
+   * @param messageService 
    * @param route 
    */
   constructor(

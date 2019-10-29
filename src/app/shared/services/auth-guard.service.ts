@@ -2,7 +2,11 @@ import { Observable } from 'rxjs';
 
 import { Injectable } from '@angular/core';
 import {
-    ActivatedRouteSnapshot, CanActivate, CanActivateChild, Router, RouterStateSnapshot
+    ActivatedRouteSnapshot, 
+    CanActivate, 
+    CanActivateChild, 
+    Router, 
+    RouterStateSnapshot
 } from '@angular/router';
 
 import { AuthService } from './auth.service';
@@ -18,6 +22,7 @@ export class AuthGuard implements CanActivate, CanActivateChild {
      * @param router 
      */
     constructor(private authService: AuthService, private router: Router) { }
+
     /**
      * autentificate the user
      * @param route 
@@ -39,6 +44,7 @@ export class AuthGuard implements CanActivate, CanActivateChild {
                 }
             );
     }
+    
     /**
      * autentificate the user in child component
      * @param route 

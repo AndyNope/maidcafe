@@ -3,6 +3,7 @@ import { Observable } from 'rxjs';
 
 import { HttpClient } from '@angular/common/http';
 import { EventEmitter, Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { User } from '../models/user.model';
 
@@ -37,7 +38,11 @@ export class AuthService {
      * @param http 
      * @param userIdle 
      */
-    constructor(private http: HttpClient, private userIdle: UserIdleService) {
+    constructor(
+        private http: HttpClient, 
+        private userIdle: UserIdleService,
+        private router: Router
+        ) {
         if (this.user === null) {
             this.getUserSession().subscribe(value => {
                 this.user = value !== null ? value : null;
@@ -51,7 +56,11 @@ export class AuthService {
      */
     init() {
         this.userIdle.onTimerStart().subscribe(count => { console.log(count); this.loggedIn = true; });
-        this.userIdle.onTimeout().subscribe(() => { console.log('Time is up!'); this.logout(); });
+        this.userIdle.onTimeout().subscribe(() => {
+            console.log('Time is up!');
+            this.setUser(null);
+            this.router.navigate(['/logout']);
+        });
     }
     /**
      * Gets login
@@ -100,7 +109,7 @@ export class AuthService {
     getUserSession(): Observable<any> {
         return this.http.get<User>('https://maid-cafe.ch/controller.php?mode=getUserSession', {});
     }
-    getUsername(){
+    getUsername() {
         return this.user.username;
     }
     /**
