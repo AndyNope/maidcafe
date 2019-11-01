@@ -23,14 +23,16 @@ export class AuthService {
     public loggedIn = false;
     user: User = null;
     isAuthenticated() {
-        const promise = new Promise(
-            (resolve, reject) => {
-                setTimeout(() => {
-                    resolve(this.loggedIn);
-                }, 0);
-            }
-        );
-        return promise;
+        // setTimeout(() => {
+        //     if (this.user === null) {
+        //         this.getUserSession().subscribe(value => {
+        //             this.user = value !== null ? value : null;
+        //         });
+        //         this.loggedIn = true;
+        //     }
+        // }, 1000);
+        // return this.loggedIn;
+        return this.getLogin();
     }
 
     /**
@@ -39,10 +41,10 @@ export class AuthService {
      * @param userIdle 
      */
     constructor(
-        private http: HttpClient, 
+        private http: HttpClient,
         private userIdle: UserIdleService,
         private router: Router
-        ) {
+    ) {
         if (this.user === null) {
             this.getUserSession().subscribe(value => {
                 this.user = value !== null ? value : null;

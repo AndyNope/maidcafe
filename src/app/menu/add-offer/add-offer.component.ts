@@ -90,6 +90,7 @@ export class AddOfferComponent implements OnInit {
           this.messageService.setNegativeMessage('Sie haben keine Berechtigung.')
           this.router.navigate(['/']);
         }
+
       }, error => {
         console.log(error);
       });

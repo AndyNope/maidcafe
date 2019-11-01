@@ -27,7 +27,7 @@ export class LogoutComponent implements OnInit {
         messageService.setSuccessMessage('Sie sind erfolgreich ausgeloggt.');
       }
       this.router.navigate(['/']);
-    }, 300);
+    }, 2000);
   }
 
   /**

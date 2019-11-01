@@ -54,7 +54,7 @@ export class UserComponent implements OnInit {
         this.loggedUser = val;
       } else {
         alert('Sie haben keine Berechtigung!')
-        //this.router.navigate(['/']);
+        this.router.navigate(['/']);
       }
     }, error => {
       console.log(error);

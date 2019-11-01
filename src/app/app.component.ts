@@ -19,6 +19,7 @@ export class AppComponent implements AfterViewChecked {
   isLogged: boolean;
   role: number = 0;
   username: string = '';
+  collapsed = true;
 
   /**
    * Creates an instance of app component.

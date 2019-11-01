@@ -19,7 +19,7 @@ import { AddUserComponent } from './users/add-user/add-user.component';
 
 import { AuthService } from './shared/services/auth.service';
 
-import { AppRoutingModule } from './shared/module/app-routing.module';
+import { AppRoutingModule } from './app-routing.module';
 
 import { UserIdleModule } from 'angular-user-idle';
 import { DeleteModalComponent } from './shared/modal/delete-modal/delete-modal.component';

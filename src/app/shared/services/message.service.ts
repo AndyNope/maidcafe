@@ -30,6 +30,7 @@ export class MessageService {
    * @param message 
    */
   setSuccessMessage(message: string) {
+    this.resetMessages();
     this.successMasssage = message;
   }
 
@@ -38,6 +39,7 @@ export class MessageService {
    * @param message 
    */
   setNegativeMessage(message: string) {
+    this.resetMessages();
     this.negativeMessage = message;
   }
 

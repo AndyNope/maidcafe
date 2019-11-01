@@ -1,15 +1,19 @@
-<div class="container">
-  <div class="row">
-    <div class="col" role="navigation">
-      <ul class="nav">
-        <li class="nav-item" 
-          role="presentation" 
-          routerLinkActive="active" 
-          [routerLinkActiveOptions]="{exact:true}">
+<div class="navbar-light">
+  <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="#"> Maid Cafe - Dreamgraden</a>
+    <button class="navbar-toggler" type="button"  (click)="collapsed = !collapsed">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" [class.collapse]="collapsed" (window:resize)="collapsed = true">
+      <ul class="navbar-nav ml-auto" (click)="collapsed = !collapsed">
+          <li class="nav-item" 
+            role="presentation" 
+            routerLinkActive="active" 
+            [routerLinkActiveOptions]="{exact:true}">
           <a 
             class="nav-link" 
             routerLink="/">
-            Menu
+            Home
           </a>
         </li>
         <li 
@@ -17,9 +21,9 @@
           role="presentation" 
           routerLinkActive="active" 
           *ngIf="!isLogged">
-          <a 
-            class="nav-link" 
-            routerLink="/login">
+        <a 
+          class="nav-link" 
+          routerLink="/login">
             Login
           </a>
         </li>
@@ -30,36 +34,45 @@
           *ngIf="isLogged  && role > 33">
           <a class="nav-link" routerLink="/users">Users</a>
         </li>
+        <!-- <li class="nav-item dropdown">
+          <a class="nav-link  dropdown-toggle" href="#" data-toggle="dropdown"> Dropdown </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="#"> Menu item 1</a></li>
+            <li><a class="dropdown-item" href="#"> Menu item 2 </a></li>
+          </ul>
+        </li> -->
         <li 
           class="nav-item" 
           role="presentation" 
           routerLinkActive="active" 
           *ngIf="isLogged">
           <a 
-            class="nav-link" 
-            routerLink="edit-me">
-            {{ username }} <i class="fa fa-user"></i>
+            class="btn ml-2 btn-warning" 
+            routerLink="edit-me">{{ username }}
+            <i class="fa fa-user"></i>
           </a>
         </li>
         <li 
-        class="nav-item" 
-        role="presentation" 
-        routerLinkActive="active" 
-        *ngIf="isLogged">
-        <a 
-          class="nav-link" 
-          routerLink="logout">
-          Logout <i class="fa fa-sign-out"></i>
-        </a>
-      </li>
+          class="nav-item" 
+          role="presentation" 
+          routerLinkActive="active" 
+          *ngIf="isLogged">
+          <a 
+            class="btn ml-2 btn-warning" 
+            routerLink="logout">Logout <i class="fa fa-sign-out"></i>
+          </a>
+        </li>
       </ul>
     </div>
-  </div>
+  </nav>
+</div>
+<hr><hr><hr>
+<div class="container">
   <div *ngIf="positiveMessage" class="alert alert-success ">
     {{ positiveMessage }}
   </div>
   <div *ngIf="negativeMessage" class="alert alert-danger">
-      {{ negativeMessage }}
+    {{ negativeMessage }}
   </div>
-<router-outlet></router-outlet>
+  <router-outlet></router-outlet>
 </div>
