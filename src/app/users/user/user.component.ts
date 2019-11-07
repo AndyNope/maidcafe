@@ -1,22 +1,24 @@
-import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild, AfterViewChecked } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { User } from 'src/app/shared/models/user.model';
 import { UserService } from 'src/app/shared/services/user.service';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { DeleteModalComponent } from 'src/app/shared/modal/delete-modal/delete-modal.component';
-
+declare function initDataTable(): any;
 
 @Component({
   selector: 'app-user',
   templateUrl: './user.component.html'
 })
-export class UserComponent implements OnInit {
+export class UserComponent implements OnInit, AfterViewChecked {
   @ViewChild(DeleteModalComponent, { static: true }) private deleteModal: DeleteModalComponent;
   deleteId = 0;
   users: User[];
   loggedUser: User;
   user: string = 'user';
+  isLogged = false;
+  role: number = 0;
 
   /**
    * Creates an instance of user component.
@@ -42,6 +44,9 @@ export class UserComponent implements OnInit {
   getUsers() {
     this.userService.getUsers().subscribe(value => {
       this.users = value;
+      setTimeout(() => {
+        initDataTable();
+      }, 30);
     });
   }
 
@@ -53,8 +58,8 @@ export class UserComponent implements OnInit {
       if (val !== null) {
         this.loggedUser = val;
       } else {
-        alert('Sie haben keine Berechtigung!')
-        this.router.navigate(['/']);
+        // alert('Sie haben keine Berechtigung!')
+        // this.router.navigate(['/']);
       }
     }, error => {
       console.log(error);
@@ -85,6 +90,13 @@ export class UserComponent implements OnInit {
     }
   }
 
+  /**
+   * after view checked
+   */
+  ngAfterViewChecked() {
+    this.isLogged = this.authService.getLogin();
+    this.role = this.authService.getRole();
+  }
 
   /**
    * Cancels delete

@@ -26,12 +26,12 @@ export class LoginComponent implements OnInit {
    * @param router 
    */
   constructor(
-    private authService: AuthService, 
-    private messageService:MessageService,
+    private authService: AuthService,
+    private messageService: MessageService,
     private router: Router
-    ) { 
-      this.messageService.resetMessages();
-    }
+  ) {
+    this.messageService.resetMessages();
+  }
 
   /**
    * on init
@@ -72,6 +72,7 @@ export class LoginComponent implements OnInit {
         console.log(error);
         alert(error);
       });
+
   }
 
   /**

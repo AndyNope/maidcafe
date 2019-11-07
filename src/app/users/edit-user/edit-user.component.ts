@@ -103,6 +103,7 @@ export class EditUserComponent implements OnInit {
    * Cancels edit user component
    */
   cancel() {
+    this.messageService.setSuccessMessage('Bearbeitung abgebrochen.');
     this.router.navigate(['/users']);
   }
 

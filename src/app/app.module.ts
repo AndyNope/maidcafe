@@ -25,6 +25,7 @@ import { UserIdleModule } from 'angular-user-idle';
 import { DeleteModalComponent } from './shared/modal/delete-modal/delete-modal.component';
 import { ForgotpasswordModalComponent } from './shared/modal/forgotpassword-modal/forgotpassword-modal.component';
 import { EditMeComponent } from './edit-me/edit-me.component';
+import { OrdersComponent } from './orders/orders.component';
 
 @NgModule({
   declarations: [
@@ -43,7 +44,8 @@ import { EditMeComponent } from './edit-me/edit-me.component';
     AddUserComponent,
     DeleteModalComponent,
     ForgotpasswordModalComponent,
-    EditMeComponent
+    EditMeComponent,
+    OrdersComponent
   ],
   imports: [
     BrowserModule,

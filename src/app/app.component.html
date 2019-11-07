@@ -1,6 +1,6 @@
 <div class="navbar-light">
   <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
-    <a class="navbar-brand" href="#"> Maid Cafe - Dreamgraden</a>
+    <a class="navbar-brand" routerLink="/"> Maid Cafe - Dream Garden</a>
     <button class="navbar-toggler" type="button"  (click)="collapsed = !collapsed">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -33,6 +33,13 @@
           routerLinkActive="active" 
           *ngIf="isLogged  && role > 33">
           <a class="nav-link" routerLink="/users">Users</a>
+        </li>
+        <li 
+          class="nav-item" 
+          role="presentation" 
+          routerLinkActive="active" 
+          *ngIf="isLogged  && role > 33">
+          <a class="nav-link" routerLink="/orders">Orders</a>
         </li>
         <!-- <li class="nav-item dropdown">
           <a class="nav-link  dropdown-toggle" href="#" data-toggle="dropdown"> Dropdown </a>

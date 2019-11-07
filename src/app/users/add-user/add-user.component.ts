@@ -74,7 +74,7 @@ export class AddUserComponent implements OnInit {
    * Deletes user
    */
   deleteUser() {
-    // console.log('deleted');
+    this.messageService.setSuccessMessage('User wurde gelöscht!');
     this.router.navigate(['/users']);
   }
 
@@ -82,6 +82,7 @@ export class AddUserComponent implements OnInit {
    * Cancels add user 
    */
   cancel() {
+    this.messageService.setSuccessMessage('Erfolgreich abgebrochen.');
     this.router.navigate(['/users']);
   }
 }

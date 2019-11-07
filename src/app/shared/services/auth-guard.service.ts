@@ -34,24 +34,28 @@ export class AuthGuard implements CanActivate, CanActivateChild {
      * @param state 
      * @returns activate 
      */
+
     canActivate(
         route: ActivatedRouteSnapshot,
         state: RouterStateSnapshot
     ): Observable<boolean> | Promise<boolean> | boolean {
-        let islogged = false;
-        if (this.authService.isAuthenticated()) {
-            return true;
-        } else {
-            this.router.navigate(['/']);
-            this.authService.logout().subscribe(() => {
-                console.log('logout');
-                this.authService.setLoginFalse();
-                this.authService.stopWatching();
-                this.authService.setUser(null);
-            });
-            this.message.setNegativeMessage('Sie haben für diese Seite keine Berechtigung.');
-        }
-        return islogged;
+        return this.authService.isAuthenticated()
+            .then(
+                (authenticated: boolean) => {
+                    //console.log(authenticated);                    
+                    if (authenticated) {
+                        return authenticated;
+                    }
+                    this.router.navigate(['/']);
+                    this.authService.logout().subscribe(() => {
+                        console.log('logout');
+                        this.authService.setLoginFalse();
+                        this.authService.stopWatching();
+                        this.authService.setUser(null);
+                    });
+                    this.message.setNegativeMessage('Sie haben für diese Seite keine Berechtigung.');
+                }
+            );
     }
     /**
      * autentificate the user in child component

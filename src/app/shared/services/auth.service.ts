@@ -18,21 +18,20 @@ interface AuthRespondsData {
  */
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-
     authChanged = new EventEmitter<boolean>();
     public loggedIn = false;
     user: User = null;
     isAuthenticated() {
-        // setTimeout(() => {
-        //     if (this.user === null) {
-        //         this.getUserSession().subscribe(value => {
-        //             this.user = value !== null ? value : null;
-        //         });
-        //         this.loggedIn = true;
-        //     }
-        // }, 1000);
-        // return this.loggedIn;
-        return this.getLogin();
+        const promise = new Promise(
+            (resolve, reject) => {
+                setTimeout(() => {
+                    this.checkLogin().subscribe((val) => {
+                        resolve(val);
+                    });
+                }, 800);
+            }
+        );
+        return promise;
     }
 
     /**
@@ -45,24 +44,36 @@ export class AuthService {
         private userIdle: UserIdleService,
         private router: Router
     ) {
-        if (this.user === null) {
-            this.getUserSession().subscribe(value => {
-                this.user = value !== null ? value : null;
-            });
-            this.loggedIn = true;
-        }
+        this.init();
     }
 
     /**
      * Inits auth service
      */
     init() {
-        this.userIdle.onTimerStart().subscribe(count => { console.log(count); this.loggedIn = true; });
-        this.userIdle.onTimeout().subscribe(() => {
-            console.log('Time is up!');
-            this.setUser(null);
-            this.router.navigate(['/logout']);
-        });
+        if (this.user === null) {
+            this.getUserSession().subscribe(value => {
+                this.user = value !== null ? value : null;
+            });
+
+        }
+        this.loggedIn = this.getLogin();
+        if (this.user !== null) {
+            this.loggedIn = true;
+        }
+        if (this.loggedIn) {
+            this.userIdle.stopTimer();
+            this.startWatching();
+            this.userIdle.onTimerStart().subscribe(count => {
+                console.log(count);
+                this.loggedIn = true;
+            });
+            this.userIdle.onTimeout().subscribe(() => {
+                console.log('Time is up!');
+                this.setUser(null);
+                this.router.navigate(['/logout']);
+            });
+        }
     }
     /**
      * Gets login
@@ -102,6 +113,9 @@ export class AuthService {
         return this.http.post<string>('https://maid-cafe.ch/controller.php?mode=forgotPassword', {
             email: email
         });
+    }
+    checkLogin(): Observable<any> {
+        return this.http.get<any>('https://maid-cafe.ch/controller.php?mode=checkLogin');
     }
 
     /**

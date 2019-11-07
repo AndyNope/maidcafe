@@ -1,6 +1,6 @@
 <app-delete-modal (deleteConfirmed)="getUsers()"></app-delete-modal>
 <div class="table-responsive-md">
-    <table class="table table-sm">
+    <table id="table_id" class="table table-sm display">
         <thead>
             <tr>
                 <th scope="col">ID</th>
@@ -8,28 +8,28 @@
                 <th scope="col">E-Mail</th>
                 <th scope="col">Role</th>
                 <th scope="col">Created</th>
-                <th scope="col"></th>
-                <th scope="col"></th>
+                <th scope="col">Edit</th>
+                <th scope="col">Delete</th>
             </tr>
         </thead>
         <tbody>
             <tr (deleteModal)="refreshList()" *ngFor="let user of users">
-                <ng-container *ngIf="!checkLoggedUser(user.id)">
-                    <th scope="row">{{ user.id }}</th>
-                    <td>{{ user.username }} </td>
-                    <td>{{ user.email }}</td>
-                    <td>{{ user.role }}</td>
-                    <td>{{ user.created | date:'d. MMMM y H:mm:ss' }} </td>
-                    <td>
-                        <button [style.visibility]="checkLoggedUser(user.id)?'hidden':'visible'" class="btn btn-dark"
-                            (click)="onEditUser(user.id)">Edit
-                        </button></td>
-                    <td><button [style.visibility]="checkLoggedUser(user.id)?'hidden':'visible'" class="btn btn-danger"
-                            data-toggle="modal" data-target="#confirmDelete" (click)="onDeleteUser(user.id)">
-                            Delete
-                        </button>
-                    </td>
-                </ng-container>
+                <td>{{ user.id }}</td>
+                <td>{{ user.username }} </td>
+                <td>{{ user.email }} </td>
+                <td>{{ user.role }}</td>
+                <td>{{ user.created | date:'d. MMMM y H:mm:ss' }} </td>
+                <td>
+                    <button [style.visibility]="checkLoggedUser(user.id)?'hidden':'visible'" class="btn btn-dark"
+                        (click)="onEditUser(user.id)">Edit
+                    </button>
+                </td>
+                <td>
+                    <button [style.visibility]="checkLoggedUser(user.id)?'hidden':'visible'" class="btn btn-danger"
+                        data-toggle="modal" data-target="#confirmDelete" (click)="onDeleteUser(user.id)">
+                        Delete
+                    </button>
+                </td>
             </tr>
         </tbody>
     </table>
