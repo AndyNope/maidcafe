@@ -2,18 +2,20 @@ import {
   Component,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
-  AfterViewChecked
+  AfterViewChecked,
+  OnInit
 } from '@angular/core';
 
 import { AuthService } from './shared/services/auth.service';
 import { MessageService } from './shared/services/message.service';
+
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AppComponent implements AfterViewChecked {
+export class AppComponent implements AfterViewChecked, OnInit {
   positiveMessage = '';
   negativeMessage = '';
   isLogged: boolean;
@@ -31,6 +33,9 @@ export class AppComponent implements AfterViewChecked {
     private messageService: MessageService,
     private ref: ChangeDetectorRef) {
     this.isLogged = false;
+  }
+
+  ngOnInit() {
   }
 
   /**

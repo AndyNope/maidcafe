@@ -14,7 +14,24 @@ export class UserService {
    * @returns users 
    */
   getUsers(): Observable<any> {
-    return this.http.get<User>('https://maid-cafe.ch/controller.php?mode=getUsers', {});
+    return this.http.get<any>('https://maid-cafe.ch/controller.php?mode=getUsers', {});
+  }
+
+
+  /**
+   * Gets amount user statistics
+   * @returns amount user statistics 
+   */
+  getAmountUserStatistics(): Observable<any> {
+    return this.http.get<any>('https://maid-cafe.ch/controller.php?mode=getCountUser', {});
+  }
+
+  /**
+   * Gets traffic of weekdays
+   * @returns traffic of weekdays 
+   */
+  getTrafficOfWeekdays(): Observable<any> {
+    return this.http.get<any>('https://maid-cafe.ch/controller.php?mode=getLogTrafficPerDay', {});
   }
 
   /**
@@ -29,6 +46,12 @@ export class UserService {
         id: id
       });
   }
+
+  /**
+   * Deletes profile
+   * @param id 
+   * @returns profile 
+   */
   deleteProfile(id: number): Observable<any> {
     return this.http.post<User>(
       'https://maid-cafe.ch/controller.php?mode=deleteProfile',

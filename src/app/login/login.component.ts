@@ -100,7 +100,7 @@ export class LoginComponent implements OnInit {
         } else {
           resolve(null);
         }
-      }, 300);
+      }, 0);
     });
     return promise;
   }

@@ -42,11 +42,11 @@ export class UserComponent implements OnInit, AfterViewChecked {
    * Gets users
    */
   getUsers() {
-    this.userService.getUsers().subscribe(value => {
+    this.userService.getUsers().subscribe((value) => {
       this.users = value;
       setTimeout(() => {
         initDataTable();
-      }, 30);
+      }, 0);
     });
   }
 
@@ -54,16 +54,7 @@ export class UserComponent implements OnInit, AfterViewChecked {
    * on init
    */
   ngOnInit() {
-    this.authService.getUserSession().subscribe(val => {
-      if (val !== null) {
-        this.loggedUser = val;
-      } else {
-        // alert('Sie haben keine Berechtigung!')
-        // this.router.navigate(['/']);
-      }
-    }, error => {
-      console.log(error);
-    });
+    
   }
 
   /**

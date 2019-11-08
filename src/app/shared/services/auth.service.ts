@@ -28,7 +28,7 @@ export class AuthService {
                     this.checkLogin().subscribe((val) => {
                         resolve(val);
                     });
-                }, 800);
+                }, 0);
             }
         );
         return promise;

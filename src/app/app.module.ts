@@ -26,6 +26,7 @@ import { DeleteModalComponent } from './shared/modal/delete-modal/delete-modal.c
 import { ForgotpasswordModalComponent } from './shared/modal/forgotpassword-modal/forgotpassword-modal.component';
 import { EditMeComponent } from './edit-me/edit-me.component';
 import { OrdersComponent } from './orders/orders.component';
+import { StatisticComponent } from './statistic/statistic.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +46,8 @@ import { OrdersComponent } from './orders/orders.component';
     DeleteModalComponent,
     ForgotpasswordModalComponent,
     EditMeComponent,
-    OrdersComponent
+    OrdersComponent,
+    StatisticComponent
   ],
   imports: [
     BrowserModule,

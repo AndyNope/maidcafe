@@ -1,3 +1,4 @@
+
 <div class="navbar-light">
   <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
     <a class="navbar-brand" routerLink="/"> Maid Cafe - Dream Garden</a>
@@ -41,32 +42,38 @@
           *ngIf="isLogged  && role > 33">
           <a class="nav-link" routerLink="/orders">Orders</a>
         </li>
-        <!-- <li class="nav-item dropdown">
-          <a class="nav-link  dropdown-toggle" href="#" data-toggle="dropdown"> Dropdown </a>
+        <li class="nav-item dropdown"
+        *ngIf="isLogged  && role > 33">
+          <a 
+            class="nav-link  dropdown-toggle" 
+            href="#" 
+            data-toggle="dropdown"
+              >More 
+            </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#"> Menu item 1</a></li>
-            <li><a class="dropdown-item" href="#"> Menu item 2 </a></li>
+            <a class="text-dark" routerLink="/statistics">    
+              <li 
+                class="dropdown-item" 
+                routerLinkActive="active">
+                Statistics
+              </li>
+            </a>
           </ul>
-        </li> -->
+        </li>
         <li 
-          class="nav-item" 
+          class="nav-item d-flex pr-2" 
           role="presentation" 
           routerLinkActive="active" 
           *ngIf="isLogged">
           <a 
-            class="btn ml-2 btn-warning" 
+            class="btn mb-2 btn-warning " 
             routerLink="edit-me">{{ username }}
             <i class="fa fa-user"></i>
           </a>
-        </li>
-        <li 
-          class="nav-item" 
-          role="presentation" 
-          routerLinkActive="active" 
-          *ngIf="isLogged">
           <a 
-            class="btn ml-2 btn-warning" 
-            routerLink="logout">Logout <i class="fa fa-sign-out"></i>
+            class="btn mb-2 btn-warning " 
+            routerLink="logout">Logout 
+            <i class="fa fa-sign-out"></i>
           </a>
         </li>
       </ul>

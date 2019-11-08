@@ -32,6 +32,6 @@ export class ForgotpasswordModalComponent implements OnInit {
     });
     setTimeout(() => {
       this.setForm();
-    }, 300);
+    }, 0);
   }
 }

@@ -20,12 +20,12 @@
                 <td>{{ user.role }}</td>
                 <td>{{ user.created | date:'d. MMMM y H:mm:ss' }} </td>
                 <td>
-                    <button [style.visibility]="checkLoggedUser(user.id)?'hidden':'visible'" class="btn btn-dark"
+                    <button class="btn btn-dark"
                         (click)="onEditUser(user.id)">Edit
                     </button>
                 </td>
                 <td>
-                    <button [style.visibility]="checkLoggedUser(user.id)?'hidden':'visible'" class="btn btn-danger"
+                    <button class="btn btn-danger"
                         data-toggle="modal" data-target="#confirmDelete" (click)="onDeleteUser(user.id)">
                         Delete
                     </button>

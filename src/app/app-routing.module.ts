@@ -15,6 +15,7 @@ import { AddUserComponent } from './users/add-user/add-user.component';
 import { EditUserComponent } from './users/edit-user/edit-user.component';
 import { UserComponent } from './users/user/user.component';
 import { UsersComponent } from './users/users.component';
+import { StatisticComponent } from './statistic/statistic.component';
 
 const appRoutes: Routes = [
     { path: '', component: MenuComponent },
@@ -28,6 +29,7 @@ const appRoutes: Routes = [
     }, //localhost:4200/users
     { path: 'edit-user/:id', canActivate: [AuthGuard], component: EditUserComponent },
     { path: 'add-user', canActivate: [AuthGuard], component: AddUserComponent },
+    { path: 'statistics',/* canActivate: [AuthGuard],*/ component: StatisticComponent },
     { path: 'orders', canActivate: [AuthGuard], component: OrdersComponent },
     { path: 'login', component: LoginComponent },
     { path: 'logout', component: LogoutComponent },
