@@ -27,7 +27,9 @@ export class WarningDialogComponent {
         this.title = this.data.title;
         this.content = this.data.content;
     }
-
+/**
+ * when the button is submitted, the change will be processed.
+ */
     onSubmit() {
         if (this.data.mode == "user") {
             this.userService.deleteUser(this.data.id).subscribe(value => {
