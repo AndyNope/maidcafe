@@ -1,0 +1,36 @@
+<app-delete-modal></app-delete-modal>
+<div class="table-responsive-md">
+    <table id="table_id" class="table table-sm display">
+        <thead>
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Username</th>
+                <th scope="col">E-Mail</th>
+                <th scope="col">Role</th>
+                <th scope="col">Created</th> 
+                <th scope="col">Edit</th>
+                <th scope="col">Delete</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let user of users">
+                <td>{{ user.id }}</td>
+                <td>{{ user.username }} </td>
+                <td>{{ user.email }} </td>
+                <td>{{ user.role }}</td>
+                <td>{{ user.created | date:'d. MMMM y H:mm:ss' }} </td>
+                <td>
+                    <button class="btn btn-dark"
+                        (click)="onEditUser(user.id)">Edit
+                    </button>
+                </td>
+                <td>
+                    <button class="btn btn-danger"
+                        (click)="openDialog(user.id)">
+                        Delete
+                    </button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

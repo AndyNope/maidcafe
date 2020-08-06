@@ -1,0 +1,14 @@
+<div class="row">
+    <div class="col-md">
+        <h1>Menu</h1>
+    </div>
+    <div class="col-md text-right">
+        <button 
+            class="btn btn-success" 
+            (click)="addOffer()" 
+            *ngIf="isLogged && role > 66">
+            Add Menu
+        </button>
+    </div>
+</div>
+<app-offer></app-offer>
