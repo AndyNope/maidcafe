@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 
 import { AuthService } from '../shared/services/auth.service';
 import { MessageService } from '../shared/services/message.service';
+import { ToasterService } from '../shared/services/toaster.service';
 
 /**
  * Component
@@ -28,6 +29,7 @@ export class LoginComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private messageService: MessageService,
+    private toasterService: ToasterService,
     private router: Router
   ) {
     this.messageService.resetMessages();
@@ -59,15 +61,16 @@ export class LoginComponent implements OnInit {
     this.authService.login(username, password).subscribe(
       (value: any) => {
         if (value === "Benutzer nicht gefunden!" || value === "Passwort ist falsch!") {
-          this.alertMessage = value;
-
+          //this.alertMessage = value;
+          this.toasterService.showError("Leider ist etwas schief gegangen!",value)
 
         } else {
           this.loadedUser = value;
           this.authService.setUser(value);
           this.authService.startWatching();
           this.loginForm.reset();
-          this.messageService.setSuccessMessage('Sie sind erfolgreich eingeloggt.');
+          this.toasterService.showSuccess("Super!","Sie sind erfolgreich eingeloggt!");
+          //this.messageService.setSuccessMessage('Sie sind erfolgreich eingeloggt.');
           this.router.navigate(['/']);
         }
       }, error => {

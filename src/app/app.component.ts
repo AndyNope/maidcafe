@@ -1,11 +1,6 @@
-import {
-  Component,
-  OnInit
-} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 import { MessageService } from './shared/services/message.service';
-
-
 
 @Component({
   selector: 'app-root',
@@ -27,6 +22,6 @@ export class AppComponent implements OnInit {
     this.negativeMessage = this.messageService.getNegativeMessage();
   }
 
- 
+
 
 }
