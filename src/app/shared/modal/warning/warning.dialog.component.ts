@@ -1,4 +1,4 @@
-import { Component, Output, EventEmitter, Inject } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
@@ -20,10 +20,10 @@ export class WarningDialogComponent {
     constructor(@Inject(MAT_DIALOG_DATA) public data: any,
         private dialog: MatDialogRef<WarningDialogComponent>,
         private userService: UserService,
-        private offerSerice: OfferService,
+        private offerService: OfferService,
         private messageService: MessageService,
         private router: Router
-    ) { 
+    ) {
         this.title = this.data.title;
         this.content = this.data.content;
     }
@@ -36,6 +36,16 @@ export class WarningDialogComponent {
                         this.messageService.setSuccessMessage(this.data.mode.toUpperCase() + " wurde gelöscht.");
                         this.dialog.close("success");
                     });
+                }
+            }, error => {
+                console.log(error);
+                this.dialog.close("error");
+            });
+        } else if (this.data.mode == "offer") {
+            this.offerService.deleteOffer(this.data.id).subscribe((value: any) => {
+                if (value === "deleted") {
+                    this.messageService.setSuccessMessage('Offer wurde gelöscht.');
+                    this.dialog.close("success");
                 }
             }, error => {
                 console.log(error);

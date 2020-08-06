@@ -6,7 +6,6 @@ import { User } from 'src/app/shared/models/user.model';
 import { UserService } from 'src/app/shared/services/user.service';
 import { AuthService } from 'src/app/shared/services/auth.service';
 
-import { DeleteModalComponent } from 'src/app/shared/modal/delete-modal/delete-modal.component';
 import { MatDialog } from '@angular/material/dialog';
 import { WarningDialogComponent } from 'src/app/shared/modal/warning/warning.dialog.component';
 
@@ -17,7 +16,6 @@ declare function initDataTable(): any;
   templateUrl: './user.component.html'
 })
 export class UserComponent implements AfterViewChecked {
-  @ViewChild(DeleteModalComponent, { static: true }) private deleteModal: DeleteModalComponent;
 
 
   deleteId = 0;
@@ -66,22 +64,6 @@ export class UserComponent implements AfterViewChecked {
    */
   onEditUser(id: number) {
     this.router.navigate(['edit-user/' + id]);
-  }
-
-  /**
-   * 
-   * @param id 
-   */
-  onDeleteUser(id: number) {
-    const type = "user";
-    const title = "Wollen Sie diesen User wirklich löschen?";
-    const body = "Dies kann nicht mehr rückgangig gemacht werden!";
-    if (!this.checkLoggedUser('' + id)) {
-      this.deleteModal.onDelete("user", title, body, id);
-      this.deleteId = id;
-    } else {
-      this.deleteModal.onDelete(type, 'Sie können sich selber nicht löschen!', '', id);
-    }
   }
 
   /**

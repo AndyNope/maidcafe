@@ -1,12 +1,15 @@
+import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
+
 import { Offer } from 'src/app/shared/models/offer.model';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { FileUploadService } from 'src/app/shared/services/file-upload.service';
 import { MessageService } from 'src/app/shared/services/message.service';
 import { OfferService } from 'src/app/shared/services/offer.service';
+import { WarningDialogComponent } from 'src/app/shared/modal/warning/warning.dialog.component';
 
-import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-edit-offer',
@@ -35,7 +38,8 @@ export class EditOfferComponent implements OnInit {
     private offerService: OfferService,
     private router: Router,
     private authService: AuthService,
-    private fileUploadService: FileUploadService
+    private fileUploadService: FileUploadService,
+    public dialog: MatDialog
   ) {
     const id = this.route.snapshot.params['id'];
     this.offerService.getOfferById(id).subscribe(
@@ -133,16 +137,22 @@ export class EditOfferComponent implements OnInit {
    */
   deleteOffer() {
     const id = this.offerForm.value.offer_id;
-    this.offerService.deleteOffer(id).subscribe(
-      (value: any) => {
-        if (value === "deleted") {
-          this.messageService.setSuccessMessage(
-            'Offer wurde gelöscht.'
-          );
-          this.router.navigate(['/']);
-        }
+    const dialogRef = this.dialog.open(WarningDialogComponent, {
+      data: {
+        mode: "offer",
+        id: id,
+        title: "Wollen Sie dieses Angebot wirklich löschen?",
+        content: "Dies kann nicht mehr rückgangig gemacht werden!"
       }
+    }
     );
+    dialogRef.afterClosed().subscribe(result => {
+      if (result == "success") {
+        this.router.navigate(['/']);
+      } else if (result == "error") {
+        alert("Etwas ist schiefgelaufen.");
+      }
+    });
   }
 
   /**
