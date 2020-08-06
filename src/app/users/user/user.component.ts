@@ -45,7 +45,6 @@ export class UserComponent implements AfterViewChecked {
   }
 
   refreshList() {
-    alert('refreshed');
     this.getUsers();
   }
 
