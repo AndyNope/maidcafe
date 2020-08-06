@@ -1,6 +1,6 @@
 import { Component, Output, EventEmitter, Inject } from '@angular/core';
 import { Router } from '@angular/router';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
 import { MessageService } from '../../services/message.service';
 import { OfferService } from '../../services/offer.service';
@@ -18,6 +18,7 @@ export class WarningDialogComponent {
     content: string = "";
 
     constructor(@Inject(MAT_DIALOG_DATA) public data: any,
+        private dialog: MatDialogRef<WarningDialogComponent>,
         private userService: UserService,
         private offerSerice: OfferService,
         private messageService: MessageService,
@@ -33,12 +34,13 @@ export class WarningDialogComponent {
                 if (value === 'deleted') {
                     this.userService.getUsers().subscribe((value) => {
                         this.messageService.setSuccessMessage(this.data.mode.toUpperCase() + " wurde gelöscht.");
+                        this.dialog.close("success");
                     });
                 }
             }, error => {
                 console.log(error);
+                this.dialog.close("error");
             });
-            this.router.navigate(['/users']);
         }
 
     }

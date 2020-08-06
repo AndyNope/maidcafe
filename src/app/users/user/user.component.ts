@@ -124,7 +124,11 @@ export class UserComponent implements AfterViewChecked {
     }
     );
     dialogRef.afterClosed().subscribe(result => {
-      this.refreshList();
+      if(result == "success"){
+        this.refreshList();
+      }else if(result == "error"){
+        alert("Etwas ist schiefgelaufen.");
+      }
     });
     
   }
