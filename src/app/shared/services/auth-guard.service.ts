@@ -10,7 +10,7 @@ import {
 } from '@angular/router';
 
 import { AuthService } from './auth.service';
-import { MessageService } from './message.service';
+import { ToasterService } from './toaster.service';
 
 /**
  * Injectable
@@ -19,20 +19,20 @@ import { MessageService } from './message.service';
 export class AuthGuard implements CanActivate, CanActivateChild {
     /**
      * Creates an instance of auth guard.
-     * @param authService 
-     * @param router 
+     * @param authService
+     * @param router
      */
     constructor(
         private authService: AuthService,
         private router: Router,
-        private message: MessageService
+        private toasterService: ToasterService
     ) { }
 
     /**
      * autentificate the user
-     * @param route 
-     * @param state 
-     * @returns activate 
+     * @param route
+     * @param state
+     * @returns activate
      */
 
     canActivate(
@@ -42,7 +42,6 @@ export class AuthGuard implements CanActivate, CanActivateChild {
         return this.authService.isAuthenticated()
             .then(
                 (authenticated: boolean) => {
-                    //console.log(authenticated);                    
                     if (authenticated) {
                         return authenticated;
                     }
@@ -53,18 +52,18 @@ export class AuthGuard implements CanActivate, CanActivateChild {
                         this.authService.stopWatching();
                         this.authService.setUser(null);
                     });
-                    this.message.setNegativeMessage('Sie haben für diese Seite keine Berechtigung.');
+                    this.toasterService.showError('Ups!', 'Sie haben für diese Seite keine Berechtigung.');
                 }
             );
     }
     /**
      * autentificate the user in child component
-     * @param route 
-     * @param state 
-     * @returns activate child 
+     * @param route
+     * @param state
+     * @returns activate child
      */
     canActivateChild(route: ActivatedRouteSnapshot,
-        state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
+                     state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
         return this.canActivate(route, state);
     }
 }

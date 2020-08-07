@@ -1,27 +1,28 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Data } from '@angular/router';
-import { MessageService } from '../shared/services/message.service';
+import { ActivatedRoute, Data, Router } from '@angular/router';
 
 @Component({
   selector: 'app-error-page',
   templateUrl: './error-page.component.html'
 })
 export class ErrorPageComponent implements OnInit {
-  errorMessage: string;
+  counter = 10;
   constructor(
     private route: ActivatedRoute,
-    private messageService:MessageService
-    ) { }
+    private router: Router
+  ) { }
 
   /**
    * on init
    */
-  ngOnInit() {
-    this.errorMessage = this.route.snapshot.data['Message'];
-    this.route.data.subscribe(
-      (data:Data) => {
-        this.errorMessage = data['message']
-      }
-    );
+  async ngOnInit() {
+    for (let i = this.counter; i > 0; i--) {
+      this.counter = i;
+      await this.delay(1000);
+    }
+    this.router.navigate(['/']);
+  }
+  delay(ms: number) {
+    return new Promise(resolve => setTimeout(resolve, ms));
   }
 }

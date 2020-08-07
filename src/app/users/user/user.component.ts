@@ -21,17 +21,17 @@ export class UserComponent implements AfterViewChecked {
   deleteId = 0;
   users: User[];
   loggedUser: User;
-  user: string = 'user';
-  role: number = 0;
+  user = 'user';
+  role = 0;
 
   // Set the status of login
   isLogged = false;
 
   /**
    * Creates an instance of user component.
-   * @param userService 
-   * @param router 
-   * @param authService 
+   * @param userService
+   * @param router
+   * @param authService
    */
   constructor(
     private userService: UserService,
@@ -60,7 +60,7 @@ export class UserComponent implements AfterViewChecked {
 
   /**
    * Determines whether edit user on
-   * @param id 
+   * @param id
    */
   onEditUser(id: number) {
     this.router.navigate(['edit-user/' + id]);
@@ -83,8 +83,8 @@ export class UserComponent implements AfterViewChecked {
 
   /**
    * Checks logged user
-   * @param id 
-   * @returns true if logged user 
+   * @param id
+   * @returns true if logged user
    */
   checkLoggedUser(id: string = ''): boolean {
     if (this.loggedUser !== undefined) {
@@ -98,20 +98,19 @@ export class UserComponent implements AfterViewChecked {
   openDialog(id: number) {
     const dialogRef = this.dialog.open(WarningDialogComponent, {
       data: {
-        mode: "user",
-        id: id,
-        title: "Wollen Sie diesen User wirklich löschen?",
-        content: "Dies kann nicht mehr rückgangig gemacht werden!"
+        mode: 'user',
+        id,
+        title: 'Wollen Sie diesen User wirklich löschen?',
+        content: 'Dies kann nicht mehr rückgangig gemacht werden!'
       }
     }
     );
     dialogRef.afterClosed().subscribe(result => {
-      if(result == "success"){
+      if (result === 'success') {
         this.refreshList();
-      }else if(result == "error"){
-        alert("Etwas ist schiefgelaufen.");
+      } else if (result === 'error') {
+        alert('Etwas ist schiefgelaufen.');
       }
     });
-    
   }
 }

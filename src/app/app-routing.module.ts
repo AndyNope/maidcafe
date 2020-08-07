@@ -24,17 +24,17 @@ const appRoutes: Routes = [
     { path: 'edit-me', canActivate: [AuthGuard], component: EditMeComponent },
     {
         path: 'users', canActivate: [AuthGuard], component: UsersComponent, children: [
-            { path: ':id/:name', canActivate: [AuthGuard], component: UserComponent } //localhost:4200/users/anyID
+            { path: ':id/:name', canActivate: [AuthGuard], component: UserComponent } // localhost:4200/users/anyID
         ]
-    }, //localhost:4200/users
+    }, // localhost:4200/users
     { path: 'edit-user/:id', canActivate: [AuthGuard], component: EditUserComponent },
     { path: 'add-user', canActivate: [AuthGuard], component: AddUserComponent },
-    { path: 'statistics',canActivate: [AuthGuard], component: StatisticComponent },
+    { path: 'statistics', canActivate: [AuthGuard], component: StatisticComponent },
     { path: 'orders', canActivate: [AuthGuard], component: OrdersComponent },
     { path: 'login', component: LoginComponent },
     { path: 'logout', component: LogoutComponent },
     { path: 'not-found', component: ErrorPageComponent, data: { message: '' } },
-    { path: '**', redirectTo: '/not-found' } //, pathMatch: 'full'
+    { path: '**', redirectTo: '/not-found' }
 ];
 
 /**

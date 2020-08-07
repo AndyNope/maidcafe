@@ -9,13 +9,13 @@ import { Offer, OfferEdit } from '../models/offer.model';
 export class OfferService {
   /**
    * Creates an instance of offer service.
-   * @param http 
+   * @param http
    */
   constructor(private http: HttpClient) { }
 
   /**
    * Gets offers
-   * @returns offers 
+   * @returns offers
    */
   getOffers(): Observable<Offer> {
     return this.http.get<Offer>('https://maid-cafe.ch/controller.php?mode=getOffers', {});
@@ -23,19 +23,19 @@ export class OfferService {
 
   /**
    * Deletes offer
-   * @param id 
-   * @returns offer 
+   * @param id
+   * @returns offer
    */
   deleteOffer(id: number): Observable<any> {
     return this.http.post<Offer>('https://maid-cafe.ch/controller.php?mode=deleteOffer', {
-      id: id
+      id
     });
   }
 
   /**
    * Gets offer by id
-   * @param id 
-   * @returns offer by id 
+   * @param id
+   * @returns offer by id
    */
   getOfferById(id: number): Observable<Offer> {
     return this.http.get<Offer>('https://maid-cafe.ch/controller.php?mode=getOfferById&id=' + id, { responseType: 'json' });
@@ -43,8 +43,8 @@ export class OfferService {
 
   /**
    * Saves offer
-   * @param offer 
-   * @returns offer 
+   * @param offer
+   * @returns offer
    */
   saveOffer(offer: OfferEdit): Observable<any> {
     return this.http.post<Offer>('https://maid-cafe.ch/controller.php?mode=saveOffer', offer);

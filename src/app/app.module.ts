@@ -26,9 +26,7 @@ import { EditMeComponent } from './edit-me/edit-me.component';
 import { OrdersComponent } from './orders/orders.component';
 import { StatisticComponent } from './statistic/statistic.component';
 import { NavigatorComponent } from './navigator/navigator.component';
-import { DeleteModalComponent } from './shared/modal/delete-modal/delete-modal.component';
 import { WarningDialogComponent } from './shared/modal/warning/warning.dialog.component';
-import { ForgotpasswordModalComponent } from './shared/modal/forgotpassword-modal/forgotpassword-modal.component';
 
 
 import { AppRoutingModule } from './app-routing.module';
@@ -48,8 +46,6 @@ import { AuthService } from './shared/services/auth.service';
     AddOfferComponent,
     EditUserComponent,
     AddUserComponent,
-    DeleteModalComponent,
-    ForgotpasswordModalComponent,
     EditMeComponent,
     OrdersComponent,
     StatisticComponent,

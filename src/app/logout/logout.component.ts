@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { AuthService } from '../shared/services/auth.service';
-import { MessageService } from '../shared/services/message.service';
+import { ToasterService } from '../shared/services/toaster.service';
 
 @Component({
   selector: 'app-logout',
@@ -12,20 +12,17 @@ export class LogoutComponent implements OnInit {
 
   /**
    * Creates an instance of logout component.
-   * @param authService 
-   * @param router 
+   * @param authService
+   * @param router
    */
   constructor(
     private authService: AuthService,
     private router: Router,
-    private messageService: MessageService
+    private toasterService: ToasterService
   ) {
     this.authService.setLoginFalse();
-    this.messageService.resetMessages();
     setTimeout(() => {
-      if (this.messageService.getSuccessMessage() !== 'Account wurde gelöscht.') {
-        messageService.setSuccessMessage('Sie sind erfolgreich ausgeloggt.');
-      }
+      this.toasterService.showSuccess('', 'Sie sind erfolgreich ausgeloggt.');
       this.router.navigate(['/']);
     }, 2000);
   }

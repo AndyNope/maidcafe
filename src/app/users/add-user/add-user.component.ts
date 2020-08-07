@@ -1,17 +1,15 @@
-import { DeleteModalComponent } from 'src/app/shared/modal/delete-modal/delete-modal.component';
-import { MessageService } from 'src/app/shared/services/message.service';
 import { UserService } from 'src/app/shared/services/user.service';
 
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ToasterService } from 'src/app/shared/services/toaster.service';
 
 @Component({
   selector: 'app-add-user',
   templateUrl: './add-user.component.html'
 })
 export class AddUserComponent implements OnInit {
-  @ViewChild(DeleteModalComponent, { static: true }) private deleteModal: DeleteModalComponent;
   deleteId = 0;
   userForm: FormGroup;
   roleList = [
@@ -21,13 +19,13 @@ export class AddUserComponent implements OnInit {
 
   /**
    * Creates an instance of add user component.
-   * @param router 
-   * @param messageService 
-   * @param userService 
+   * @param router
+   * @param messageService
+   * @param userService
    */
   constructor(
     private router: Router,
-    private messageService: MessageService,
+    private toasterService: ToasterService,
     private userService: UserService
   ) { }
 
@@ -36,12 +34,12 @@ export class AddUserComponent implements OnInit {
    */
   ngOnInit() {
     this.userForm = new FormGroup({
-      'user_id': new FormControl('0'),
-      'username': new FormControl('', [Validators.required]),
-      'email': new FormControl(''),
-      'password': new FormControl('', [Validators.required]),
-      'password_compare': new FormControl('', [Validators.required]),
-      'role': new FormControl(33)
+      user_id: new FormControl('0'),
+      username: new FormControl('', [Validators.required]),
+      email: new FormControl(''),
+      password: new FormControl('', [Validators.required]),
+      password_compare: new FormControl('', [Validators.required]),
+      role: new FormControl(33)
     });
   }
 
@@ -49,7 +47,7 @@ export class AddUserComponent implements OnInit {
    * Determines whether submit on
    */
   onSubmit() {
-    const id = ""+0;
+    const id = '' + 0;
     const username = this.userForm.value.username;
     const email = this.userForm.value.email;
     const password = this.userForm.value.password;
@@ -57,34 +55,26 @@ export class AddUserComponent implements OnInit {
     const role = this.userForm.value.role;
 
     if (password === password_compare || (password + password_compare) === '') {
-      const user = { id: id, username: username, email: email, password: password, role: role };
+      const user = { id, username, email, password, role };
       this.userService.saveUser(user).subscribe(val => {
         console.log(this.userForm);
         if (val === 'added') {
-          this.messageService.setSuccessMessage('Benutzer wurde erfolgreich hinzugefügt.');
+          this.toasterService.showSuccess('Nyan!', 'Benutzer wurde erfolgreich hinzugefügt.');
           this.router.navigate(['/users']);
         } else {
-          this.messageService.setNegativeMessage(val);
+          this.toasterService.showError('Achtung!', val);
         }
       });
     } else {
-      this.messageService.setNegativeMessage('Both passwords have to match');
+      this.toasterService.showError('Mmhh', 'Beide Passwörter müssen identisch sein!');
     }
   }
 
   /**
-   * Deletes user
-   */
-  deleteUser() {
-    this.messageService.setSuccessMessage('User wurde gelöscht!');
-    this.router.navigate(['/users']);
-  }
-
-  /**
-   * Cancels add user 
+   * Cancels add user
    */
   cancel() {
-    this.messageService.setSuccessMessage('Erfolgreich abgebrochen.');
+    this.toasterService.showSuccess('Naja', 'War halt nicht würdig.');
     this.router.navigate(['/users']);
   }
 }

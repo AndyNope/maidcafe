@@ -1,12 +1,13 @@
-import { Offer } from 'src/app/shared/models/offer.model';
-import { AuthService } from 'src/app/shared/services/auth.service';
-import { FileUploadService } from 'src/app/shared/services/file-upload.service';
-import { MessageService } from 'src/app/shared/services/message.service';
-import { OfferService } from 'src/app/shared/services/offer.service';
 
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+
+import { Offer } from 'src/app/shared/models/offer.model';
+import { AuthService } from 'src/app/shared/services/auth.service';
+import { FileUploadService } from 'src/app/shared/services/file-upload.service';
+import { OfferService } from 'src/app/shared/services/offer.service';
+import { ToasterService } from 'src/app/shared/services/toaster.service';
 
 @Component({
   selector: 'app-add-offer',
@@ -21,14 +22,14 @@ export class AddOfferComponent implements OnInit {
 
   /**
    * Creates an instance of add offer component.
-   * @param route 
-   * @param offerService 
-   * @param router 
-   * @param authService 
-   * @param fileUploadService 
+   * @param route -
+   * @param offerService -
+   * @param router -
+   * @param authService -
+   * @param fileUploadService -
    */
   constructor(
-    private messageService: MessageService,
+    private toasterService: ToasterService,
     private offerService: OfferService,
     private router: Router,
     private authService: AuthService,
@@ -43,12 +44,12 @@ export class AddOfferComponent implements OnInit {
    */
   ngOnInit() {
     this.offerForm = new FormGroup({
-      'offer_id': new FormControl(''),
-      'offername': new FormControl('', [Validators.required]),
-      'price': new FormControl('', [Validators.required]),
-      'description': new FormControl(''),
-      'imageUpload': new FormControl(''),
-      'image': new FormControl('')
+      offer_id: new FormControl(''),
+      offername: new FormControl('', [Validators.required]),
+      price: new FormControl('', [Validators.required]),
+      description: new FormControl(''),
+      imageUpload: new FormControl(''),
+      image: new FormControl('')
     });
   }
 
@@ -66,10 +67,8 @@ export class AddOfferComponent implements OnInit {
     let allowedFileFormat = true;
     if (this.fileToUpload !== null) {
       this.fileUploadService.postfile(this.fileToUpload).subscribe(response => {
-        if (response.status === "error") {
-          this.messageService.setNegativeMessage(
-            'Sie dürfen nur Bilder mit dem Format Gif, JPG oder PNG hochladen!'
-          );
+        if (response.status === 'error') {
+          this.toasterService.showError('Achtung', 'Sie dürfen nur Bilder mit dem Format Gif, JPG oder PNG hochladen!');
           allowedFileFormat = false;
         }
       }, error => {
@@ -78,23 +77,23 @@ export class AddOfferComponent implements OnInit {
     }
     if (allowedFileFormat) {
       this.authService.getUserSession().subscribe(value => {
-        var role: number = value.role;
+        const role = value.role;
         if (role > 33) {
           const offer = {
-            id: "" + id,
-            name: "" + name,
-            price: price,
-            description: "" + description,
-            image: image
+            id: '' + id,
+            name: '' + name,
+            price,
+            description: '' + description,
+            image
           };
           this.offerService.saveOffer(offer).subscribe((response: any) => {
-            if (response === "added") {
-              this.messageService.setSuccessMessage('Angebot wurde hinzugefügt.');
+            if (response === 'added') {
+              this.toasterService.showSuccess('', 'Angebot wurde hinzugefügt.');
               this.router.navigate(['/']);
             }
           });
         } else {
-          this.messageService.setNegativeMessage('Sie haben keine Berechtigung.')
+          this.toasterService.showError('Ups!', 'Sie haben keine Berechtigung.');
           this.router.navigate(['/']);
         }
 
@@ -106,13 +105,14 @@ export class AddOfferComponent implements OnInit {
 
 
   /**
-     * Handles file input on changes
-     * @param files 
-     */
+   * Handles file input on changes
+   * @param files
+   */
   handleFileInput(files: FileList) {
     this.fileToUpload = files.item(0);
-    var reader = new FileReader();
+    const reader = new FileReader();
     reader.readAsDataURL(files.item(0));
+    // tslint:disable-next-line:variable-name
     reader.onload = (_event) => {
       this.image = reader.result;
     };

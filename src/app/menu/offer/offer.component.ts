@@ -19,9 +19,9 @@ export class OfferComponent implements AfterViewChecked, OnInit {
 
   /**
    * Creates an instance of offer component.
-   * @param offerService 
-   * @param authService 
-   * @param router 
+   * @param offerService
+   * @param authService
+   * @param router
    */
   constructor(
     private offerService: OfferService,
@@ -53,10 +53,10 @@ export class OfferComponent implements AfterViewChecked, OnInit {
 
   /**
    * Edits offer
-   * @param id 
+   * @param id
    */
   editOffer(id: number) {
-    this.router.navigate(['/edit-offer/' + id])
+    this.router.navigate(['/edit-offer/' + id]);
   }
 
   /**

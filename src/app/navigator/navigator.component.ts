@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectorRef, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, ChangeDetectionStrategy, AfterViewChecked } from '@angular/core';
 
 import { AuthService } from '../shared/services/auth.service';
 
@@ -7,14 +7,14 @@ import { AuthService } from '../shared/services/auth.service';
   templateUrl: './navigator.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class NavigatorComponent implements OnInit {
+export class NavigatorComponent implements OnInit, AfterViewChecked {
   isLogged: boolean;
   role: number;
   collapsed: boolean;
   username: string;
 
   constructor(private authService: AuthService,
-    private ref: ChangeDetectorRef) {
+              private ref: ChangeDetectorRef) {
     this.isLogged = false;
   }
 
@@ -26,7 +26,7 @@ export class NavigatorComponent implements OnInit {
     }
   }
 
-/**
+  /**
    * listening to changes
    */
   ngAfterViewChecked() {
@@ -39,6 +39,5 @@ export class NavigatorComponent implements OnInit {
       this.ref.markForCheck();
     }, 1);
   }
-
 
 }

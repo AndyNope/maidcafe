@@ -11,7 +11,7 @@ export class UserService {
 
   /**
    * Gets users
-   * @returns users 
+   * @returns users
    */
   getUsers(): Observable<any> {
     return this.http.get<any>('https://maid-cafe.ch/controller.php?mode=getUsers', {});
@@ -20,7 +20,7 @@ export class UserService {
 
   /**
    * Gets amount user statistics
-   * @returns amount user statistics 
+   * @returns amount user statistics
    */
   getAmountUserStatistics(): Observable<any> {
     return this.http.get<any>('https://maid-cafe.ch/controller.php?mode=getCountUser', {});
@@ -28,7 +28,7 @@ export class UserService {
 
   /**
    * Gets traffic of weekdays
-   * @returns traffic of weekdays 
+   * @returns traffic of weekdays
    */
   getTrafficOfWeekdays(): Observable<any> {
     return this.http.get<any>('https://maid-cafe.ch/controller.php?mode=getLogTrafficPerDay', {});
@@ -36,34 +36,34 @@ export class UserService {
 
   /**
    * Deletes user
-   * @param id 
-   * @returns user 
+   * @param id
+   * @returns user
    */
   deleteUser(id: number): Observable<any> {
     return this.http.post<User>(
       'https://maid-cafe.ch/controller.php?mode=deleteUser',
       {
-        id: id
+        id
       });
   }
 
   /**
    * Deletes profile
-   * @param id 
-   * @returns profile 
+   * @param id
+   * @returns profile
    */
   deleteProfile(id: number): Observable<any> {
     return this.http.post<User>(
       'https://maid-cafe.ch/controller.php?mode=deleteProfile',
       {
-        id: id
+        id
       });
   }
 
   /**
    * Gets user by id
-   * @param id 
-   * @returns user by id 
+   * @param id
+   * @returns user by id
    */
   getUserById(id: number): Observable<User> {
     return this.http.get<User>('https://maid-cafe.ch/controller.php?mode=getUserById&id=' + id, { responseType: 'json' });
@@ -71,7 +71,7 @@ export class UserService {
 
   /**
    * Gets role list
-   * @returns role list 
+   * @returns role list
    */
   getRoleList(): Observable<User> {
     return this.http.get<User>('https://maid-cafe.ch/controller.php?mode=getRole', { responseType: 'json' });
@@ -80,7 +80,7 @@ export class UserService {
   /**
    * Saves user
    * @param User
-   * @returns user 
+   * @returns user
    */
   saveUser(user: UserEdit): Observable<any> {
     return this.http.post<UserEdit>('https://maid-cafe.ch/controller.php?mode=saveUser', user);
@@ -89,7 +89,7 @@ export class UserService {
   /**
    * Saves profile
    * @param User
-   * @returns 
+   * @returns
    */
   saveProfile(user: UserEdit): Observable<any> {
     return this.http.post<UserEdit>('https://maid-cafe.ch/controller.php?mode=saveProfile', user);
