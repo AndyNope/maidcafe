@@ -3,33 +3,21 @@
         <h5>{{ offer.name }}</h5>
     </div>
     <div class="col-md mb-2">
-        <img 
-            [src]="offer.image" 
-            [alt]="offer.name" 
-            class="img-fluid img-thumbnail" 
-            [hidden]="!offer.image">
+        <img [src]="offer.image" [alt]="offer.name" class="img-fluid img-thumbnail" [hidden]="!offer.image">
     </div>
     <div class="col-md mb-2">
         <p>{{ offer.description }}</p>
     </div>
     <div class="col-md-auto col-sm mb-2 text-right">
-        <p> {{ offer.price | number:'1.2'  }} CHF</p>
+        <p> {{ offer.price | number:'1.2' }} CHF</p>
     </div>
-    <div 
-        class="col-md-auto col-sm mb-2 text-right" 
-        *ngIf="isLogged && role > 66">
-        <button 
-            class="btn btn-dark" 
-            (click)="editOffer(offer.id)">
+    <div class="col-md-auto col-sm mb-2 text-right" *ngIf="isLogged && role > 66">
+        <button class="btn btn-dark" (click)="editOffer(offer.id)">
             Edit
         </button>
     </div>
 </div>
-<p *ngIf="offers" class="mx-auto text-center">Momentan haben wir nichts im Angebot. Vielen Dank für Ihren Besuch!</p>
-<div *ngIf="offers" class="text-center">
+<p *ngIf="hasOffer" class="mx-auto text-center">Momentan haben wir nichts im Angebot. Vielen Dank für Ihren Besuch!</p>
+<div *ngIf="hasOffer" class="text-center">
     <img src="https://media.giphy.com/media/3o7bugDTSonKTqVd3q/giphy.gif" width="100%" class="rounded" alt="...">
 </div>
-<!-- <div *ngIf="offers" class="text-center">
-    <img src="https://media.giphy.com/media/7cStB8yLg0sko/giphy.gif "   class="rounded" alt="...">
-</div> -->
-    

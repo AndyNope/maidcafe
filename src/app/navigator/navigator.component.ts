@@ -10,7 +10,7 @@ import { AuthService } from '../shared/services/auth.service';
 export class NavigatorComponent implements OnInit, AfterViewChecked {
   isLogged: boolean;
   role: number;
-  collapsed: boolean;
+  collapsed = true;
   username: string;
 
   constructor(private authService: AuthService,

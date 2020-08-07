@@ -10,7 +10,6 @@ import { OfferService } from 'src/app/shared/services/offer.service';
 import { WarningDialogComponent } from 'src/app/shared/modal/warning/warning.dialog.component';
 import { ToasterService } from 'src/app/shared/services/toaster.service';
 
-
 @Component({
   selector: 'app-edit-offer',
   templateUrl: './edit-offer.component.html'
@@ -60,7 +59,6 @@ export class EditOfferComponent implements OnInit {
 
   }
 
-
   /**
    * on init
    * initialize reactive fromular
@@ -84,10 +82,7 @@ export class EditOfferComponent implements OnInit {
     const name = this.offerForm.value.offername;
     const price = this.offerForm.value.price;
     const description = this.offerForm.value.description;
-    const
-      image = this.fileToUpload !== null
-        ? '/upload/' + this.fileToUpload.name
-        : this.offerForm.value.image;
+    const image = this.fileToUpload !== null ? '/upload/' + this.fileToUpload.name : this.offerForm.value.image;
     let allowedFileFormat = true;
     if (this.fileToUpload !== null) {
       this.fileUploadService.postfile(this.fileToUpload)
@@ -129,7 +124,6 @@ export class EditOfferComponent implements OnInit {
 
   }
 
-
   /**
    * Deletes offer
    */
@@ -159,7 +153,6 @@ export class EditOfferComponent implements OnInit {
   cancel() {
     this.router.navigate(['/']);
   }
-
 
   /**
    * Handles file input on changes

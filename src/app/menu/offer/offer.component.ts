@@ -11,10 +11,9 @@ import { WebSocketService } from 'src/app/shared/services/web-socket.service';
   templateUrl: './offer.component.html'
 })
 export class OfferComponent implements AfterViewChecked, OnInit {
-
   isLogged = false;
   role = 0;
-
+  hasOffer = false;
   offers: Offer[];
 
   /**
@@ -32,8 +31,12 @@ export class OfferComponent implements AfterViewChecked, OnInit {
     this.offerService.getOffers().subscribe(
       (value: any) => {
         this.offers = value;
+        if (this.offers.length > 0) {
+          this.hasOffer = true;
+        }
       }
     );
+
   }
 
   ngOnInit(): void {

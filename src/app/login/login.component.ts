@@ -6,6 +6,8 @@ import { Router } from '@angular/router';
 
 import { AuthService } from '../shared/services/auth.service';
 import { ToasterService } from '../shared/services/toaster.service';
+import { MatDialog } from '@angular/material/dialog';
+import { ResetPasswordComponent } from './modal/reset-password/reset-password.component';
 
 /**
  * Component
@@ -28,6 +30,7 @@ export class LoginComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private toasterService: ToasterService,
+    private dialog: MatDialog,
     private router: Router
   ) {
   }
@@ -103,6 +106,24 @@ export class LoginComponent implements OnInit {
         alert(error);
       });
 
+  }
+
+  /**
+   * reset password
+   */
+  resetPassword() {
+
+    const dialogRef = this.dialog.open(ResetPasswordComponent, {
+      data: {}
+    }
+    );
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === 'success') {
+        this.router.navigate(['/users']);
+      } else if (result === 'error') {
+        alert('Etwas ist schiefgelaufen.');
+      }
+    });
   }
 
 }

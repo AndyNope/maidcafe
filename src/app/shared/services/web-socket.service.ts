@@ -9,17 +9,17 @@ import { Injectable } from '@angular/core';
 export class WebSocketService {
 
   socket: any;
-  uri: string = "https://maid-cafe.ch";
+  uri = 'https://maid-cafe.ch';
 
   constructor() {
     this.socket = io(this.uri);
   }
 
   setUri(param: string) {
-    this.uri ='https://maid-cafe.ch/' + param;
+    this.uri = 'https://maid-cafe.ch/' + param;
   }
 
-  listen(eventName: String) {
+  listen(eventName: string) {
     return new Observable((subcriber) => {
       this.socket.on(eventName, data => {
         subcriber.next(data);

@@ -1,7 +1,5 @@
 <h1>Login</h1>
-<div 
-    *ngIf="alertMessage" 
-    class="alert alert-danger">
+<div *ngIf="alertMessage" class="alert alert-danger">
     {{ alertMessage }}
 </div>
 <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
@@ -9,33 +7,19 @@
         <label for="username">
             Username
         </label>
-        <input 
-        type="text" 
-        id="username" 
-        formControlName="username" 
-        class="form-control">
+        <input type="text" id="username" formControlName="username" class="form-control">
     </div>
     <div class="form-group">
         <label for="password">
             Password
         </label>
-        <input 
-        type="password" 
-        id="password" 
-        formControlName="password" 
-        class="form-control">
+        <input type="password" id="password" formControlName="password" class="form-control">
     </div>
-    <button 
-    class="btn btn-primary" 
-    type="submit" 
-    [disabled]="!loginForm.valid">
+    <button class="btn btn-primary" type="submit" [disabled]="!loginForm.valid">
         Login
     </button>
 </form>
 
 <hr>
-<a 
-    class="text-primary" 
-    style="cursor: pointer;"
-    >Passwort vergessen
+<a class="text-primary" style="cursor: pointer;" (click)="resetPassword()">Passwort vergessen
 </a>

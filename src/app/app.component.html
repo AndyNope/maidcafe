@@ -1,12 +1,14 @@
-
-<app-navigator></app-navigator>
-<hr><hr><hr>
+<app-navigator>
+</app-navigator>
+<hr>
+<hr>
+<hr>
 <div class="container">
-  <div *ngIf="positiveMessage" class="alert alert-success ">
-    {{ positiveMessage }}
-  </div>
-  <div *ngIf="negativeMessage" class="alert alert-danger">
-    {{ negativeMessage }}
-  </div>
-  <router-outlet></router-outlet>
+    <div *ngIf="positiveMessage" class="alert alert-success ">
+        {{ positiveMessage }}
+    </div>
+    <div *ngIf="negativeMessage" class="alert alert-danger">
+        {{ negativeMessage }}
+    </div>
+    <router-outlet></router-outlet>
 </div>

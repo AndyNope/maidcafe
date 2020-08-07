@@ -27,11 +27,12 @@ import { OrdersComponent } from './orders/orders.component';
 import { StatisticComponent } from './statistic/statistic.component';
 import { NavigatorComponent } from './navigator/navigator.component';
 import { WarningDialogComponent } from './shared/modal/warning/warning.dialog.component';
-
+import { ResetPasswordComponent } from './login/modal/reset-password/reset-password.component';
 
 import { AppRoutingModule } from './app-routing.module';
 
 import { AuthService } from './shared/services/auth.service';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -50,9 +51,10 @@ import { AuthService } from './shared/services/auth.service';
     OrdersComponent,
     StatisticComponent,
     NavigatorComponent,
+    ResetPasswordComponent,
     WarningDialogComponent
   ],
-  entryComponents: [WarningDialogComponent],
+  entryComponents: [WarningDialogComponent, ResetPasswordComponent],
   imports: [
     BrowserModule,
     ReactiveFormsModule,

@@ -19,7 +19,6 @@ export class AddOfferComponent implements OnInit {
   image = null;
   fileToUpload = null;
 
-
   /**
    * Creates an instance of add offer component.
    * @param route -
@@ -37,7 +36,6 @@ export class AddOfferComponent implements OnInit {
   ) {
 
   }
-
 
   /**
    * on init
@@ -61,9 +59,7 @@ export class AddOfferComponent implements OnInit {
     const name = this.offerForm.value.offername;
     const price = this.offerForm.value.price;
     const description = this.offerForm.value.description;
-    const image = this.fileToUpload !== null
-      ? this.fileToUpload.name
-      : this.offerForm.value.image;
+    const image = this.fileToUpload !== null ? '/upload/' + this.fileToUpload.name : this.offerForm.value.image;
     let allowedFileFormat = true;
     if (this.fileToUpload !== null) {
       this.fileUploadService.postfile(this.fileToUpload).subscribe(response => {
@@ -103,7 +99,6 @@ export class AddOfferComponent implements OnInit {
     }
   }
 
-
   /**
    * Handles file input on changes
    * @param files
@@ -124,6 +119,10 @@ export class AddOfferComponent implements OnInit {
   onCancel() {
     this.router.navigate(['/']);
   }
+
+  /*
+  * Remove the Layout
+  */
   removeImage() {
     this.fileToUpload = null;
     this.image = null;

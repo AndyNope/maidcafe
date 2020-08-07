@@ -36,8 +36,8 @@ export class AuthService {
 
     /**
      * Creates an instance of auth service.
-     * @param http 
-     * @param userIdle 
+     * @param http
+     * @param userIdle
      */
     constructor(
         private http: HttpClient,
@@ -75,16 +75,18 @@ export class AuthService {
             });
         }
     }
+
     /**
      * Gets login
-     * @returns  
+     * @returns
      */
     getLogin() {
         return this.user === null ? false : true;
     }
+
     /**
      * Gets role
-     * @returns  
+     * @returns
      */
     getRole() {
         return this.user === null ? 0 : this.user.role;
@@ -92,35 +94,37 @@ export class AuthService {
 
     /**
      * Logins auth service
-     * @param username 
-     * @param password 
-     * @returns login 
+     * @param username
+     * @param password
+     * @returns login
      */
     login(username: string, password: string): Observable<any> {
         this.startWatching();
         return this.http.post<AuthRespondsData>('https://maid-cafe.ch/controller.php?mode=login', {
-            username: username,
-            password: password
+            username,
+            password
         });
     }
-
 
     /**
      * Requests a new password
-     * @param email 
+     * @param email
      */
-    requestNewPassword(email: string): Observable<string> {
-        return this.http.post<string>('https://maid-cafe.ch/controller.php?mode=forgotPassword', {
-            email: email
-        });
+    requestNewPassword(email: any): Observable<string> {
+        return this.http.post<any>('https://maid-cafe.ch/controller.php?mode=forgotPassword', email);
     }
+
+    /**
+     * Check the User
+     * @returns boolean
+     */
     checkLogin(): Observable<any> {
         return this.http.get<any>('https://maid-cafe.ch/controller.php?mode=checkLogin');
     }
 
     /**
      * Gets user session
-     * @returns user session 
+     * @returns user session
      */
     getUserSession(): Observable<any> {
         return this.http.get<User>('https://maid-cafe.ch/controller.php?mode=getUserSession', {});
@@ -130,7 +134,7 @@ export class AuthService {
     }
     /**
      * Logouts auth service
-     * @returns logout 
+     * @returns logout
      */
     logout(): Observable<User> {
         return this.http.get<User>('https://maid-cafe.ch/controller.php?mode=logout', {});
@@ -145,7 +149,7 @@ export class AuthService {
 
     /**
      * Sets user
-     * @param user 
+     * @param user
      */
     setUser(user: User) {
         this.loggedIn = user !== null ? true : false;
