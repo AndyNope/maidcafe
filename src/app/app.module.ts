@@ -52,7 +52,6 @@ import { AuthService } from './shared/services/auth.service';
     StatisticComponent,
     NavigatorComponent,
     ResetPasswordComponent,
-    
     WarningDialogComponent
   ],
   imports: [
