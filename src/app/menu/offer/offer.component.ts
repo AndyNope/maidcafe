@@ -6,7 +6,6 @@ import { Offer } from 'src/app/shared/models/offer.model';
 
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { OfferService } from 'src/app/shared/services/offer.service';
-import { WebSocketService } from 'src/app/shared/services/web-socket.service';
 
 @Component({
   selector: 'app-offer',
@@ -26,7 +25,6 @@ export class OfferComponent implements AfterViewChecked, OnInit {
    */
   constructor(private offerService: OfferService,
               private authService: AuthService,
-              private webSocketService: WebSocketService,
               private router: Router,
   ) {
     this.offerService.getOffers().subscribe(
@@ -39,18 +37,7 @@ export class OfferComponent implements AfterViewChecked, OnInit {
     );
   }
 
-  ngOnInit(): void {
-    this.webSocketService.listen('Test').subscribe(data => {});
-
-    this.webSocketService.emit('offers', (data) => {
-      console.log(data);
-      this.offerService.getOffers().subscribe(
-        (value: any) => {
-          this.offers = value;
-        }
-      );
-    });
-  }
+  ngOnInit(): void {}
 
   ngAfterViewChecked() {
     this.isLogged = this.authService.getLogin();
