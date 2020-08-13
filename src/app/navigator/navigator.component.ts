@@ -13,8 +13,10 @@ export class NavigatorComponent implements OnInit, AfterViewChecked {
   collapsed = true;
   username: string;
 
-  constructor(private authService: AuthService,
-              private ref: ChangeDetectorRef) {
+  constructor(
+    private authService: AuthService,
+    private ref: ChangeDetectorRef
+  ) {
     this.isLogged = false;
   }
 
@@ -30,14 +32,12 @@ export class NavigatorComponent implements OnInit, AfterViewChecked {
    * listening to changes
    */
   ngAfterViewChecked() {
-    setTimeout(() => {
-      this.isLogged = this.authService.getLogin();
-      this.role = this.authService.getRole();
-      if (this.isLogged) {
-        this.username = this.authService.getUsername();
-      }
-      this.ref.markForCheck();
-    }, 1);
+    this.isLogged = this.authService.getLogin();
+    this.role = this.authService.getRole();
+    if (this.isLogged) {
+      this.username = this.authService.getUsername();
+    }
+    this.ref.markForCheck();
   }
 
 }

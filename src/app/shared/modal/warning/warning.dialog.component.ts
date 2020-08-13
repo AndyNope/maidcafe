@@ -22,7 +22,6 @@ export class WarningDialogComponent {
                 private userService: UserService,
                 private offerService: OfferService,
                 private toasterService: ToasterService,
-                private router: Router
     ) {
         this.title = this.data.title;
         this.content = this.data.content;
@@ -33,24 +32,24 @@ export class WarningDialogComponent {
      */
     onSubmit() {
         if (this.data.mode === 'user') {
-            this.userService.deleteUser(this.data.id).subscribe(value => {
-                if (value === 'deleted') {
+            this.userService.deleteUser(this.data.id).subscribe((response) => {
+                if (response.status === 200) {
                     this.userService.getUsers().subscribe(() => {
                         this.toasterService.showSuccess('Super!', this.data.mode.toUpperCase() + ' wurde gelöscht.');
                         this.dialog.close('success');
                     });
                 }
-            }, error => {
+            }, (error) => {
                 console.log(error);
                 this.dialog.close('error');
             });
         } else if (this.data.mode === 'offer') {
-            this.offerService.deleteOffer(this.data.id).subscribe((value: any) => {
-                if (value === 'deleted') {
+            this.offerService.deleteOffer(this.data.id).subscribe((response) => {
+                if (response.status === 200) {
                     this.toasterService.showSuccess('Na gut...', 'Offer wurde gelöscht.');
                     this.dialog.close('success');
                 }
-            }, error => {
+            }, (error) => {
                 console.log(error);
                 this.dialog.close('error');
             });

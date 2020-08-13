@@ -18,7 +18,6 @@ export class EditUserComponent implements OnInit {
   userForm: FormGroup;
   roleList = ['helper', 'service', 'admin'];
 
-
   /**
    * Creates an instance of edit user component.
    * @param userService
@@ -94,6 +93,10 @@ export class EditUserComponent implements OnInit {
   deleteUser() {
     this.router.navigate(['/users']);
   }
+
+  /**
+   * ask confirmation
+   */
   onDeleteUser(id: number) {
     const dialogRef = this.dialog.open(WarningDialogComponent, {
       data: {
@@ -112,7 +115,6 @@ export class EditUserComponent implements OnInit {
       }
     });
   }
-
 
   /**
    * Cancels edit user component

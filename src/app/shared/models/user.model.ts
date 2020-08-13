@@ -1,6 +1,3 @@
-/**
- * User
- */
 export interface User {
     id?: string;
     username: string;
@@ -11,6 +8,7 @@ export interface User {
     deleted: number;
     created: string;
 }
+
 export interface UserEdit {
     id?: string;
     username: string;

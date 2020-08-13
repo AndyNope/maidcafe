@@ -1,12 +1,12 @@
 import { Component, OnInit, ViewChild, AfterViewChecked } from '@angular/core';
 import { Router } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
 
 import { User } from 'src/app/shared/models/user.model';
 
 import { UserService } from 'src/app/shared/services/user.service';
 import { AuthService } from 'src/app/shared/services/auth.service';
 
-import { MatDialog } from '@angular/material/dialog';
 import { WarningDialogComponent } from 'src/app/shared/modal/warning/warning.dialog.component';
 
 declare function initDataTable(): any;
@@ -17,8 +17,7 @@ declare function initDataTable(): any;
 })
 export class UserComponent implements AfterViewChecked {
 
-
-  deleteId = 0;
+  deleteId: number;
   users: User[];
   loggedUser: User;
   user = 'user';
@@ -42,6 +41,9 @@ export class UserComponent implements AfterViewChecked {
     this.getUsers();
   }
 
+  /**
+   * Refresh list
+   */
   refreshList() {
     this.getUsers();
   }
@@ -67,7 +69,7 @@ export class UserComponent implements AfterViewChecked {
   }
 
   /**
-   * after view checked
+   * After view checked
    */
   ngAfterViewChecked() {
     this.isLogged = this.authService.getLogin();
@@ -95,6 +97,9 @@ export class UserComponent implements AfterViewChecked {
     return false;
   }
 
+  /**
+   * Ask confirmtion
+   */
   openDialog(id: number) {
     const dialogRef = this.dialog.open(WarningDialogComponent, {
       data: {

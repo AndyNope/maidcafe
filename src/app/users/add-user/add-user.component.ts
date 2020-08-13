@@ -1,8 +1,8 @@
-import { UserService } from 'src/app/shared/services/user.service';
-
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+
+import { UserService } from 'src/app/shared/services/user.service';
 import { ToasterService } from 'src/app/shared/services/toaster.service';
 
 @Component({
@@ -15,7 +15,6 @@ export class AddUserComponent implements OnInit {
   roleList = [
     'helper', 'service', 'admin'
   ];
-
 
   /**
    * Creates an instance of add user component.

@@ -1,6 +1,3 @@
-/**
- * Offer
- */
 export interface Offer {
     id?: string;
     name: string;
@@ -12,9 +9,6 @@ export interface Offer {
     created: string;
 }
 
-/**
- * OfferEdit
- */
 export interface OfferEdit {
     id?: string;
     name: string;

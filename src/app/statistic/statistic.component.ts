@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { UserService } from '../shared/services/user.service';
 import { ToasterService } from '../shared/services/toaster.service';
-import { Router } from '@angular/router';
 
 declare function timeLineChart(array1: Array<number>, array2: Array<number>): any;
 declare function trafficWeekdays(

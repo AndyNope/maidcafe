@@ -3,10 +3,10 @@ import { Observable } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
 
 import { AuthService } from '../shared/services/auth.service';
 import { ToasterService } from '../shared/services/toaster.service';
-import { MatDialog } from '@angular/material/dialog';
 import { ResetPasswordComponent } from './modal/reset-password/reset-password.component';
 
 /**
@@ -32,8 +32,7 @@ export class LoginComponent implements OnInit {
     private toasterService: ToasterService,
     private dialog: MatDialog,
     private router: Router
-  ) {
-  }
+  ) { }
 
   /**
    * Invalids username
@@ -102,8 +101,6 @@ export class LoginComponent implements OnInit {
           this.router.navigate(['/']);
         }
       }, error => {
-        console.log(error);
-        alert(error);
       });
 
   }

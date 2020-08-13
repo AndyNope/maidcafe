@@ -1,9 +1,11 @@
-import { Offer } from 'src/app/shared/models/offer.model';
-import { AuthService } from 'src/app/shared/services/auth.service';
-import { OfferService } from 'src/app/shared/services/offer.service';
 
 import { AfterViewChecked, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+
+import { Offer } from 'src/app/shared/models/offer.model';
+
+import { AuthService } from 'src/app/shared/services/auth.service';
+import { OfferService } from 'src/app/shared/services/offer.service';
 import { WebSocketService } from 'src/app/shared/services/web-socket.service';
 
 @Component({
@@ -13,7 +15,7 @@ import { WebSocketService } from 'src/app/shared/services/web-socket.service';
 export class OfferComponent implements AfterViewChecked, OnInit {
   isLogged = false;
   role = 0;
-  hasOffer = false;
+  hasOffer = true;
   offers: Offer[];
 
   /**
@@ -22,28 +24,24 @@ export class OfferComponent implements AfterViewChecked, OnInit {
    * @param authService
    * @param router
    */
-  constructor(
-    private offerService: OfferService,
-    private authService: AuthService,
-    private webSocketService: WebSocketService,
-    private router: Router,
+  constructor(private offerService: OfferService,
+              private authService: AuthService,
+              private webSocketService: WebSocketService,
+              private router: Router,
   ) {
     this.offerService.getOffers().subscribe(
       (value: any) => {
         this.offers = value;
         if (this.offers.length > 0) {
-          this.hasOffer = true;
+          this.hasOffer = false;
         }
       }
     );
-
   }
 
   ngOnInit(): void {
-    this.webSocketService.listen('Test').subscribe(data => {
-      console.log(data);
-      console.log('WebSocket is watching.');
-    });
+    this.webSocketService.listen('Test').subscribe(data => {});
+
     this.webSocketService.emit('offers', (data) => {
       console.log(data);
       this.offerService.getOffers().subscribe(
@@ -54,20 +52,17 @@ export class OfferComponent implements AfterViewChecked, OnInit {
     });
   }
 
+  ngAfterViewChecked() {
+    this.isLogged = this.authService.getLogin();
+    this.role = this.authService.getRole();
+  }
+
   /**
    * Edits offer
    * @param id
    */
   editOffer(id: number) {
     this.router.navigate(['/edit-offer/' + id]);
-  }
-
-  /**
-   * after view checked
-   */
-  ngAfterViewChecked() {
-    this.isLogged = this.authService.getLogin();
-    this.role = this.authService.getRole();
   }
 
 }

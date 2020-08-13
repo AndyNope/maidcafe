@@ -31,14 +31,13 @@ export class EditOfferComponent implements OnInit {
    * @param authService
    * @param fileUploadService
    */
-  constructor(
-    private route: ActivatedRoute,
-    private offerService: OfferService,
-    private router: Router,
-    private authService: AuthService,
-    private fileUploadService: FileUploadService,
-    private toasterService: ToasterService,
-    public dialog: MatDialog
+  constructor(private route: ActivatedRoute,
+              private offerService: OfferService,
+              private router: Router,
+              private authService: AuthService,
+              private fileUploadService: FileUploadService,
+              private toasterService: ToasterService,
+              public dialog: MatDialog
   ) {
     const id = this.route.snapshot.params.id;
     this.offerService.getOfferById(id).subscribe(
@@ -120,8 +119,6 @@ export class EditOfferComponent implements OnInit {
         }
       });
     }
-
-
   }
 
   /**

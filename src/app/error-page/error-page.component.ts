@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Data, Router } from '@angular/router';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-error-page',
@@ -8,7 +8,6 @@ import { ActivatedRoute, Data, Router } from '@angular/router';
 export class ErrorPageComponent implements OnInit {
   counter = 10;
   constructor(
-    private route: ActivatedRoute,
     private router: Router
   ) { }
 

@@ -1,7 +1,8 @@
-import { Observable } from 'rxjs';
-
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+
+import { Observable, throwError } from 'rxjs';
+import { map, catchError } from 'rxjs/operators';
 
 import { Offer, OfferEdit } from '../models/offer.model';
 
@@ -26,10 +27,16 @@ export class OfferService {
    * @param id
    * @returns offer
    */
-  deleteOffer(id: number): Observable<any> {
-    return this.http.post<Offer>('https://maid-cafe.ch/controller.php?mode=deleteOffer', {
-      id
-    });
+  deleteOffer(id: number): Observable<Offer> {
+    return this.http.post<Offer>('https://maid-cafe.ch/controller.php?mode=deleteOffer', { id }, { observe: 'response' }).pipe(
+      map((response: any) => {
+        console.log(response);
+        return response;
+      }), catchError((error) => {
+        console.log(error);
+        return throwError(error);
+      })
+    );
   }
 
   /**
@@ -46,7 +53,13 @@ export class OfferService {
    * @param offer
    * @returns offer
    */
-  saveOffer(offer: OfferEdit): Observable<any> {
-    return this.http.post<Offer>('https://maid-cafe.ch/controller.php?mode=saveOffer', offer);
+  saveOffer(offer: OfferEdit) {
+    return this.http.post<OfferEdit>('https://maid-cafe.ch/controller.php?mode=saveOffer', offer, { observe: 'response' }).pipe(
+      map((response: any) => {
+        return response;
+      }), catchError((error) => {
+        return throwError(error);
+      })
+    );
   }
 }

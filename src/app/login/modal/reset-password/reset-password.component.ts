@@ -1,8 +1,9 @@
 import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
+
 import { ToasterService } from 'src/app/shared/services/toaster.service';
 import { AuthService } from 'src/app/shared/services/auth.service';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 
 /**

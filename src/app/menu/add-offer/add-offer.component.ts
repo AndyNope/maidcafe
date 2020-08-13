@@ -33,9 +33,7 @@ export class AddOfferComponent implements OnInit {
     private router: Router,
     private authService: AuthService,
     private fileUploadService: FileUploadService
-  ) {
-
-  }
+  ) {}
 
   /**
    * on init
@@ -83,7 +81,7 @@ export class AddOfferComponent implements OnInit {
             image
           };
           this.offerService.saveOffer(offer).subscribe((response: any) => {
-            if (response === 'added') {
+            if (response.status === 200) {
               this.toasterService.showSuccess('', 'Angebot wurde hinzugefügt.');
               this.router.navigate(['/']);
             }
@@ -92,7 +90,6 @@ export class AddOfferComponent implements OnInit {
           this.toasterService.showError('Ups!', 'Sie haben keine Berechtigung.');
           this.router.navigate(['/']);
         }
-
       }, error => {
         console.log(error);
       });

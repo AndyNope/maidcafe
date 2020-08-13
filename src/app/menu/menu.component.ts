@@ -1,9 +1,4 @@
-import {
-  AfterViewChecked,
-  Component,
-  OnInit,
-  OnDestroy
-} from '@angular/core';
+import { AfterViewChecked, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { AuthService } from '../shared/services/auth.service';
@@ -30,12 +25,9 @@ export class MenuComponent implements OnInit, AfterViewChecked {
    * @param authService
    * @param ref
    */
-  constructor(
-    private router: Router,
-    private authService: AuthService,
-  ) {
-
-  }
+  constructor( private router: Router,
+               private authService: AuthService,
+  ) { }
 
   /**
    * on init
