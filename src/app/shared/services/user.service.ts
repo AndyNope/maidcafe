@@ -1,9 +1,10 @@
-import { Observable } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
 
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 import { User, UserEdit } from '../models/user.model';
+import { map, catchError } from 'rxjs/operators';
 
 @Injectable({ providedIn: 'root' })
 export class UserService {
@@ -41,23 +42,15 @@ export class UserService {
    */
   deleteUser(id: number): Observable<any> {
     return this.http.post<User>(
-      'https://maid-cafe.ch/controller.php?mode=deleteUser',
-      {
-        id
-      });
-  }
-
-  /**
-   * Deletes profile
-   * @param id
-   * @returns profile
-   */
-  deleteProfile(id: number): Observable<any> {
-    return this.http.post<User>(
-      'https://maid-cafe.ch/controller.php?mode=deleteProfile',
-      {
-        id
-      });
+      'https://maid-cafe.ch/controller.php?mode=deleteUser', { id }, { observe: 'response' }).pipe(
+        map((response: any) => {
+          console.log(response);
+          return response;
+        }), catchError((error) => {
+          console.log(error);
+          return throwError(error);
+        })
+      );
   }
 
   /**
