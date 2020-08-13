@@ -54,7 +54,6 @@ import { AuthService } from './shared/services/auth.service';
     ResetPasswordComponent,
     WarningDialogComponent
   ],
-  entryComponents: [WarningDialogComponent, ResetPasswordComponent],
   imports: [
     BrowserModule,
     ReactiveFormsModule,
